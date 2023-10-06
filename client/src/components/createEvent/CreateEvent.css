@@ -1,0 +1,202 @@
+.admin-create-event{
+    margin: 140px 58px 50px !important;
+    padding: 60px 40px 70px !important;
+}
+.create-event{
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+    border-radius: 11.11px;
+    padding: 61.65px 88px 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 51px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 10px 29px;
+}
+.create-heading > h1{
+    font-family:  var(--inter);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24.24px;
+    line-height: 27px;
+    color: #000;
+}
+.create-heading > p {
+    font-family: var(--inter);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14.7959px;
+    line-height: 17px;
+    color: rgba(0, 0, 0, 0.4);
+    margin-top: 13.05px;
+}
+.create-event > form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 120px;
+    width: 100%;
+}
+.event-image{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 0;
+}
+.create-image{
+    background-color: var(--white);
+    width: 100% ;
+    height: 313px;
+    border: 1px dashed rgba(104, 104, 104, 0.31);
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    object-fit: cover;
+    z-index: 1;
+}
+.event-image > input{
+    position: absolute;
+    top: 50%;
+    opacity: 0;
+}
+.create-image > img {
+    width: 102.75px;
+    height: 102.75px
+}
+.create-inputs{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.formGroup{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.form-check > label,
+.event-image > label,
+.formGroup > label {
+    font-family: var(--mulish);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 120%;
+    margin-left: 16px;
+    display: flex;
+    gap: 5px;
+    position: relative;
+}
+.form-check > label {
+    margin-left: 30px;
+    margin-top: -17px;
+}
+.form-check > input::before {
+    border: 2px solid var(--borderColor);
+}
+.formGroup > input,
+.formGroup > textarea {
+    width: 100%;
+    padding: 18px 24px 19px;
+    outline: none;
+    border: 1px solid var(--borderColor);
+    border-radius: 2px;
+    font-family: var(--mulish);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    color: #9A9AB0
+}
+.formGroup > textarea {
+    height: 200px;
+    resize: none;
+}
+.formGroup > .btn-submit{
+    background-color: var(--green) ;
+    color: var(--white) ;
+    padding: 11.8px 57px 13.2px ;
+    width: 164px ;
+    border: 1x solid var(--green) ;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 0;
+}
+.formGroup > .btn-submit:disabled {
+    background-color: #57c49a !important;
+    cursor: not-allowed;
+}
+.btn-submit > img {
+    height: 15px;
+    width: 15px;
+}
+
+@media screen and (max-width:768px) {
+    .create-event{
+        gap: 27px;
+        margin: 10px 0px;
+        /* padding: 30.4px 20px 70.4px 20px !important; */
+        padding: 0px !important;
+        background-color: transparent;
+        border: none;
+    }
+    .create-heading > h1{
+        font-size: 17.05px;
+    }
+    .create-heading > p{
+        margin-top: 0.89px;
+        font-size: 10.4px;
+        line-height: 12px;
+    }
+    .create-event > form {
+        flex-direction: column-reverse;
+        gap: 42.86px;
+    }
+    .event-image{
+        width: 100%;
+    }
+    .create-image{
+        width: 100%;
+        height: 178.86px;
+    }
+    .create-inputs{
+        width: 90%;
+        gap: 17.14px;
+    }
+    .formGroup {
+        gap: 4.43px;
+    }
+    .form-check > label{
+        font-size: 12px;
+        margin-left: 30px;
+    }
+    .event-image > label,
+    .formGroup > label {
+        font-size: 12px;
+        margin-left: 5px;
+    }
+    .formGroup > textarea,
+    .formGroup > input{
+        background-color: var(--white);
+        font-size: 11px;
+        padding: 10.21px 13.71px 10.79px;
+    }
+    .create-image > img {
+        width: 58.71px;
+        height: 58.71px;
+    }
+    .formGroup > .btn-submit{
+        width: 100.71px;
+        padding: 7px 31px 7px;
+        font-size: 12px;
+    }
+    .btn-submit > img {
+        width: 12px;
+        height: 12px;
+    }
+}

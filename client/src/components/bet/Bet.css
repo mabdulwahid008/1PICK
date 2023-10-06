@@ -1,0 +1,206 @@
+.bet-head{
+    display: flex;
+    padding: 23px 23px 0px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 18px;
+}
+.bet-head > div > h4 {
+    color: #000;
+    font-size: 13.764px;
+    font-family: var(--inter);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 5px;
+    margin-bottom: 10px;
+} 
+.bet-head ~ hr {
+    width: 100%;
+    height: 1px;
+    border-top: 1px solid var(--borderColor);
+}
+
+.bet-head  > div{
+    position: relative;
+}
+
+.bet-head > div > span {
+    width: 37px;
+    height: 2px;
+    background-color: #473BF0;
+    position: absolute;
+    bottom: 0px;
+    display: none;
+    right: 3px;
+} 
+.bet-head > div:nth-of-type(2) > span {
+    width: 50px;
+} 
+
+.bet-seaction{
+    padding: 23px 23px 60px;
+}
+.form-group-bet{
+    display: flex;
+    flex-direction: column;
+    gap: 15.58px;
+}
+.form-group-bet > label {
+    color: #000;
+    font-size: 12.781px;
+    font-family: var(--inter);
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.form-group-bet > label > span{
+    color: rgba(0, 0, 0, 0.40) !important;
+}
+.input-div{
+    border: 1px solid var(--borderColor);
+    border-radius: 7.1px;
+    padding: 5px 10px 5px 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    transition: .5s ease;
+}
+.input-div-cancel{
+    border: 1px solid var(--borderColor);
+    border-radius: 7.1px;
+    padding: 5px 10px 5px 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+}
+.input-div-cancel > p,
+.input-div > p {
+    color: #828282;
+    font-size: 13.764px;
+    font-family: var(--inter);
+}
+.input-div-cancel > input,
+.input-div > input {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 5px 0px;
+    color: #828282;
+    font-size: 13.764px;
+    font-family: var(--inter);
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.bet-btns{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.bet-btns > button {
+    width: 50%;
+    padding: 8px 0px;
+    border-radius: 4.9px;
+    outline: none;
+    border: none;
+    background-color: var(--green);
+    color: var(--white);
+    font-size: 13.764px;
+    font-family: var(--inter);
+    font-weight: 600;
+    cursor: pointer;
+    line-height: 17px;
+}
+
+.bet-btns > button:nth-of-type(1):disabled{
+    background-color: #57c49a;
+    cursor: not-allowed;
+}
+
+.bet-btns > button:nth-of-type(2){
+    background-color: var(--red);
+}
+
+.bet-btns > button:nth-of-type(2):disabled{
+    background-color: #fe7f96;
+    cursor: not-allowed;
+}
+
+.cancel-bet{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+.cancel-bet > p {
+    font-family: var(--inter);
+    color: var(--roughBlack);
+    font-size: 16.265px;
+}
+.potential{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+.potential > div {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+.potential > div > p,
+.potential > p{
+    font-family: var(--inter);
+    color: #828282;
+    font-size: 14.265px; 
+}
+.cancel-bet > button{
+    width: 100%;
+    padding: 15.2px 49px;
+    border-radius: 4.9px;
+    outline: none;
+    border: none;
+    background-color: var(--borderColor);
+    color: var(--roughBlack);
+    font-size: 13.764px;
+    font-family: var(--inter);
+    font-weight: 600;
+    cursor: pointer;
+}
+.pick-value {
+    font-family: var(--poppins);
+    color: var(--roughBlack);
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width:768px){
+    .cancel-bet > p{
+        font-size: 15px;
+    }
+    .potential > div > p,
+    .potential > p{
+        font-family: var(--inter);
+        color: #828282;
+        font-size: 12.265px;
+    }
+
+    .pick-value{
+        font-size: 18px;
+    }
+}

@@ -1,0 +1,225 @@
+.event-popup{
+    width: 40%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    z-index: 99;
+    min-height: 0px;
+    max-height: auto;
+    border-radius: 10px;
+    border: 1px solid var(--borderColor);
+    background-color: var(--white);
+    padding: 20px 30px;
+}
+.event-popup-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.event-popup-header > div {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+.event-popup-header > div > svg{
+    font-size: 25px;
+    cursor: pointer;
+}
+.event-popup-header > div > a > svg {
+    font-size: 20px;
+}
+.event-popup-header > h2{
+    color: #000;
+    font-family: var(--poppins);
+    font-size: 22.068px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.admin-event-detail{
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items:flex-start;
+    gap: 20px;
+    width: 100%;
+}
+.admin-event-detail > img {
+    background-color: var(--bgColor);
+    height: 80px;
+    width: 90px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+.admin-event-detail > div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+.admin-event-detail > div > div {
+    display:flex; 
+    justify-content: space-between;
+     width: 100%
+}
+.admin-event-detail > div > div > p:nth-of-type(1){
+    color: var(--red);
+    font-family: var(--inter);
+    font-size: 14px;
+}
+.admin-event-detail > div > div:nth-of-type(2) > p:nth-of-type(2){
+    color: var(--roughBlack);
+    text-decoration: underline;
+    font-family: var(--inter);
+    font-size: 14px;
+}
+
+.admin-event-data > a,
+.admin-event-detail > div >div > a{
+    font-size: 13px;
+}
+.event-popup > .event-about {
+    margin: 15px 0px 0px;
+    padding: 0px;
+}
+
+.event-popup > .event-about > p{
+    color: var(--roughBlack2) !important;
+    font-family: var(--inter);
+}
+
+.admin-event-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.admin-event-data > div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+.admin-event-data > div > p,
+.admin-event-data > p {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--roughBlack);
+    font-family: var(--inter);
+}
+.control-bttns,
+.control-btns{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+.control-bttns > button,
+.control-btns > button{
+    padding: 10px;
+    color: var(--white);
+    font-family: var(--poppins);
+    border: none;
+    outline: none;
+    width: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0.16px;
+    background-color: red;
+    border-radius: 4px;
+    transition: .25s ease;
+}
+.control-bttns > button:disabled,
+.control-btns > button:disabled{
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.control-btns > button:nth-of-type(2){
+    background-color: var(--green) !important;
+}
+
+.control-bttns > button:nth-of-type(1){
+    background-color: var(--green) !important;
+}
+.control-bttns > button:nth-of-type(2){
+    background-color: var(--red) !important;
+}
+
+@media screen and (max-width:768px) {
+    .event-popup {
+        width: 80%;
+        padding: 10px 15px;
+        min-height: 0px;
+        max-height: auto;
+    }
+    .event-popup-header {
+        margin-bottom: 10px;
+    }
+    .event-popup-header > h2{
+        font-size: 14px;
+    }
+    .event-popup-header > div > a > svg {
+        font-size: 16px;
+    }
+    .admin-event-detail {
+        gap: 10px;
+    }
+    .admin-event-detail > img {
+        width: 50px;
+        height: 50px;
+    }
+    .admin-event-detail > div > div > div {
+        font-size: 9px;
+        border-radius: 2px;
+    }
+    .admin-event-detail > div > div > p{
+        font-size: 10px !important;
+    }
+    .admin-event-detail > div > div > a{
+        font-size:8px;
+        border-radius: 2px;
+    }
+    .admin-event-detail > div{
+        gap: 5px;
+    }
+    .admin-event-detail > div > h2{
+        font-size: 12px;
+        line-height: 14px;
+        margin: 0px;
+    }
+    .admin-event-detail > div > p{
+        font-size: 8px;
+        line-height: 10px;
+        margin: 0px;
+    }
+
+    .admin-event-detail ~ .event-about > p{
+        font-size: 9px;
+        line-height: 12px;
+    }
+    .admin-event-data > div{
+        gap: 10px;
+    }
+    .admin-event-data > div > p{
+        font-size: 6px;
+    }
+    .admin-event-data > a{
+        font-size: 7px;
+        border-radius: 2px;
+    }
+    .control-btns > button,
+    .control-bttns> button{
+        font-size: 12px;
+        padding: 7px;
+        line-height: 14px;
+    }
+    .event-popup-header > div > svg{
+        font-size: 20px;
+    }
+}

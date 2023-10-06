@@ -1,0 +1,197 @@
+.user-particiaptedd-events{
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+}
+.user-particiaptedd-events > div:nth-of-type(1){
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-particiaptedd-events > div > h3 {
+    color: #000;
+    font-size: 15.36px;
+    font-family: var(--inter);
+    font-weight: 600;
+    line-height: 16.875px;
+}
+.divider {
+    height: 1px;
+    width: 100%;
+    border: none;
+    border-top: 1px solid var(--borderColor);
+}
+.divider > hr{
+    width: 10%;
+    background-color: var(--green);
+    height: 1px;
+}
+.participated-event-filteration{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 21px;
+    padding-right: 20px;
+}
+.participated-event-search{
+    border: 1px solid var(--borderColor);
+    width: 50%;
+    padding: 12px 21px 11px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    border-radius: 2px;
+}
+.participated-event-search > img {
+    width: 18px;
+    height: 18px;
+}
+.participated-event-search > input{
+    outline: none;
+    border: none;
+    color: #9C9C9C;
+    font-size: 13.064px;
+    font-family: var(--roboto);
+    width: 100%;
+}
+
+.participated-event-filteration > div {
+    width: 15%;
+}
+
+.show-all{
+    padding: 13px 0px;
+    width: 10%;
+    font-size: 13.064px;
+    font-family: var(--roboto);
+    font-weight: 700;
+    background-color: transparent;
+    color: var(--green);
+    border: 1px solid var(--green);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+.show-all:hover {
+    background-color: var(--green);
+    color: var(--white);
+}
+
+.participated-event{
+    min-height: 400px;
+    max-height: auto;
+    margin-top: 10px;
+    overflow-x: auto;
+}
+
+.participated-event > table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+.participated-event > table > tbody > tr > td,
+.participated-event > table > thead > tr > th {
+    color: #000;
+    font-size: 13.064px;
+    font-family: var(--roboto);
+    font-weight: 400;
+    text-align: left;
+    padding: 10px 10px;
+}
+.participated-event > table > tbody > tr {
+    border-top: 1px dotted var(--borderColor);
+}
+
+@media screen and (max-width:768px) {
+    /* .show-all {
+        font-size: 6.338px;
+        padding: 6.31px 13px;
+        width: 28%;
+    }
+    .user-particiaptedd-events > div > h3{
+        font-size: 11px;
+    }
+    .user-particiaptedd-events{
+        margin-top: 20px;
+        gap: 15px;
+    }
+    .participated-event > table > tbody > tr > td,
+    .participated-event > table > thead > tr > th {
+        font-size: 10px;
+        padding: 10px 5px;
+    }
+    .user-particiaptedd-events > div > div {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 9.22px;
+    } */
+    .participated-event > table {
+        display: none;
+    }
+
+    .participated-event-filteration{
+        gap: 5px;
+        padding-right: 0px;
+    }
+    .participated-event-search{
+        border: 1px solid var(--borderColor);
+        width: 50%;
+        background-color: var(--grey);
+        padding: 9px 10px 8px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 3px;
+        border-radius: 2px;
+    }
+    .participated-event-search > img {
+        height: 14px;
+        width: 14px;
+    }
+    .participated-event-search > input{
+        font-size: 15px;
+        background-color: transparent;
+        color: #000 !important;
+        font-weight: 600;
+    }
+    
+    .participated-event-filteration > div {
+        width: 35%;
+    }
+
+    .participated-event{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .participated-event > .event-item-mob {
+        width: 92% !important;
+    }
+    .participated-event > .event-item-mob > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .participated-event > .event-item-mob > div:nth-of-type(2) > p,
+    .participated-event > .event-item-mob > div:nth-of-type(3) > p{
+        color: #686868;
+        font-family: var(--inter);
+        font-weight: 400 !important;
+    }
+
+    .myselect{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 50%;
+    }
+    .myselect > span{
+        width: 33.3%;
+        flex: 1;
+        text-align: right;
+    }
+}

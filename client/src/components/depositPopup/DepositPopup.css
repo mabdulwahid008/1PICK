@@ -1,0 +1,71 @@
+.popup,
+.overlay{
+    position: fixed;
+    top: 0px;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: #1f1f1f18;
+    z-index: 99;
+}
+.popup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-popup{
+    z-index: 99;
+    border-radius: 10px;
+    border: 1px solid var(--borderColor);
+    background-color: var(--white);
+}
+.deposit-popup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    width: 400px;
+    height: 250px;
+}
+.deposit-popup > h1, 
+.deposit-popup > h3 {
+    font-family: var(--inter);
+    color: var(--roughBlack);
+    text-align: center;
+    padding: 0px 50px;
+    font-size: 24px;
+}
+
+.deposit-popup > h3 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.deposit-popup > button {
+    color: var(--white);
+    background-color: var(--green);
+    padding: 10px 40px;
+    font-family: var(--inter);
+    cursor: pointer;
+    border-radius: 2px;
+    margin-top: 10px;
+    outline: none;
+    border: none;
+}
+
+@media screen and (max-width: 768px) {
+    .deposit-popup{
+        width: 80%;
+        gap: 15px;
+        height: 240px;
+
+    }
+    .deposit-popup > h1{
+        font-size: 20px;
+    }
+    .deposit-popup > h3 {
+    font-size: 14px;
+    padding: 0px 30px;
+    }
+}

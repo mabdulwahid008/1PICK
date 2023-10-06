@@ -1,0 +1,39 @@
+.congrats-popup{
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.congrats-popup > h1, 
+.congrats-popup > h3 {
+    font-family: var(--inter);
+    color: var(--roughBlack);
+    text-align: center;
+    padding: 0px 50px;
+    font-size: 24px;
+}
+.congrats-popup  > h3 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.congrats-popup > .popup-header  {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 0px !important;
+}
+
+.popup-header > h3 > span {
+    font-size: 18px;
+    padding-left: 5px;
+}
+
+@media screen and (max-width: 768px) {
+    .congrats-popup > h1{
+        font-size: 20px;
+    }
+}

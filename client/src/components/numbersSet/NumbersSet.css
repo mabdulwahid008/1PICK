@@ -1,0 +1,38 @@
+.number-set{
+    background-color: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--borderColor);
+    padding: 20px 20px;
+    width: 20%;
+    z-index: 99;
+}
+.number-set > h2{
+    font-family: var(--poppins);
+    color: #000;
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.number-set > form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.number-set > form > div > input{
+    color: black !important;
+    padding: 8px 7px;
+}
+.number-set > form > button{
+    background-color: var(--green);
+    color: var(--white);
+    font-family: var(--inter);
+    padding: 7px;
+    width: 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-top: 10px;
+}

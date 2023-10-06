@@ -1,0 +1,111 @@
+.admin-sidebar{
+    display: flex;
+    flex-direction: column;
+    gap: 48.49px;
+    position: relative;
+    height: 100vh;
+}
+
+.admin-logo{
+    margin-top: 35.48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
+}
+
+.admin-logo > img {
+    width: 47.518px;
+    height: 39.742px;
+}
+.admin-logo > h3 {
+    color: #686868;
+    font-family: var(--poppins);
+    font-size: 30.21px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.admin-logo > h3 > span{
+    font-size: 18px;
+    padding-left: 5px;
+}
+.admin-nav{
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    margin-left: 9px;
+}
+.admin-nav > li > a {
+    padding: 18px 41px 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 24px;
+    font-family: var(--poppins);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px; /* 137.5% */
+    letter-spacing: 0.16px;
+    transition: .2s ease;
+    color: var(--roughBlack);
+}
+.admin-nav > li > a:hover {
+    color: var(--green);
+}
+
+.admin-nav > li > a.active{
+    color: var(--green);
+} 
+
+.admin-nav > li > a > svg {
+    height: 20px;
+    width: 20px;
+}
+.log-out-btn{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background-color: var(--green);
+    color: var(--white);
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 10px 60px;
+    font-family: var(--poppins);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px; /* 137.5% */
+    letter-spacing: 0.16px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+.log-out-btn > img {
+    height: 25px;
+    width: 25px;
+}
+.admin-sidebar > div:nth-of-type(2){
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .admin-sidebar > .admin-logo {
+        display: none;
+    }
+    .admin-sidebar > div:nth-of-type(2){
+        display: flex;
+    }
+
+    .admin-nav {
+        margin: 0px;
+    }
+    .admin-sidebar{
+        height: 89%;
+        margin-top: -20px;
+    }
+}

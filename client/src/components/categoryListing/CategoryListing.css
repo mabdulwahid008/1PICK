@@ -1,0 +1,171 @@
+.category-lisiting{
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+    padding: 20px 30px 30px;
+    border-radius: 8px;
+}
+.category-lisiting > h2 {
+    font-family: var(--poppins);
+    color: #000;
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+.category-lists{
+    width: 100%;
+    overflow-x: auto;
+    padding: 5px 0px;
+}
+
+.category-lists > table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.category-lists > table > thead > tr > th,
+.category-lists > table > tbody > tr > td{
+    color: #A3A3A3;
+    font-family: var(--poppins);
+    font-size: 15.255px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: left;
+    padding: 10px 0px;
+}
+
+.category-lists > table > tbody > tr > td{
+    color: #8f8e8e;
+}
+
+.category-lists > table > thead > tr > th:nth-last-of-type(1){
+    text-align: right;
+}
+.category-lists > table > tbody > tr > td:nth-last-of-type(1){
+    text-align: right;
+}
+.category-lists > table > tbody > tr > td > svg{
+    margin-left: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .25s ease;
+}
+.category-lists > table > thead > tr {
+    border-bottom: 1px solid var(--borderColor);
+}
+.category-lists > table > tbody > tr {
+    border-bottom: 2px solid var(--bgColor);
+}
+
+.category-lists > table > tbody > tr > td > svg:nth-of-type(1):hover{
+    color: var(--green);
+}
+.category-lists > table > tbody > tr > td > svg:nth-of-type(2):hover{
+    color: var(--red);
+}
+
+.category-lists > table > tbody > tr {
+    position: relative;
+}
+.edit-cate {
+    position: absolute;
+    left: -7px;
+    background-color: var(--white);
+    padding: 7px;
+    width: 98.5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.edit-cate > input{
+    width: 70%;
+    padding: 7px 10px;
+    border: 1px solid var(--borderColor);
+    outline: none;
+    border-radius: 4px;
+    color: #8f8e8e;
+    font-size: 14px;
+}
+.edit-cate > button{
+    background-color: var(--green);
+    color: var(--white);
+    font-family: var(--inter);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    padding: 9px 30px;
+    border-radius: 4px;
+}
+
+.edit-cate > svg {
+    cursor: pointer;
+    color: #8f8e8e;
+    transition: .25s ease;
+}
+
+.edit-cate > svg:hover {
+    color: var(--red);
+}
+.category-lists> table > tbody > tr:nth-child(even) {
+    background-color: var(--eLightGrey);
+  }
+
+
+@media screen and (max-width:768px) {
+    .category-lisiting {
+        padding: 10px 20px 20px;
+    }
+    .category-lisiting > h2{
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .category-lists > table > tbody > tr, td,
+    .category-lists > table > thead > tr, th{
+        font-size: 11px !important;
+    }
+    .category-lists > table > tbody > tr, td > svg{
+        font-size: 12px !important;
+    }
+
+    .category-lists > table > tbody > tr > td:nth-of-type(1),
+    .category-lists > table > thead > tr > th:nth-of-type(1){
+        min-width: 20px;
+        max-width: 20px;
+    }
+    .category-lists > table > tbody > tr > td:nth-of-type(2),
+    .category-lists > table > thead > tr > th:nth-of-type(2){
+        min-width: 100px;
+        max-width: 100px;
+    }
+    .category-lists > table > tbody > tr > td:nth-of-type(3),
+    .category-lists > table > thead > tr > th:nth-of-type(3){
+        min-width: 150px;
+        max-width: 150px;
+    }
+    .category-lists > table > tbody > tr > td:nth-of-type(4),
+    .category-lists > table > thead > tr > th:nth-of-type(4){
+        min-width: 70px;
+        max-width: 70px;
+    }
+    .category-lists > table > tbody > tr > td:nth-of-type(5),
+    .category-lists > table > thead > tr > th:nth-of-type(5){
+        min-width: 70px;
+        max-width: 70px;
+    }
+
+    .edit-cate{
+        padding: 7px;
+    }
+    .edit-cate > input {
+        padding: 7px 10px;
+        font-size: 10px !important;
+    }
+    .edit-cate > button{
+        font-size: 11px !important;
+        padding: 7px 14px;
+    }
+}

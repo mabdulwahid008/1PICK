@@ -1,0 +1,36 @@
+.tool-tip-container{
+    /* position: relative; */
+}
+
+.tool-tip-container > div{
+    position: absolute;
+    padding: 5px 7px;
+    width: 250px;
+    border-radius: 7px;
+    background-color: var(--lightGrey);
+    border: 1px solid var(--borderColor);
+    box-shadow: 0px 0px 20px 0px #0000004f;
+    font-size: 12px;
+    font-family: var(--inter);
+    visibility: hidden;
+    font-weight: 400;
+    color: #000;
+    z-index: 80;
+    line-height: 14px;
+}
+.tool-tip-container > svg{
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.tool-tip-container > svg:hover ~ div{
+    visibility: visible;
+}
+
+
+@media screen and (max-width:768px) {
+    .tool-tip-container > div {
+        left: 0px;
+        width: 95%;
+    }
+}

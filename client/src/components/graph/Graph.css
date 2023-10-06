@@ -1,0 +1,113 @@
+.graph{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    margin-top: 50px;
+    height: 300px;
+}
+
+.graph-stats{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-right: 65px;
+}
+.graph-stats > p{
+    font-size: 14.143px;
+    font-family: var(--inter);
+    font-weight: 600;
+    color: var(--roughBlack);
+}
+.graph-stats > p > span:nth-of-type(1){
+    color: var(--green);
+}
+.graph-stats > p > span:nth-of-type(2){
+    color: var(--red);
+}
+
+.graph-stats > div:nth-of-type(1){
+    display: flex;
+    flex-direction: column;
+    gap: 5.22px;
+}
+.yes-stats > p {
+    color: #004FFE;
+    font-size: 14.143px;
+    font-family: var(--inter);
+    font-weight: 600;
+}
+.yes-stats > p > span {
+    color: var(--red);
+}
+.yes-stats > h2 {
+    color: #5B5B5B;
+    font-size: 24.245px;
+    font-family: var(--inter);
+    font-weight: 600;
+    line-height: 20.204px;
+}
+
+.yes-stats > p:nth-of-type(2) {
+    font-size: 12.122px;
+    font-weight: 400;
+}
+
+.graph-stats > div:nth-of-type(2){
+    background-color: var(--lightGrey);
+    border: 1px solid var(--borderColor);
+    padding: 2px 2px;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.graph-stats > div > img {
+    width: 18.204px;
+    height: 18.204px;
+    margin-bottom: 0px;
+}
+
+.chart{
+    height: 300px;
+    margin-bottom: 50px;
+}
+.chart > canvas {
+    height: 200px !important;
+    width: 90% !important;
+}
+
+@media screen and (max-width:768px){
+    .graph-stats{
+        padding-right: 15.5px;
+    }
+    .graph-stats > div > img {
+        height: 15px;
+        width: 15px;
+    }
+    .yes-stats{
+        margin-bottom: 0px;
+    }
+    .yes-stats > p {
+        font-size: 8.471px;
+        line-height: 10px;
+    }
+    .yes-stats > h2 {
+        font-size: 14.094px;
+        line-height: 15px;
+    }
+    .yes-stats > p:nth-of-type(2){
+        font-size: 8.471px;
+        line-height: 10px;
+    }
+    .chart {
+        height: 200px;
+        margin-top: -30px;
+        margin-bottom: 0px;
+    }
+    .chart > canvas{
+        height: 150px !important;
+        width: 90% !important;
+    }
+}

@@ -1,0 +1,199 @@
+.admin-navbar-wrapper{
+    position: fixed;
+    width:calc(100% - 290px);
+    height: 50px;
+    z-index: 99;
+}
+
+.admin-navbar{
+    background-color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 5px solid var(--bgColor);
+}
+
+.admin-search-bar{
+    background-color: var(--eLightGrey);
+    padding: 10px 20px;
+    width: 60%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    position: relative;
+    margin: 24px 0px 24px 58px;
+}
+.admin-navbar > .account{
+    width: 40%;
+    padding: 24px 58px 24px 0px;
+}
+.admin-search-bar > img {
+    height: 15px;
+    width: 15px;
+}
+
+.admin-search-bar > input {
+    width: 100%;
+    color: #A6ACBE;
+    font-family: var(--poppins);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 0px; /* 137.5% */
+    letter-spacing: 0.16px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.admin-navbar > .account > span{
+    padding: 0px;
+    border: none;
+    border-left: 1px solid var(--borderColor);
+    height: 25px;
+}
+.admin-navbar > .account > div {
+    position: relative;
+}
+.account > div > span {
+    position: absolute;
+    padding: 3px 5px;
+    color: var(--white);
+    background-color: var(--green);
+    font-size: 10px;
+    top:-5px;
+    right: -5px;
+    border-radius: 50%;
+}
+.account > div > svg {
+    color: var(--roughBlack);
+    font-size: 20px;
+    cursor: pointer;
+}
+.notification-wrapper {
+    position: absolute;
+    width: 300px;
+    right: 50px;
+    background-color: var(--white);
+    box-shadow: 0px 15px 22px 0px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+    transition: .5s ease;
+}
+
+.notification-wrapper > div {
+    min-height: 0px;
+    max-height: 350px;
+    overflow-y: auto;
+    margin: 10px 0px 20px;
+}
+
+.notification-wrapper > h2 {
+    color: var(--roughBlack2);
+    font-family: var(--poppins);
+    font-size: 18px;
+    margin: 10px 10px 0px;
+}
+
+.notification {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.notification:hover{
+    background-color: var(--eLightGrey) !important;
+}
+
+.notification > img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    background-color: var(--bgColor);
+    border-radius: 2px;
+}
+
+.notification > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.notification > div > h1 {
+    color: #000;
+    font-family: var(--poppins);
+    font-size: 14px;
+}
+.notification > div > p {
+    color: var(--red);
+    font-family: var(--inter);
+    font-size: 12px;
+}
+
+.admin-search-b0x{
+    position: absolute;
+    border-radius: 8px;
+    top: 60px;
+    left: 0px;
+    width: 100%;
+    background-color: var(--white);
+    box-shadow: 0px 15px 22px 0px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--borderColor);
+} 
+
+.admin-search-wrapper {
+    padding: 20px 30px;
+    min-height: 0px;
+    max-height: 340px; 
+    overflow: hidden;
+}
+.admin-search-wrapper > h2 {
+    color: var(--roughBlack2);
+    font-family: var(--poppins);
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+.admin-search-wrapper > p {
+    color: #A3A3A3;
+    font-size: 12px;
+    font-family: var(--roboto);
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.admin-search-wrapper > img {
+    width: 25px;
+    height: 25px;
+} 
+
+@media screen and (max-width:768px) {
+    .admin-navbar-wrapper{
+        display: none;
+    }
+
+    .search-mob > div > div:nth-of-type(2) {
+        height: 90vh;
+    }
+    .search-mob > div > div:nth-of-type(2) > h3{
+        color: #A3A3A3;
+        font-size: 14px;
+        font-family: var(--roboto);
+        font-weight: 700;
+        margin-top: 5px;
+        margin-bottom: 20px;
+    }
+    .search-mob > div > div:nth-of-type(2) > img {
+        width: 18px;
+        height: 18px;
+    }
+    .search-mob > div > div:nth-of-type(2) > p {
+        color: #A3A3A3;
+        font-size: 14px;
+        font-family: var(--roboto);
+        font-weight: 500;
+    }
+}

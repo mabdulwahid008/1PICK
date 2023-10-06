@@ -1,0 +1,131 @@
+.admin-stats{
+    padding: 129px 58px 29px;
+}
+.admin-stats > h1 {
+    color: #000;
+    font-family: var(--inter);
+    font-size: 24.24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 26.63px; /* 109.861% */
+}
+.admin-stats > p {
+    margin-top: 5px;
+    color: rgba(0, 0, 0, 0.40);
+    font-family: var(--inter);
+    font-size: 14.796px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 17.015px;
+}
+.admin-stats > div {
+    padding: 35px 0px 0px 0px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+.stats-card{
+    /* flex: 1; */
+    width: 25%;
+    border: 1px solid var(--borderColor);
+    padding: 12.21px;
+    background-color: var(--white);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0px;
+    height: 130.836px;
+}
+.stats-card > p {
+    margin-top: 16px;
+    color: #696974;
+    font-family: var(--roboto);
+    font-size: 13.019px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.081px;
+}
+
+.stats-card > h3 {
+    color: #171725;
+    font-family: var(--poppins);
+    font-size: 29.293px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 0.122px;
+}
+
+.stats-card > span{
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.stats-card > span > svg {
+    font-size: 22px;
+    color: var(--white);
+}
+.stats-card > svg {
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 22px;
+    color: var(--white);
+}
+
+.stats-card:nth-of-type(1) > svg{
+    background-color: #50B5FF;
+}
+.stats-card:nth-of-type(2) > svg{
+    background-color: #FF974A;
+}
+
+.stats-card:nth-of-type(3) > span,
+.stats-card:nth-of-type(3) > svg{
+    background-color: var(--green);
+}
+.stats-card:nth-of-type(4) > span,
+.stats-card:nth-of-type(4) > svg{
+    background-color: #FFC542;
+}
+
+
+@media screen and (max-width:768px) {
+    .admin-stats > h1,
+    .admin-stats > p {
+        display: none;
+    }
+
+    .admin-stats {
+        padding: 80px 20px 30px;
+    }
+    .admin-stats > div{
+        padding: 0px;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        align-items: stretch;
+    }
+    .stats-card{
+        width: 122px !important;
+        height: 113px;
+    }
+
+    .stats-card > p {
+        font-size: 10.179px;
+    }
+    .stats-card > h3 {
+        font-size: 23px;
+    }
+    .stats-card > span > svg,
+    .admin-stats > svg {
+        font-size: 16px;
+    }
+    
+}

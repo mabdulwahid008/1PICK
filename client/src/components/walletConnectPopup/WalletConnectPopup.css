@@ -1,0 +1,99 @@
+.popup,
+.overlay{
+    position: fixed;
+    top: 0px;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.20);;
+    z-index: 99;
+}
+
+.popup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-popup{
+    z-index: 99;
+    width: 455px;
+    height: 409px;
+    border-radius: 10px;
+    border: 1px solid var(--borderColor);
+    background-color: var(--white);
+}
+.card-popup > div {
+    padding: 67px 110px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+.popup-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.popup-header > img{
+    width: 63px;
+    height: 53px;
+}
+.popup-header > h3{
+    font-family: var(--poppins);
+    font-size: 40px;
+    color: var(--roughBlack);
+}
+.card-popup > div > p{
+    font-family: var(--mulish);
+    font-size: 23px;
+}
+.metamask-icon{
+    width: 56px;
+    height: 56px;
+    border: 1px solid var(--borderColor);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.metamask-icon > img {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
+.card-popup > div > a{
+    margin-top: 10px;
+    background-color: #000 50%;
+    font-family: var(--mulish);
+    font-size: 7px;
+}
+.card-popup > div > img {
+    height: 30px;
+    width: 30px;
+}
+
+
+@media screen and (max-width:768px) {
+    .card-popup{
+        width: 80%;
+        height: 300px;
+        border-radius: 5px;
+    }
+    .card-popup > div {
+        padding: 30px 58px;
+        gap: 15px;
+    }
+
+    .popup-header > img {
+        width: 40px;
+        height: 40px;
+    }
+    .popup-header > h3 {
+        font-size: 25.852px;
+    }
+    .card-popup > div > p{
+        text-align: center;
+        font-size: 17.485px;
+    }
+}

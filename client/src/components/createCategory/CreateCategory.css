@@ -1,0 +1,48 @@
+.create-category{
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+    padding: 20px 30px 30px;
+}
+.create-category > h2{
+    font-family: var(--poppins);
+    color: #000;
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+.create-category > form >div > input {
+    color: #A3A3A3 !important;
+    font-size: 15px;
+
+}
+
+.create-category > form > button{
+    padding: 9px 10px;
+    font-family: var(--inter);
+    color: var(--white);
+    background-color: var(--green);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+@media screen and (max-width:768px) {
+    .create-category {
+        padding: 10px 20px 20px;
+    }
+    .create-category > h2 {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .form-group ~ button {
+        font-size: 12px !important;
+        padding: 5px;
+    }
+
+}

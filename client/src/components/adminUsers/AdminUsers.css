@@ -1,0 +1,220 @@
+.user-table-wrapper{
+  margin: 10px 58px 50px;
+}
+
+.users-table{
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+    border-radius: 8px;
+    width: 100%;
+    overflow-x: auto;
+}
+.users-table > table > thead > tr > th,
+.users-table > table > tbody > tr > td{
+    color:#A3A3A3;
+    font-family: var(--poppins);
+    font-size: 15.255px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: left;
+}
+.users-table > table > thead > tr > th:nth-last-of-type(1),
+.users-table > table > tbody > tr > td:nth-last-of-type(1){
+    /* text-align: right; */
+}
+.users-table > table {
+    border-collapse: collapse;
+    /* border-spacing: 0; */
+    width: 100%;
+    padding: 0px 15px 20px;
+}
+.users-table > table > thead > tr{
+    border-bottom: 1px solid var(--borderColor);
+}
+.users-table > table > thead > tr,
+.users-table > table > tbody > tr{
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.users-table > table > tbody > tr > td {
+    color: #8f8e8e;
+}
+
+.users-table > table > tbody > tr > td:nth-of-type(5){
+  color: var(--red);
+  font-weight: 600;
+}
+.users-table > table > tbody > tr > td:nth-of-type(6){
+  color: var(--green);
+  font-weight: 600;
+}
+.users-table > table > tbody > tr {
+    border-bottom: 2px solid var(--bgColor);
+    transition: .5s ease;
+}
+
+.users-table > table > tbody > tr > td{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.users-table > table > tbody > tr > td > span {
+   height: 5px;
+   width: 5px;
+   border-radius: 50%;
+}
+.users-table > table > tbody > tr > td > img {
+  height: 20px;
+}
+.users-table > table > tbody > tr > td > svg {
+  font-size: 25px;
+  cursor: pointer;
+  padding: 5px;
+}
+.users-table > table > tbody > tr:hover{
+    box-shadow: 0px 15px 22px 0px rgba(0, 0, 0, 0.08);
+}
+
+
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #FF974A;
+    border: 1px solid var(--borderColor);
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 1px;
+    background-color: var(--white);
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: var(--bgColor);
+  }
+  
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  tbody > img {
+    width: 25px;
+    height: 25px;
+    margin-top: 10px;
+  }
+  tbody > p {
+    color:#A3A3A3;
+    font-family: var(--poppins);
+    font-size: 15.255px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: left;
+    margin: 10px 20px;
+  }
+  
+  .users-table > table > tbody > tr > td:nth-of-type(2) > svg:hover {
+    color: var(--green);
+    transform: scale(0.9);
+  }
+
+  .users-table > table > tbody > tr:nth-child(even) {
+    background-color: var(--eLightGrey);
+  }
+
+  @media screen and (max-width:768px) {
+    .switch{
+      height: 18px;
+      width: 40px;
+    }
+    .slider:before {
+      height: 15px;
+      width: 15px;
+    }
+    input:checked + .slider:before {
+      -webkit-transform: translateX(19px);
+      -ms-transform: translateX(19px);
+      transform: translateX(19px);
+    }
+    .user-table-wrapper{
+      margin: 0px 20px 50px;
+    }
+    .users-table{
+      
+      width: 100%;
+    }
+    .users-table > table > thead > tr{
+      padding: 12px;
+    }
+    .users-table > table > tbody > tr{
+      padding: 7px 10px;
+    }
+    .users-table > table > thead > tr > th, 
+    .users-table > table > tbody > tr > td{
+      min-width: 100px;
+      max-height: 200px;
+      font-size: 11px;
+    }
+    .users-table > table > thead > tr > th:nth-of-type(1), 
+    .users-table > table > tbody > tr > td:nth-of-type(1){
+      min-width: 20px;
+      max-width: 20px;
+    }
+    .users-table > table > thead > tr > th:nth-of-type(3), 
+    .users-table > table > tbody > tr > td:nth-of-type(3){
+      min-width: 150px;
+      max-width: 150px;
+    }
+    .users-table > table > thead > tr > th:nth-last-of-type(1), 
+    .users-table > table > tbody > tr > td:nth-last-of-type(1){
+      min-width: 50px;
+      max-width: 50px;
+    }
+    .users-table > table > tbody > tr > td > svg {
+      font-size: 16px;
+    }
+  }

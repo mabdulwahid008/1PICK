@@ -1,0 +1,29 @@
+.admin-members{
+    min-height: 100vh;
+    max-height: auto;
+}
+
+.admin-members > #admin-stats{
+    margin-top: 0px;
+    padding-top: 10px;
+}
+
+@media screen and (max-width:768px) {
+    .admin-members > #admin-stats{
+        display: block !important;
+        margin: -0px 0px 20px;
+        padding: 0px 20px;
+
+    }
+
+    .admin-members > #admin-stats > h1{
+        display: block;
+        font-size: 14px;
+        text-align: center;
+    }
+    .admin-members > #admin-stats > p{
+        display: block;
+        font-size: 9px;
+        text-align: center;
+    }
+}

@@ -1,0 +1,114 @@
+.user-popup{
+    background-color: var(--white);
+    border-radius: 10px;
+    border: 1px solid var(--borderColor);
+    width: 30%;
+    min-height: 300px;
+    z-index: 99;
+    transition: .25s ease;
+}
+.user-popup > img {
+    width: 25px;
+    height: 25px;
+    padding: 0px 30px;
+}
+.user-popup-header{
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-popup-header > h2 {
+    font-family: var(--poppins);
+    color: #000;
+    font-weight: 600;
+}
+.user-detail{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0px 30px;
+}
+.user-detail > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-detail > div > p {
+    font-family: var(--inter);
+    color: #A3A3A3;
+    font-size: 14px;
+}
+
+.user-popup > p {
+    color: var(--green);
+    cursor: pointer;
+    text-align: right;
+    text-decoration: underline;
+    padding: 15px 30px;
+}
+.tranfer-balance{
+    background-color: var(--bgColor);
+    margin: 5px 30px 20px;
+    border-radius: 5px;
+    border: 1px solid var(--borderColor);
+    padding: 20px 10px 10px;
+    overflow: hidden;
+}
+
+.tranfer-balance > form > button{
+    background-color: var(--green);
+    color: var(--white);
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 9px;
+    font-size: 14px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.tranfer-balance > form > div > input {
+    color: #000 !important;
+    padding: 9px 10px;
+}
+
+@media screen and (max-width:768px) {
+    .user-popup{
+        width: 90%;
+    }
+    .user-popup-header {
+        padding: 10px 20px;
+    }
+    .user-popup-header > h2{
+        font-size: 14px;
+    }
+    .user-detail{
+        padding: 10px 20px;
+    }
+    .user-detail > div > p {
+        font-size: 10px;
+    }
+    .user-popup > p {
+        font-size: 10px;
+        padding: 10px 20px;
+    }
+    .tranfer-balance{
+        margin: 5px 20px;
+        padding: 10px 15px;
+    }
+    .form-group > label {
+        font-size: 10px !important;
+    }
+    .form-group > input {
+        padding: 7px 10px !important;
+        font-size: 10px !important;
+    }
+    .tranfer-balance >form > button {
+        font-size: 12px !important;
+        padding: 7px 10px;
+    }
+
+}

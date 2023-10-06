@@ -1,0 +1,32 @@
+.events{
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    /* column-gap: 2.4%; */
+    /* row-gap: 2.4%; */
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.no-results{
+    font-size: 14px;
+    font-family: var(--inter);
+    font-weight: 400;
+    color: var(--roughBlack);
+}
+
+@media screen and (max-width:768px){
+    .events {
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 10px;
+        min-height: 300px;
+        max-height: auto;
+    }
+    .total-items {
+        font-family: var(--inter);
+        color: #686868;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+}

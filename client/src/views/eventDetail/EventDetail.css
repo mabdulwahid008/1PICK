@@ -1,0 +1,294 @@
+.event-not-found{
+    background-color: var(--bgColor);
+    margin: 10px 30px;
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+    border-radius: 11.1px;
+    padding: 63px 0px 65px 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    height: 300px;
+}
+.event-not-found > h2{
+    font-family: var(--poppins);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 45.24px;
+    line-height: 27px;
+    color: rgba(0, 0, 0, 0.4);
+}
+.event-not-found > p {
+    font-family:  var(--inter);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 25.7959px;
+    line-height: 17px;
+    color: var(--roughBlack2);
+    margin-top: 13.05px;
+}
+.event-detail{
+    background-color: var(--bgColor);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 43px;
+    margin: 10px 30px;
+}
+.event-data{
+    width: 70%;
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+    border-radius: 11.1px;
+    padding: 63px 0px 65px 65px;
+}
+.event-data-head{
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 16.6px;
+    padding-right: 65px;
+}
+.event-data-head > img {
+    border-radius: 2px;
+    width: 90.9px;
+    height: 90.9px;
+    object-fit: cover;
+    background-color: var(--eLightGrey);
+}
+.event-data-head-metadata{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+.event-data-head-metadata > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.event-data-head-metadata > div > div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16.16px;
+}
+.event-data-head-metadata > div > a > img {
+    cursor: pointer;
+    height: 20.204px;
+    width: 20.204px;
+}
+.e-category{
+    background-color: var(--lightGrey);
+    border-radius: 4px;
+    padding: 5.1px 8.1px;
+    cursor: pointer;
+}
+.e-category > p {
+    text-transform: capitalize;
+    color: #333;
+    font-size: 12.122px;
+    font-family: var(--inter);
+    font-weight: 600;
+}
+
+.event-data-head-metadata > div > div > p {
+    color: #828282;
+    font-size: 12.143px;
+    font-family: var(--inter);;
+    line-height: 17.679px;
+}
+.event-data-head-metadata > div > div > p:nth-of-type(2){
+    color: var(--red) !important;
+}
+.e-title{
+    color: #2B2B2B;
+    font-size: 24.245px;
+    font-family: var(--inter);
+    font-weight: 700;
+    line-height: 25.327px;
+}
+.e-title ~ p {
+    color: var(--red);
+    font-size: 12.143px;
+    font-family: var(--inter);;
+    line-height: 17.679px;
+}
+.event-about{
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    margin-left: 15px;
+    margin-top: 100px;
+    padding-right: 65px;
+}
+.event-about > h2 {
+    color: #000;
+    font-size: 28.11px;
+    font-family: var(--inter);
+    font-weight: 600;
+    letter-spacing: 2.811px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.event-about > hr {
+    margin-top: 18px;
+    margin-bottom: 39px;
+    height: 1px;
+    width: 100%;
+    border: none;
+    border-top: 1px solid var(--borderColor);
+}
+.event-about > p {
+    color: #000;
+    font-size: 14.189px;
+    font-family: var(--inter300);
+    line-height: 24.677px;
+    font-weight: 200;
+    text-transform: capitalize;
+}
+
+.extra-cards{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 23.66px;
+    margin-top: 33.12px;
+    margin-bottom: 30px;
+}
+.e-card{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 14.77px;
+    border: 1px solid var(--borderColor);
+    border-radius: 8.1px;
+    padding: 13px 23px 12px 20px;
+}
+
+.e-card > div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+}
+.e-card > div > h3 {
+    color: #484848;
+    font-size:11px;
+    font-family: var(--poppins);
+    font-weight: 500;
+    line-height: 11.332px;
+}
+
+.e-card > div > p,
+.e-card > div > a{
+    color: var(--green);
+    font-size: 9px;
+    font-family: var(--poppins);
+    line-height: 10.089px;
+    text-decoration-line: underline;
+}
+
+.bet{
+    width: 400px;
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+    border-radius: 11.1px;
+}
+
+@media screen and (max-width:768px) {
+    .event-detail {
+        margin: 0px;
+        flex-direction: column;
+        margin-right: 20px;
+        gap: 30.16px;
+        margin-bottom: 50px;
+    }
+    .event-data {
+        width: 100%;
+        padding: 24.27px 0px 24.27px 15.55px;
+    }
+    .event-data-head{
+        gap: 7.23px;
+        padding-right: 15.55px;
+    }
+    .event-data-head > img{
+        width: 55.659px;
+        height: 55.659px;
+    }
+    .event-data-head-metadata{
+        gap: 5.42px;
+    }
+    .event-data-head-metadata > a > img {
+        width: 9.035px;
+        height: 9.035px;
+    }
+    .e-category{
+        padding: 2.26px 3.74px;
+        margin-top: 0px;
+    }
+    .e-category > p {
+        font-size: 8.421px;
+    }
+    .event-data-head-metadata > div > div > p{
+        font-size: 8.421px;
+        line-height: 7.906px;
+    }
+    .event-data-head-metadata > h1{
+        font-size: 10.842px;
+        line-height: 14.456px;
+    }
+    .event-about{
+        padding-right: 20.5px;
+        margin-left: 5px;
+        margin-top: -30px;
+    }
+    .event-about > h2{
+        font-size: 12.903px;
+        letter-spacing: 1.29px;
+    }
+    .event-about > hr {
+        margin-top: 7.76px;
+        margin-bottom: 13px;
+    }
+    .event-about  > p {
+        font-size: 8.357px;
+        line-height: 15.766px;
+    }
+    .bet{
+        width: 104%;
+    }
+    .extra-cards{
+        gap: 10px;
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
+    .e-card{
+        padding: 7px 10px 7px;
+        gap: 7px;
+    }
+    .e-card > div:nth-of-type(1){
+        /* width: 25px; */
+        /* height: 25px; */
+    }
+    .e-card > div {
+        gap :0px
+    }
+    .e-card > div > h3{
+        font-size: 8px;
+    }
+    .e-card > div >a{
+        font-size: 7px;
+    }
+    .event-data-head-metadata > div > div{
+        gap: 10px;
+        margin-right: 10px;
+    }
+}
+

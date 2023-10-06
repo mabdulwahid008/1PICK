@@ -1,0 +1,19 @@
+.mob-sidebar-btns{
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    padding: 0px 20px;
+}
+.mob-sidebar-btns > a {
+    width: 151px;
+}
+.mob-sidebar-btns > a > button {
+    background-color: var(--green);
+    padding: 7.6px 23px;
+    color: var(--white);
+    border: none;
+    border-radius: 4.7px;
+    cursor: pointer;
+    width: 151px;
+    font-size: 12px;
+}

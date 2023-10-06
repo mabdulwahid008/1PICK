@@ -1,0 +1,121 @@
+.account-wrapper{
+    display: flex;
+    justify-content: flex-end;
+    width: 50%;
+}
+.account{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 13px;
+}
+.account > div{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 2px;
+}
+.account > div:nth-of-type(3) {
+    flex-direction: row !important;
+    gap: 10px;
+}
+.account > div > a > button {
+    background-color: var(--green);
+    padding: 7.6px 23px;
+    color: var(--white);
+    border: none;
+    border-radius: 4.7px;
+    cursor: pointer;
+}
+.account > div > a > button:nth-of-type(2){
+    padding: 7.6px 29px !important;
+}
+
+.account > div > p:nth-of-type(1){
+    font-family: var(--inter);
+    color: var(--green);
+    font-size: 14px;
+}
+.account > div > p:nth-of-type(2){
+    font-family: var(--inter);
+    font-size: 7px;
+    line-height: 7.93px;
+    color: #000;
+}
+
+.account > span {
+    border: 1px solid var(--green);
+    border-radius: 20px;
+    padding: 5px 10px 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    cursor: pointer;
+}
+
+.account > span > div:nth-of-type(1){
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 1.14px;
+}
+
+.account > span > div > p{
+    font-size: 12.17px;
+    line-height: 10px;
+    color: var(--green);
+}
+
+.account > span > div:nth-of-type(2){
+    background-color: var(--green);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.account > span > div:nth-of-type(2) > img {
+   width: 10px;
+   height: 10px;
+}
+
+
+.connect-wallet{
+    border: 1px solid var(--green);
+    border-radius: 20px;
+    padding: 7px 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+}
+.connect-wallet > img:nth-of-type(1){
+    height: 13px;
+    width: 13px;
+}
+.connect-wallet > h3{
+    font-size: 12px;
+    font-family: var(--firaSans);
+}
+.connect-wallet > img:nth-of-type(2){
+    height: 24px;
+    width: 24px;
+}
+
+.custome-waller-connet-btn{
+    background-color: var(--white) !important;
+    font-family: var(--poppins) !important;
+    border-radius: 15px !important;
+    border: 1px solid var(--borderColor) !important;
+    color: var(--roughBlack) !important;
+    box-shadow: 0px 0px 20px 0px #00b66d1b !important;
+}
+
+.custome-waller-connet-btn > svg > circle {
+    stroke: var(--roughBlack) !important;
+}

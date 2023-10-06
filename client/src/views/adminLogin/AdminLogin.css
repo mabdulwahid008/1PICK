@@ -1,0 +1,129 @@
+.admin-login-wrapper{
+    background-color: var(--bgColor);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.admin-login{
+    width: 26%;
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+    border-radius: 10px;
+    padding: 30px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 300px;
+}
+.admin-login-header{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.admin-login-header > img {
+    height: 50px;
+    width: 50px;
+}
+.admin-login-header > h3{
+    color: var(--roughBlack);
+    font-family: var(--poppins);
+    font-size: 30.21px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+.admin-login-header > h3 > span {
+    padding-left: 5px;
+    font-size: 18px;
+}
+
+.admin-login > h1{
+    color: #000;
+    font-family: var(--poppins);
+    font-size: 25.21px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+.admin-login-btn,
+.admin-login > button {
+    background-color: var(--green);
+    color: var(--white);
+    padding: 10px 40px;
+    font-family: var(--inter);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: 80%;
+    border-radius: 5px;
+}
+.admin-login-btn{
+    margin-top: 15px;
+}
+.admin-login > button{
+    margin-top: 30px;
+}
+.admin-login-btn{
+    width: 100%;
+}
+.admin-login-btn:disabled,
+.admin-login > button:disabled{
+    cursor: not-allowed;
+    background-color: #3bb886;
+}
+.admin-login-btn > img,
+.admin-login > button > img {
+    width: 15px;
+    height: 15px;
+}
+
+.admin-login > form{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group > label{
+    color: rgba(0, 0, 0, 0.40);
+    font-family: var(--inter);
+    font-size: 13.073px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.form-group:nth-of-type(1) > input{
+    color: var(--green);
+}
+.form-group > input {
+    border-radius: 2.274px;
+    border: 0.455px solid var(--borderColor);
+    padding: 11px 20px 10px;
+    font-size: 10.326px;
+    font-family: var(--inter);
+    font-weight: 500;
+    outline: none;
+}
+
+@media screen and (max-width:768px) {
+    .admin-login{
+        width: 80%;
+        padding: 10px 10px;
+    }
+    .admin-login > button{
+        margin: 0px;
+    }
+    .admin-login-header > h3{
+        font-size: 25px;
+    }
+}

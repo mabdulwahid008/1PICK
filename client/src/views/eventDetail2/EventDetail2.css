@@ -1,0 +1,332 @@
+.event-page-2{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    padding: 30px 30px;
+    position: relative;
+    
+}
+.event-page-left{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.event2-metadata > img {
+    height: 400px;
+    width: 500px;
+    background-color: var(--white);
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid var(--borderColor);
+}
+.event2-metadata{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.event2-metadata > div{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.event2-metadata > div > a {
+    color: var(--green);
+    text-decoration: underline;
+}
+
+.event2-box{
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+    border-radius: 10px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.event2-box-head > h2 {
+    font-family: var(--poppins);
+    color: var(--roughBlack);
+    font-size: 20px;
+    font-weight: 400;
+}
+.event2-box-head{
+    padding: 15px 20px 10px;
+    /* border-bottom: 1px solid var(--borderColor); */
+    transform: .2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.event2-box-head > svg {
+    font-size: 20px;
+    color: var(--roughBlack);
+}
+
+.event2-box-head:hover{
+    background-color: var(--eLightGrey);
+    cursor: pointer;
+}
+.event2-description {
+    padding: 20px 20px;
+    border-top: 1px solid var(--borderColor);
+}
+
+.event2-description > div > p{
+    font-family: var(--inter);
+    font-size: 12px;
+    color: #000
+}
+
+.event2-metadata > div  {
+    position: relative;
+}
+
+.e2-share{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+    box-shadow: 0px 0px 10px 1px #00000018;
+}
+.e2-share > p{
+    padding: 7px 30px 7px 10px;
+    font-family: var(--inter);
+    font-size: 12px;
+    color: #828282;
+}
+.e2-share > p:hover{
+    cursor: pointer;
+    background-color: var(--bgColor);
+}
+.e2-share > p:nth-of-type(1){
+    border-bottom: 1px solid var(--borderColor);
+}
+
+.timeline{
+    padding: 20px 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--borderColor);
+    align-items: center;
+    gap: 20px;
+}
+.timeline > div {
+    width: 33.3%;
+    background-color: var(--bgColor);
+    padding: 7px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--borderColor);
+}
+.timeline > div > p{
+    font-family: var(--inter);
+    font-size: 12px;
+    color: #000;
+}
+.timeline > div > a {
+    font-size: 12px;
+    color: var(--green);
+    text-decoration: underline;
+}
+.timeline > div > p:nth-of-type(2){
+    color: var(--red) !important;
+    margin-top: 5px;
+}
+
+.activity{
+    width: 100%;
+    padding-bottom: 20px;
+    min-height: 0px;
+    max-height: 250px;
+    overflow: auto;
+    border-top: 1px solid var(--borderColor);
+}
+
+.activity > table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.activity > table > tbody > tr{
+    border-bottom: 2px solid var(--bgColor);
+}
+.activity > table > tbody > tr:nth-last-child(1){
+    border: none;
+}
+.activity > table > tbody > tr > td {
+    color: #000;
+    font-family: var(--poppins);
+    font-size: 14.255px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: left;
+    padding: 10px 20px 10px;
+    min-width: 0px;
+    max-width: auto;
+    white-space: nowrap; 
+}
+
+
+.event-page-right {
+    position: sticky;
+    top: 0px; 
+    right: 50px;
+}
+
+
+
+.event2-metadata > h2{
+    font-family: var(--poppins);
+    color: var(--roughBlack);
+    font-size: 22px;
+    font-weight: 400;
+    margin: 10px 0px;
+}
+.event2-metadata > div > div {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.event2-metadata > div > div > svg {
+    font-size: 18px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+.event2-metadata > div > div >svg:hover{
+    color: var(--green);
+}
+
+.e2-stats{
+    padding: 20px;
+    border-top: 1px solid var(--borderColor);
+}
+
+.e2-stats > .graph{
+    margin: 0px;
+    gap: 30px;
+    height: 250px;
+}
+
+
+.event-page-right{
+    width: 30%;
+}
+.event2-box ~ .bet{
+    display: none;
+}
+
+.details-box > div > a{
+    display: flex;
+    gap: 5px;
+}
+
+.details-box > div > a > svg{
+    font-size: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .event-page-right{
+        display: none;
+    }
+    .event2-box ~ .bet{
+        display: block;
+        width: 100%;
+    }
+
+    .bet,
+    .event2-box{
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.08);
+    }
+    
+    .event2-metadata{
+        align-items: flex-start;
+    }
+    .event2-metadata > h2 {
+        font-size: 20px;
+        text-align: left;
+    }
+    .e2-stats {
+        padding: 10px;
+    }
+    .event-page-2 {
+        padding: 20px 0px 0px;
+    }
+    .event-page-left{
+        width: 100%;
+        /* overflow: hidden; */
+    }
+    .event2-box{
+        width: 100%;
+    }
+    .event2-box-head{
+        padding: 12px 10px 8px;
+    }
+    .event2-box-head > h2 {
+        font-size: 15px;
+        font-weight: 600;
+    }
+    .event2-description{
+        padding: 15px;
+    }
+    .timeline {
+        padding: 15px;
+        gap: 10px;
+    }
+    .timeline > div{
+        width: 93%;
+    }
+    .e2-stats > .graph{
+        gap: 50px;
+        margin: 0px;
+        height: 180px;
+    }
+    .e2-stats > .graph > .chart{
+        height: 150px;
+    }
+
+
+    .event2-metadata > img {
+        width: 100%;
+        height: 300px;
+    }
+    .timeline {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .activity{
+        padding: 0px;
+    }
+    .activity > table > tbody > tr > td{
+        padding: 10px 20px;
+        font-size: 12px !important;
+        line-height: 12px;
+    }
+    .details-box > div {
+        width: 40%;
+        margin: 0px 0px 10px;
+    }
+    .details-box {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+    }
+    .event-not-found{
+        margin: 0px;
+        padding: 0px;
+    }
+    .event-not-found > p{
+        font-size: 14px;
+        text-align: center;
+        margin: 0px 40px;
+    }
+}

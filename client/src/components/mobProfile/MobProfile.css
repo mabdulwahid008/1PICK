@@ -1,0 +1,126 @@
+.modal{
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    z-index: 99;
+}
+.modal > .overlay {
+    background-color: rgba(0, 0, 0, 0.362) !important;
+}
+.modal-body{
+    background-color: var(--white);
+    width: 100%;
+    height: 500px;
+    position: absolute;
+    bottom: 0px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    z-index: 99;
+    animation: animate;
+    animation-duration: .2s;
+}
+
+
+@keyframes animate {
+  from {height: 0px;}
+  to {height: 450px;}
+}
+
+.modal-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.modal-head > img {
+    background-color: var(--lightGrey);
+    padding: 5px;
+    height: 22px;
+    width: 22px;
+    border-radius: 20px;
+    color: var(--roughBlack);
+    border: 1px solid var(--borderColor);
+}
+.modal-head > div > div > h2{
+    font-family: var(--poppins);
+    color: var(--roughBlack);
+    font-size: 18px;
+}
+
+.modal-head > div > div > p{
+    font-family: var(--inter);
+    font-size: 14px;
+}
+
+.modal-head > div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+.user-balances{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    padding: 5px 20px;
+}
+
+.user-balances > p {
+    font-family: var(--inter);
+    font-size: 14px;
+
+}
+.depo-with-profile{
+    margin-top: 10px;
+}
+
+.depo-with-profile > .box{
+    background-color: var(--bgColor);
+    width: 80%;
+    padding: 20px;
+    gap: 20px;
+}
+
+.depo-with-profile > .box > form > div > div {
+    padding: 8px;
+    background-color: var(--white);
+}
+.depo-with-profile > .box > form > div > div > input {
+    font-size: 12px ;
+}
+.depo-with-profile > .box > form > button{
+    font-size: 13px;
+}
+
+.depo-with-profile > .box > div > button {
+    padding: 8px 48px;
+    font-size: 13px
+}
+
+@media screen and (max-width: 768px) {
+
+    
+    .modal-body > .depo-with > .box > form {
+        width: 50%;
+    }
+    .ammmount > p {
+        font-size: 12px;
+    }
+    
+    .box > form > div > label > span {
+    font-size: 12px;
+}
+
+}
+
+@media screen and (max-width: 481px) {
+
+    
+    .modal-body > .depo-with > .box > form {
+        width: 100%;
+    } 
+}
