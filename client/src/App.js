@@ -23,12 +23,6 @@ function App() {
       </>
     )
   else {
-        // if(window.innerWidth > 768)
-        //   return(
-        //     <div className="fadkm">
-        //     </div>
-        // )
-        // else
         return (
           <>
               <Provider>
