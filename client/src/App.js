@@ -5,42 +5,36 @@ import AdminLayout from "./layout/adminLayout/AdminLayout";
 import Provider from './state/Provider';
 import AdminProvider from "./state/AdminProvider";
 import AdminLogin from "./views/adminLogin/AdminLogin";
+import PcLayout from "./layout/pcLayout/PcLayout";
 
 
 function App() {
 
-  if(window.location.pathname.startsWith('/admin'))
-    return(
+  if (window.location.pathname.startsWith('/admin'))
+    return (
       <>
         <AdminProvider>
-          {sessionStorage.getItem('adminLogedIn') ? 
+          {sessionStorage.getItem('adminLogedIn') ?
             <AdminLayout />
-            : 
+            :
             <AdminLogin />
           }
-          <ToastContainer position="top-center" autoClose={5000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable={false} pauseOnHover theme="light"/>
+          <ToastContainer position="top-center" autoClose={5000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable={false} pauseOnHover theme="light" />
         </AdminProvider>
       </>
     )
   else {
-        return (
-          <>
-              <Provider>
-                <div className="hello">
-                <UserLaout/>
-                <ToastContainer position="top-center" autoClose={5000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable={false} pauseOnHover theme="light"/>
-                </div>
-                <div className="pc-layout">
-                  <div className="section-1">
-                      <div className="content">
-                        // content here
-                      </div>
-                  </div>
-                  <iframe src="http://localhost:3000" width="420" height="700"></iframe>
-                </div>
-              </Provider>
-              </>
-            );
+    return (
+      <>
+        <Provider>
+          <div className="mobile-layout">
+            <UserLaout />
+            <ToastContainer position="top-center" autoClose={5000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable={false} pauseOnHover theme="light" />
+          </div>
+          <PcLayout url="http://localhost:3000" />
+        </Provider>
+      </>
+    );
   }
 }
 

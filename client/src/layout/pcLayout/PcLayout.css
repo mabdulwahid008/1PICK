@@ -1,0 +1,36 @@
+
+.pc-layout{
+    position: relative;
+    background-color: var(--bgColor);
+    height: 100vh;
+    width: 100vw;
+  }
+  
+  .section-1{
+    height: 60%;
+    width: 100vw;
+    display: flex;
+    justify-content: flex-start;
+    padding: 40px 10%;
+    align-items: center;
+    background: linear-gradient(to right, #f6ddf4, #dfeaf8);;
+    position: fixed;
+    top: 0px;
+    overflow: hidden;
+  }
+  
+  .section-1 > .content {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    background-color: red !important;
+  }
+  
+  .pc-layout > iframe {
+    position: absolute;
+    right: 270px;
+    width: 420;
+    height: 100vh;
+    border: none;
+    box-shadow:0 4px 20px rgba(0, 0, 0, 0.1);
+  }
