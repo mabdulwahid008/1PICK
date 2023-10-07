@@ -30,8 +30,13 @@ function App() {
                 <UserLaout/>
                 <ToastContainer position="top-center" autoClose={5000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable={false} pauseOnHover theme="light"/>
                 </div>
-                <div className="hellox">
-                <iframe src="http://localhost:3000" width="360" height="700"></iframe>
+                <div className="pc-layout">
+                  <div className="section-1">
+                      <div className="content">
+                        // content here
+                      </div>
+                  </div>
+                  <iframe src="http://localhost:3000" width="420" height="700"></iframe>
                 </div>
               </Provider>
               </>
