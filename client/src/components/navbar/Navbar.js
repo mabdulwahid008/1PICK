@@ -13,6 +13,7 @@ import { CgProfile } from 'react-icons/cg';
 import { getEventsAPI } from '../../utills/apiRequest'
 import { toast } from 'react-toastify'
 import { ConnectWallet } from '@thirdweb-dev/react'
+import AnnouncementBar from '../announcementBar/AnnouncementBar'
 
 function Navbar() {
   const { openSideBar, address, setOpenSideBar, searchBox, setSearchBox, setmobProfile, walletAddress, mobOpenSideBar, setmobOpenSideBar, mobSearchBox, setMobSearchBox } = useContext(Context)
@@ -132,6 +133,7 @@ function Navbar() {
             <WalletConnect />
       </div>
       
+      <AnnouncementBar />
       <div className='mobile-nav'>
        <Link to='/' className='logo'  onClick={()=>setmobOpenSideBar(true)}>
             <img src={require('../../assets/logo_updated.webp')} alt='logo'/>

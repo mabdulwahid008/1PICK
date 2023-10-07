@@ -138,7 +138,7 @@
         padding-left: 3px;
     }
     .navabr-wrapper {
-        padding-top: 10px;
+        padding-top: 0px;
         position: fixed;
         width: 100%;
         top: 0px;left: 0px;
@@ -149,8 +149,8 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0px 36px 10px 36px;
-        height: 50px;
+        padding: 10px 36px 10px 36px;
+        height: 60px;
         z-index: 10;
     }
     .sidebar-label > img{

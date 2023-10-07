@@ -11,7 +11,7 @@
     width: 100vw;
     display: flex;
     justify-content: flex-start;
-    padding: 40px 10%;
+    padding: 40px 18%;
     align-items: center;
     background: linear-gradient(to right, #f6ddf4, #dfeaf8);;
     position: fixed;
@@ -22,15 +22,53 @@
   .section-1 > .content {
     display: flex;
     flex-direction: column;
-    width: 40%;
-    background-color: red !important;
+    width: 30%;
+    margin-top: 350px;
+    background-color: transparent !important;
+  }
+
+  .section-1 > .content > h1, h3, p {
+      font-family: var(--poppins);
+      color: var(--roughBlack2);
   }
   
+  .section-1 > .content > h3:nth-of-type(1) {
+    font-size: 25px;
+    font-weight: 600;
+  }
+  .section-1 > .content > h3:nth-of-type(2) {
+    font-size: 35px;
+    font-weight: 400;
+    line-height: 20px;
+    margin-top: 50px;
+  }
+  
+  .section-1 > .content > h1 {
+    font-size: 45px;
+    font-weight: 700;
+  }
+
+  .section-1 > .content > p {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 22px;
+    margin-top: 20px;
+  }
+
   .pc-layout > iframe {
     position: absolute;
-    right: 270px;
+    right: 250px;
     width: 420;
     height: 100vh;
     border: none;
     box-shadow:0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .express-opinion{
+    background-color: red;
+    position: absolute;
+    height: 25%;
+    width: 30%;
+    top: 71%;
+    left: 20%;
   }

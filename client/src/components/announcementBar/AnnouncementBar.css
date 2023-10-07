@@ -1,0 +1,12 @@
+.announcement-bar{
+    background-color: var(--darkGrey);
+    height: 20px;
+    padding: 5px 20px;
+    width: auto
+}
+
+.announcement-bar > p {
+    text-align: center;
+    color: var(--roughBlack2);
+    font-size: 12px;
+}
