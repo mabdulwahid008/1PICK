@@ -13,6 +13,9 @@ function PcLayout({ url }) {
     const next = () =>{
         setCurrent(current === trending_5_events?.length - 1 ? 0 : current + 1)
     }
+    const prev = () =>{
+        setCurrent(current === 0 ? trending_5_events?.length - 1 : current - 1)
+    }
 
     // setTimeout(()=>{
     //     next()
@@ -26,7 +29,7 @@ function PcLayout({ url }) {
                     <h3>1PICK.xyz</h3>
                     <h3>Get Reward!</h3>
                     <h1>Predict Everything!</h1>
-                    <p>You can know in advance todaywhat will happen tomorrow.</p>
+                    <p>You can know in advance today what will happen tomorrow.</p>
 
                     <div className='event-slider'>
                         <AnimatePresence>
@@ -42,6 +45,11 @@ function PcLayout({ url }) {
                                 </motion.div>
                         })}
                         </AnimatePresence>
+                    </div>
+                    <div className='event-slider-btns'>
+                        <p>{current+1} / 5</p>
+                        <span onClick={prev}>&lt;</span>
+                        <span onClick={next}>&gt;</span>
                     </div>
                 </div>
             </div>
