@@ -72,3 +72,10 @@
     top: 71%;
     left: 20%;
   }
+
+
+  .event-slider{
+    background-color: yellow;
+    height: 200px;
+    width: 400px;
+  }

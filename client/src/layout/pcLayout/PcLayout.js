@@ -1,5 +1,6 @@
 import React from 'react'
 import './PcLayout.css'
+import EventItem from '../../components/eventItem/EventItem'
 
 function PcLayout({ url }) {
     return (
@@ -10,9 +11,14 @@ function PcLayout({ url }) {
                     <h3>Get Reward!</h3>
                     <h1>Predict Everything!</h1>
                     <p>You can know in advance todaywhat will happen tomorrow.</p>
+                    
+                    <div className='event-slider'>
+                        <EventItem />
+                    </div>
                 </div>
             </div>
             <div className='express-opinion'>
+                <h1></h1>
 
             </div>
             <iframe src={url} width="420" height="700"></iframe>
