@@ -25,7 +25,7 @@ function PcLayout({ url }) {
     return (
         <div className="pc-layout">
             <div className="section-1">
-                <div className="content">
+                <div className="contentt">
                     <h3>1PICK.xyz</h3>
                     <h3>Get Reward!</h3>
                     <h1>Predict Everything!</h1>
