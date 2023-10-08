@@ -9,6 +9,8 @@ function EventItem({eventSytle, event}) {
 
     const { setAddress } = useContext(Context)
 
+    console.log(event);
+
     const addToMyFavourite = async(event_id) => {
         const response = await fetch('/event/favourite', {
             method: 'POST',
@@ -32,10 +34,9 @@ function EventItem({eventSytle, event}) {
 
   return (
     <>
-    <div className='event-item' style={{width: eventSytle.width}}>
+    {/* <div className='event-item' style={{width: eventSytle.width}}>
         <div className='event-header'>
             <Link to={`event-detail/${event._id}`} className='event-img'>
-                {/* {event.image_cid && <img src={`https://ipfs.io/ipfs/${event.image_cid}`}  alt='event-image'/>} */}
                 {event.image_cid && <img src={`${process.env.REACT_APP_URL}/${event.image_cid}`}  alt='event-image'/>}
             </Link> 
             <div className='event-metadata'> 
@@ -73,7 +74,7 @@ function EventItem({eventSytle, event}) {
             </div>
             <img src={require('../../assets/start.png')} onClick={()=>{addToMyFavourite(event._id)}} alt='favourite'/>
         </div>
-    </div>
+    </div> */}
 
     <Link to={`event-detail/${event._id}`} className='event-item-mob'>
         <Link className='e-item-meta'>

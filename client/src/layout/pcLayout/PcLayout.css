@@ -1,81 +1,155 @@
+.pc-layout {
+  position: fixed;
+  background-color: var(--bgColor);
+  height: 100vh;
+  width: 100vw;
 
-.pc-layout{
-    position: relative;
-    background-color: var(--bgColor);
-    height: 100vh;
-    width: 100vw;
-  }
-  
-  .section-1{
-    height: 60%;
-    width: 100vw;
-    display: flex;
-    justify-content: flex-start;
-    padding: 40px 18%;
-    align-items: center;
-    background: linear-gradient(to right, #f6ddf4, #dfeaf8);;
-    position: fixed;
-    top: 0px;
-    overflow: hidden;
-  }
-  
-  .section-1 > .content {
-    display: flex;
-    flex-direction: column;
-    width: 30%;
-    margin-top: 350px;
-    background-color: transparent !important;
-  }
+}
 
-  .section-1 > .content > h1, h3, p {
-      font-family: var(--poppins);
-      color: var(--roughBlack2);
-  }
-  
-  .section-1 > .content > h3:nth-of-type(1) {
-    font-size: 25px;
-    font-weight: 600;
-  }
-  .section-1 > .content > h3:nth-of-type(2) {
-    font-size: 35px;
-    font-weight: 400;
-    line-height: 20px;
-    margin-top: 50px;
-  }
-  
-  .section-1 > .content > h1 {
-    font-size: 45px;
-    font-weight: 700;
-  }
+.section-1 {
+  height: 70%;
+  width: 100vw;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0px 18%;
+  align-items: center;
+  background: linear-gradient(to right, #f6ddf4, #dfeaf8);
+}
 
-  .section-1 > .content > p {
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 22px;
-    margin-top: 20px;
-  }
+.section-1>.content {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  margin-top: 320px;
+  background-color: transparent !important;
+}
 
-  .pc-layout > iframe {
-    position: absolute;
-    right: 250px;
-    width: 420;
-    height: 100vh;
-    border: none;
-    box-shadow:0 4px 20px rgba(0, 0, 0, 0.1);
-  }
+.section-1>.content>h1,
+h3,
+p {
+  font-family: var(--poppins);
+  color: var(--roughBlack2);
+}
 
-  .express-opinion{
-    background-color: red;
-    position: absolute;
-    height: 25%;
-    width: 30%;
-    top: 71%;
-    left: 20%;
-  }
+.section-1>.content>h3:nth-of-type(1) {
+  font-size: 25px;
+  font-weight: 600;
+}
 
+.section-1>.content>h3:nth-of-type(2) {
+  font-size: 35px;
+  font-weight: 400;
+  line-height: 20px;
+  margin-top: 40px;
+}
 
-  .event-slider{
-    background-color: yellow;
-    height: 200px;
-    width: 400px;
-  }
+.section-1>.content>h1 {
+  font-size: 45px;
+  font-weight: 700;
+}
+
+.section-1>.content>p {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 22px;
+  margin-top: 15px;
+}
+
+.pc-layout>iframe {
+  position: absolute;
+  right: 250px;
+  width: 420;
+  top: 0px;
+  height: 100vh;
+  border: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.event-slider {
+  margin-top: 40px;
+  overflow: hidden;
+  position: relative;
+  height: 150px;
+  width: 95%;
+}
+
+.event-slider>div {
+  width: 94%;
+  position: absolute;
+}
+
+.event-slider>div>.event-item-mob {
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.express-opinion {
+  position: absolute;
+  width: 30%;
+  top: 71%;
+  left: 20%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 30px 0px;
+}
+
+.express-opinion > span > h3{
+  font-family: var(--poppins);
+  color: var(--roughBlack2);
+  font-size: 22px;
+  font-weight: 400;
+}
+.express-opinion > span > h3 > span{
+  font-weight: 600;
+}
+
+.qr_code{
+  padding: 10px;
+  border: 1px solid var(--borderColor);
+  border-radius: 5px;
+}
+
+.qr_code > img {
+  height: 100px;
+  width: 100px;
+}
+
+.qr-icons{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.qr-icons > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0px;
+}
+
+.qr-icons > div > img {
+  height: 30px;
+  width: 30px;
+}
+
+.qr-icons > div > h5{
+  font-family: var(--poppins);
+  color: var(--roughBlack2);
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.qr-icons > span {
+  height: 30px;
+  width: 1px;
+  background-color: var(--borderColor);
+}
+
+.qr-icons > div:nth-of-type(2) > img{
+  height: 23px;
+  width: 23px;
+  margin-right: 4px;
+}

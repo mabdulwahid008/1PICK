@@ -6,7 +6,7 @@ function AnnouncementBar() {
     const [current, setCurrent] = useState(0);
     let announcements = [
         {text : "Your opinion will be more valuable than it is now"},
-        // {text : "gjsnnjj"},
+        {text : "Your opinion will be more valuable than it is now"},
     ]
 
     const next = () =>{
@@ -22,9 +22,9 @@ function AnnouncementBar() {
         {announcements.map((slide, index) => {
             if(index === current)
                 return <motion.p 
-                        initial={{marginTop: -10}} 
+                        initial={{marginTop: -20}} 
                         whileInView={{marginTop: 0}} 
-                        transition={{type: 'spring', duration:0.5}}>
+                        transition={{type: 'spring', duration:1}}>
                         {slide.text}
                     </motion.p>
         })}

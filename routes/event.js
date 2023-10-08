@@ -797,28 +797,6 @@ router.patch('/admin/cancel/:id', authorization, onlyAdmin, async(req, res) => {
 //////////////////////////////////////////////////////////////
 /////////////////////////// VERSION 2 ////////////////////////
 
-// top 5 trending events
-router.get('/top-five', async(req, res) => {
-    try {
-        const data = await db.query(`SELECT EVENTS._id, title, e_start, pick, EVENTS.created_on, EVENTS.is_active, image_CID, address AS creator FROM EVENTS 
-                                        INNER JOIN USERS 
-                                            ON EVENTS.creator_id = USERS._id 
-                                                WHERE EVENTS.is_active = 1 ORDER BY EVENTS._id DESC`)
 
-        // number of bets
-        for (let i = 0; i < data.length; i++) {
-            let bet_count = await db.query('SELECT COUNT(*) FROM BETTING WHERE e_id = $1', [data[i]._id])
-            data[i].bet_count = bet_count.rows[0].count
-        }
-
-        data = data.sort((a, b) => b.bet_count - a.bet_count);
-
-        return res.status(200).json(data.slice(4)) // sending top 5
-
-    } catch (error) {
-        console.log(error.message);
-        return res.status(500).json({message: 'Server Error'})
-    }
-})
 
 module.exports = router
