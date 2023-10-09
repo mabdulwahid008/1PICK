@@ -386,4 +386,108 @@
         text-align: center;
         margin: 0px 40px;
     }
+
+    .comment-field{
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        width: 100%;
+    }
+    .comment-field > input{
+        width: 85%; 
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border: 1px solid var(--borderColor);
+        padding: 8px 10px;
+        color: #828282;
+        font-size: 13.764px;
+        outline: none;
+        font-family: var(--inter);
+    }
+
+    .comment-field > button {
+        width: 15%;
+        background-color: var(--grey);
+        padding: 9px 10px 8px;
+        border: 1px solid var(--borderColor);
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border-left: none;
+    }
+    .comment-field > button > img {
+        height: 10px;
+        width: 15px;
+    }
+
+    .comments{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border: none !important;
+        background-color: transparent !important;
+        width: 100% !important;
+    }
+
+    .comment{
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        background-color: transparent !important;
+        width: 100% !important;
+        border: none !important;
+    }
+
+    .sub-comment > a,
+    .comment > a {
+        color: var(--roughBlack) !important;
+        font-size: 12px !important;
+        display: flex;
+        gap: 5px;
+    }
+
+    .sub-comment > p,
+    .comment > p {
+        font-family: var(--poppins);
+        font-size: 14px;
+        color: var(--roughBlack);
+    }
+
+    .comment > div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .comment > div > div {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .comment > div > p,
+    .comment > div > div > p{
+        font-family: var(--inter);
+        color: #828282;
+        font-size: 12px;
+    }
+    .comment > div > div > img {
+        height: 15px;
+        width: 15px;
+        cursor: pointer;
+    }
+    .comment:nth-of-type(1){
+        margin-top: 10px;
+    }
+
+    .sub-comment{
+        display: flex;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        width: 70%;
+        gap: 5px;
+        align-self: flex-end;
+    }
+
 }
