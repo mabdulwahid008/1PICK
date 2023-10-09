@@ -85,15 +85,15 @@ const CategoryCarosul = () => {
   };
 
   const handleBtns = () => {
-    if(carouselData.length > 0)
-    setTimeout(() => {
-      let box = document.getElementById('carousel-items');
-      let prevButton = document.getElementById('prev');
-      let nextButton = document.getElementById('next');
+    // if(carouselData.length > 0)
+    // setTimeout(() => {
+    //   let box = document.getElementById('carousel-items');
+    //   let prevButton = document.getElementById('prev');
+    //   let nextButton = document.getElementById('next');
   
-      prevButton.style.display = box.scrollLeft === 0 ? 'none' : 'block';
-      nextButton.style.display = box.scrollLeft + box.offsetWidth >= box.scrollWidth ? 'none' : 'block';
-    }, 500);
+    //   prevButton.style.display = box.scrollLeft === 0 ? 'none' : 'block';
+    //   nextButton.style.display = box.scrollLeft + box.offsetWidth >= box.scrollWidth ? 'none' : 'block';
+    // }, 500);
   }
 
   const onChangeFilter = (option) => {

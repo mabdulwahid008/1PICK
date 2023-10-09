@@ -5,12 +5,15 @@ import { Context } from '../../state/Provider'
 import { toast } from 'react-toastify'
 import Bet from '../../components/bet/Bet'
 import { IoIosArrowUp } from 'react-icons/io'
-import { AiOutlineStar } from 'react-icons/ai'
-import { GoShare } from 'react-icons/go'
+import { BsLink45Deg } from 'react-icons/bs'
+import { AiOutlineTwitter } from 'react-icons/ai'
 import { minifyAddress, minifyAddress2 } from '../../utills'
 import Graph from '../../components/graph/Graph'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { addHours, format } from 'date-fns';
+import Bet2 from '../../components/bet2/Bet2'
+import Blockies from 'react-blockies';
+import Loader from '../../components/loader/Loader'
 
 
 function EventDetail2() {
@@ -24,6 +27,7 @@ function EventDetail2() {
     const [activity, setActivity] = useState(true)
     const [description, setDescription] = useState(true)
     const [details, setDetails] = useState(true)
+    const [comments, setComments] = useState(true)
     const [stats, setStats] = useState(true)
     const [share, setShare] = useState(false)
     
@@ -123,31 +127,56 @@ function EventDetail2() {
     useEffect(()=>{
         getEvent()
     }, [id, refresh])
-
-  return (
-    <>
+    
+    return (
+        <>
     {event?.length === 0 && <div className='event-not-found'>
         <h2>OOPS!</h2>
         <p>The event has been temporarily suspended due to a failure or has been canceled by rules.</p>
     </div>} 
 
+    {!event && <Loader />}
+
     {event && event?.length !== 0 && <div className='event-page-2'>
+        <Bet2 event_id={event._id} no_bet_percentage={event.no_bet_percentage} yes_bet_percentage={event.yes_bet_percentage} pick={event.pick} d_date={event.e_start.substr(0, 10)} p_date={event.e_end.substr(0,10)}/>
       <div className='event-page-left'>
+            <h2>{event.title}</h2>
+            <p>
+                Created by:
+                <a href={`//etherscan.io/address/${event?.creator}`} target='_blank' rel='noopener noreferrer'>
+                        <Blockies
+                        seed={event.creator} 
+                        size={5} 
+                        scale={3} 
+                        color="#FF385C"
+                        bgColor="#00B66D" 
+                    />
+                    {minifyAddress(event?.creator)}</a>
+            </p>
             <div className='event2-metadata'>
-                {/* <img src={`https://ipfs.io/ipfs/${event?.image_cid}`} alt='event'/> */}
-                <img src={`${process.env.REACT_APP_URL}/${event.image_cid}`} alt='event'/>
                 <div>
-                    <a href={`//etherscan.io/address/${event?.creator}`} target='_blank' rel='noopener noreferrer'>{minifyAddress(event?.creator)}</a>
                     <div>
-                        <AiOutlineStar onClick={addToMyFavourite}/>
-                        <GoShare onClick={()=>setShare(prev => !prev)}/>
+                        <img src={require('../../assets/eye.png')} />
+                        <p>26 Views</p>
+                    </div>
+                    <div>
+                        <img src={require('../../assets/favorite.png')} onClick={addToMyFavourite}/>
+                        <img src={require('../../assets/share2.png')} onClick={()=>setShare(prev => !prev)}/>
+                        {/* <AiOutlineStar onClick={addToMyFavourite}/>
+                        <GoShare onClick={()=>setShare(prev => !prev)}/> */}
                         {share && <div className='e2-share' onClick={()=>setShare(false)}>
-                            <p onClick={copyLink}>Copy Link</p>
-                            <p onClick={shareOnTwitter}>Share on Twiter</p>
+                            <div onClick={copyLink}>
+                                <BsLink45Deg />
+                                <p>Copy Link</p>
+                            </div>
+                            <div onClick={shareOnTwitter}>
+                                <AiOutlineTwitter />
+                                <p>Share on Twiter</p>
+                            </div>
                         </div>}
                     </div>
                 </div>
-                <h2>{event.title}</h2>
+                <img src={`${process.env.REACT_APP_URL}/${event.image_cid}`} alt='event'/>
             </div> 
 
             <div className='event2-box'>
@@ -172,9 +201,9 @@ function EventDetail2() {
             </div>
 
 
-            <div className='bet'>
+            {/* <div className='bet'>
                 <Bet event_id={event._id} no_bet_percentage={event.no_bet_percentage} yes_bet_percentage={event.yes_bet_percentage} pick={event.pick}/>
-            </div>
+            </div> */}
             
             <div className='event2-box'>
                 <div className='event2-box-head' onClick={()=>setStats(prev => !prev)}>
@@ -226,6 +255,31 @@ function EventDetail2() {
                     <IoIosArrowUp style={{transform: details? 'rotate(0deg)' : 'rotate(180deg)'}}/>
                 </div>
                 {details && <div className='timeline details-box'>
+                    <div>
+                        <p>IPFS Address</p>
+                        <a href={`////ipfs.io/ipfs/${event?.content_cid}`} target='_blank' rel='noopener noreferrer'>{minifyAddress(event?.content_cid)} <FiArrowUpRight /></a>
+                    </div>
+                    <div>
+                        <p>Event ID</p>
+                        <a>{id}</a>
+                    </div>
+                    <div>
+                        <p>Resolution URL</p>
+                        <a href={`//${event?.resolution_url.replace('https://', '')}`} target='_blank' rel='noopener noreferrer'>{minifyAddress(event?.resolution_url)} <FiArrowUpRight/></a>
+                    </div>
+                    <div>
+                        <p>Creator</p>
+                        <a href={`//etherscan.io/address/${event?.creator}`} target='_blank' rel='noopener noreferrer'>{minifyAddress(event?.creator)} <FiArrowUpRight/></a>
+                    </div>
+                </div>}
+            </div>
+
+            <div className='event2-box'>
+                <div className='event2-box-head' onClick={()=>setComments(prev => !prev)}>
+                    <h2>Comments</h2>
+                    <IoIosArrowUp style={{transform: comments? 'rotate(0deg)' : 'rotate(180deg)'}}/>
+                </div>
+                {comments && <div className='timeline details-box'>
                     <div>
                         <p>IPFS Address</p>
                         <a href={`////ipfs.io/ipfs/${event?.content_cid}`} target='_blank' rel='noopener noreferrer'>{minifyAddress(event?.content_cid)} <FiArrowUpRight /></a>

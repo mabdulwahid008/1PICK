@@ -1,0 +1,107 @@
+.bet-2-wrapper{
+    position: fixed;
+    bottom: -100px;
+    background-color: var(--white);
+    height: auto;
+    width: 100%;
+    z-index: 99;
+    animation: slideIn 1s forwards;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slideIn {
+    from {
+      bottom: -200px;
+    }
+    to {
+      bottom: 0;
+    }
+  }
+
+
+.bet-2{
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bet-2 > div > h2 {
+    font-family: var(--poppins);
+    color: var(--roughBlack);
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 600;
+}
+
+.bet-2 > div > p {
+    font-family: var(--poppins);
+    color: var(--roughBlack);
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 400;
+}
+
+.bet-2 > span {
+    width: 100%;
+    height: 2px;
+    background-color: var(--borderColor);
+}
+
+.bet-2 > div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.place-bet > .input-div{
+    width: 50%;
+}
+
+.place-bet > button{
+    width: 25%;
+    padding: 7px 0px;
+    border-radius: 4.9px;
+    outline: none;
+    border: none;
+    background-color: var(--green);
+    color: var(--white);
+    font-size: 10.764px;
+    font-family: var(--inter);
+    font-weight: 600;
+    cursor: pointer;
+    line-height: 12px;
+}
+
+.place-bet > button:nth-of-type(2){
+    background-color: var(--red);
+}
+
+.bet-2 > .potential{
+    margin-top: 0px;
+}
+
+.bet-2 > .cancel-bet > div {
+    width: 40%;
+}
+
+.bet-2 > .cancel-bet > button{
+    width: 50%;
+    padding: 13px 0px;
+    font-size: 12.764px;
+    line-height: 12px;
+}
+.bet-2 > .cancel-bet ~ p {
+    font-family: var(--poppins);
+    color: var(--roughBlack);
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 400;
+}
+
+
+.event-page-left > .bet{
+    display: none;
+}
