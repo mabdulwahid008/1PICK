@@ -19,18 +19,18 @@
     line-height: 17.015px;
 }
 .admin-stats > div {
-    padding: 35px 0px 0px 0px;
+    /* padding: 35px 0px 0px 0px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 16px;
-    width: 100%;
+    width: 100%; */
 }
 .stats-card{
     /* flex: 1; */
     width: 25%;
     border: 1px solid var(--borderColor);
-    padding: 12.21px;
+    padding: 12.21px 0px;
     background-color: var(--white);
     border-radius: 8px;
     display: flex;
@@ -97,8 +97,12 @@
 
 
 @media screen and (max-width:768px) {
-    .admin-stats > div{
-        background-color: red;
+    .admin-stats > div > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        gap: 10px;
+        margin-bottom: 15px;
     }
     .admin-stats > h1,
     .admin-stats > p {
@@ -109,15 +113,16 @@
         padding: 80px 20px 30px;
     }
     .admin-stats > div{
-        padding: 0px;
+        /* padding: 0px;
         flex-wrap: wrap;
         gap: 12px;
         justify-content: center;
-        align-items: stretch;
+        align-items: stretch; */
     }
     .stats-card{
-        /* width: 41.5%; */
-        width: 122px !important;
+        min-width: 48%;
+        max-width: 48%;
+        /* width: 122px !important; */
         height: 113px;
     }
 
@@ -125,7 +130,8 @@
         font-size: 10.179px;
     }
     .stats-card > h3 {
-        font-size: 23px;
+        font-size: 20px;
+        white-space: pre;
     }
     .stats-card > span > svg,
     .admin-stats > svg {

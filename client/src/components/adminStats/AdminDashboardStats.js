@@ -41,26 +41,30 @@ function AdminDashboardStats() {
       <h1>Checkout Overview</h1>
       <p>Your wallet is entirely non-custodial and only you have access to the key</p>
       <div>
+          <div>
             <div className='stats-card'>
-                <AiOutlineEye />
+                <AiOutlineEye /> 
                 <p>Site Visitor</p>
-                <h3>{stats?.vistors? stats?.vistors.toLocaleString(): 0}</h3>
+                <h3>{stats?.vistors? parseInt(stats?.vistors).toLocaleString(): 0}</h3>
             </div>
             <div className='stats-card'>
                 <LuUsers />
                 <p>Members</p>
-                <h3>{stats?.total_users? stats?.total_users.toLocaleString() : 0}</h3>
+                <h3>{stats?.total_users? parseInt(stats?.total_users).toLocaleString() : 0}</h3>
             </div>
+          </div>
+          <div>
             <div className='stats-card'>
                 <span><BsGraphUpArrow /></span>
                 <p>Bet Amount</p>
-                <h3>{stats?.bet_amount? stats?.bet_amount.toLocaleString(): 0}</h3>
+                <h3>{stats?.bet_amount? parseInt(stats?.bet_amount).toLocaleString(): 0}</h3>
             </div>
             <div className='stats-card'>
                 <span><FaWallet /></span>
                 <p>User Amount</p>
-                <h3>{stats?.user_amount? stats?.user_amount.toLocaleString() : 0}</h3>
+                <h3>{stats?.user_amount? parseInt(stats?.user_amount).toLocaleString() : 0}</h3>
             </div>
+          </div>
       </div>
     </div>
   )
