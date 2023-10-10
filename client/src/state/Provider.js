@@ -108,7 +108,7 @@ function Provider(props) {
         setPickBalance(utils.formatEther(balanace))
       } catch (error) {
         console.error(error);
-      }
+      } 
     }
 
     const fetchEvents = async() => {

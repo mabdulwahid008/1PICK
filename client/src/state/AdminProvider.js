@@ -1,9 +1,10 @@
 import React, { createContext, useEffect, useState } from 'react'
 import Web3Modal from 'web3modal'
 import { Contract, providers, utils } from 'ethers'
-import { verifyToken } from '../utills/apiRequest'
+import { getEventsAPI, verifyToken } from '../utills/apiRequest'
 import { PICK_TOKEN_CONTRACT_ABI, PICK_TOKEN_CONTRACT_ADDRESS } from '../constants'
 import { useAddress, useContract } from '@thirdweb-dev/react'
+import { toast } from 'react-toastify'
 
 
 export const AdminContext = createContext()
@@ -15,6 +16,7 @@ function AdminProvider(props) {
     const [signer, setSigner] = useState(null)
     const [balance, setBalance] = useState(null)
     const [betAmount, setBetAmount] = useState(null)
+    const [events, setEvents] = useState(null)
 
     
     const [pickBalance, setPickBalance] = useState(0)
@@ -62,6 +64,15 @@ function AdminProvider(props) {
       }
     }, [walletAddress])
 
+    const fetchEvents = async() => {
+      const { response, res } = await getEventsAPI(1, 0, 0, '1,2,3')
+      if(response.status === 200){
+        setEvents(res.events)
+      }
+      else
+        toast.error(res.message)
+    }
+
     useEffect(()=>{
       const token = sessionStorage.getItem('token')
         if(token)
@@ -69,12 +80,14 @@ function AdminProvider(props) {
         if(walletAddress){
           getPickBalance()
         }
+        fetchEvents()
     }, [refresh, address])
 
 
     const contextValues = {
         loading,
         address,
+        events,
         setAddress,
         betAmount,
         balance,

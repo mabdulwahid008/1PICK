@@ -97,6 +97,9 @@
 
 
 @media screen and (max-width:768px) {
+    .admin-stats > div{
+        background-color: red;
+    }
     .admin-stats > h1,
     .admin-stats > p {
         display: none;
@@ -113,6 +116,7 @@
         align-items: stretch;
     }
     .stats-card{
+        /* width: 41.5%; */
         width: 122px !important;
         height: 113px;
     }

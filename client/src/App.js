@@ -14,12 +14,15 @@ function App() {
     return (
       <>
         <AdminProvider>
-          {sessionStorage.getItem('adminLogedIn') ?
-            <AdminLayout />
-            :
-            <AdminLogin />
-          }
-          <ToastContainer position="top-center" autoClose={5000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable={false} pauseOnHover theme="light" />
+          <div className="mobile-layout">
+              {sessionStorage.getItem('adminLogedIn') ?
+                <AdminLayout />
+                :
+                <AdminLogin />
+              }
+              <ToastContainer position="top-center" autoClose={5000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable={false} pauseOnHover theme="light" />
+          </div>
+          <PcLayout url="http://localhost:3000/admin" />
         </AdminProvider>
       </>
     )

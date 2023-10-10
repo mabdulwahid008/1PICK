@@ -7,30 +7,29 @@ import { Context } from '../../state/Provider'
 
 function EventItem({eventSytle, event}) {
 
-    const { setAddress } = useContext(Context)
+    // const { setAddress } = useContext(Context)
 
-    console.log(event);
 
-    const addToMyFavourite = async(event_id) => {
-        const response = await fetch('/event/favourite', {
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'Application/json',
-                token: sessionStorage.getItem('token')
-            },
-            body: JSON.stringify({event_id})
-        })
-        const res  = await response.json()
-        if(response.status === 200){
-            toast.success(res.message)
-        }
-        else if(response.status === 401){
-            setAddress(null)
-            toast.error("You need to sign in.")
-        }
-        else
-            toast.error(res.message)
-    }
+    // const addToMyFavourite = async(event_id) => {
+    //     const response = await fetch('/event/favourite', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type' : 'Application/json',
+    //             token: sessionStorage.getItem('token')
+    //         },
+    //         body: JSON.stringify({event_id})
+    //     })
+    //     const res  = await response.json()
+    //     if(response.status === 200){
+    //         toast.success(res.message)
+    //     }
+    //     else if(response.status === 401){
+    //         setAddress(null)
+    //         toast.error("You need to sign in.")
+    //     }
+    //     else
+    //         toast.error(res.message)
+    // }
 
   return (
     <>

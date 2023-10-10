@@ -3,9 +3,10 @@ import './PcLayout.css'
 import EventItem from '../../components/eventItem/EventItem'
 import { Context } from '../../state/Provider'
 import { AnimatePresence, motion } from 'framer-motion'
+import { AdminContext } from '../../state/AdminProvider'
 
 function PcLayout({ url }) {
-    const { events } = useContext(Context)
+    const { events } = useContext(window.location.pathname.startsWith('/admin') ? AdminContext : Context)
     const [current, setCurrent] = useState(0)
 
     const trending_5_events = events?.slice(0, 5)
