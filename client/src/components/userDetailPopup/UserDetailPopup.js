@@ -136,7 +136,7 @@ function UserDetailPopup() {
             <div className='user-detail'>
                     <div>
                         <p>User Address</p>
-                        <p>{minifyAddress2(user?.address)}</p>
+                        <p>{(user?.address)}</p>
                     </div>
                     <div>
                         <p>Participated Events</p>
@@ -169,6 +169,10 @@ function UserDetailPopup() {
                     <div>
                         <p>Deposit Amount</p>
                         <p>{user.deposited_amount}P</p>
+                    </div>
+                    <div>
+                        <p>Signup Date</p>
+                        <p>{user.created_on.substr(0, 10)}</p>
                     </div>
             </div>
 

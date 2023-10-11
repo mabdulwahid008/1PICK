@@ -10,6 +10,8 @@ import AdminMembers from '../../views/adminMembers/AdminMembers'
 import UserDetailPopup from '../../components/userDetailPopup/UserDetailPopup'
 import CategoryPage from '../../views/categoryPage/CategoryPage'
 import NumbersSet from '../../components/numbersSet/NumbersSet'
+import AdminDashboardStats from '../../components/adminStats/AdminDashboardStats'
+import AdminGraph from '../../components/adminGraph/AdminGraph'
 
 
 function AdminLayout() {
@@ -25,11 +27,19 @@ function AdminLayout() {
         <div className='admin-content'>
           <AdminNavbar />
           <div onClick={()=>{setSearchbox(false); setmobOpenSideBar(false)}}>
-            <Routes>
+            {/* <Routes>
               <Route path='/admin' element={<Navigate to='/admin/dashboard' />} />
               <Route path='/admin/dashboard' element={<AdminDashboard />} />
               <Route path='/admin/members' element={<AdminMembers/>} />
               <Route path='/admin/category' element={<CategoryPage/>} />
+              <Route path='*' element={<Navigate to='/admin' />}/>
+            </Routes> */}
+            <Routes>
+              <Route path='/admin' element={<Navigate to='/admin/dashboard' />} />
+              <Route path='/admin/dashboard' element={<AdminDashboardStats />} />
+              <Route path='/admin/members' element={<AdminMembers/>} />
+              <Route path='/admin/category' element={<CategoryPage/>} />
+              <Route path='/admin/traffic' element={<AdminGraph/>} />
               <Route path='*' element={<Navigate to='/admin' />}/>
             </Routes>
           </div>

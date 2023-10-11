@@ -15,9 +15,14 @@
     font-family: var(--poppins);
     font-size: 15.255px;
     font-style: normal;
-    font-weight: 500;
+    /* font-weight: 500; */
     line-height: normal;
     text-align: left;
+}
+.users-table > table > thead > tr > th{
+  color: var(--roughBlack) !important;
+  font-family: 600 !important;
+  font-size: 16px;
 }
 .users-table > table > thead > tr > th:nth-last-of-type(1),
 .users-table > table > tbody > tr > td:nth-last-of-type(1){
@@ -25,7 +30,6 @@
 }
 .users-table > table {
     border-collapse: collapse;
-    /* border-spacing: 0; */
     width: 100%;
     padding: 0px 15px 20px;
 }
@@ -34,19 +38,17 @@
 }
 .users-table > table > thead > tr,
 .users-table > table > tbody > tr{
-    padding: 15px 20px;
+    padding: 15px 5px;
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+    gap: 10px;
 }
 
 .users-table > table > tbody > tr > td {
     color: #8f8e8e;
 }
 
-.users-table > table > tbody > tr > td:nth-of-type(5){
-  color: var(--red);
-  font-weight: 600;
+.users-table > table > tbody > tr > td{
 }
 .users-table > table > tbody > tr > td:nth-of-type(6){
   color: var(--green);
@@ -57,11 +59,12 @@
     transition: .5s ease;
 }
 
+.users-table > table > thead > tr > th,
 .users-table > table > tbody > tr > td{
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
 .users-table > table > tbody > tr > td > span {
@@ -69,13 +72,13 @@
    width: 5px;
    border-radius: 50%;
 }
-.users-table > table > tbody > tr > td > img {
-  height: 20px;
+.users-table > table > thead > tr > th > img {
+  height: 18px;
+  cursor: pointer;
 }
 .users-table > table > tbody > tr > td > svg {
   font-size: 25px;
   cursor: pointer;
-  padding: 5px;
 }
 .users-table > table > tbody > tr:hover{
     box-shadow: 0px 15px 22px 0px rgba(0, 0, 0, 0.08);
@@ -204,17 +207,58 @@
       min-width: 20px;
       max-width: 20px;
     }
+    .users-table > table > thead > tr > th:nth-of-type(2), 
+    .users-table > table > tbody > tr > td:nth-of-type(2){
+      min-width: 100px;
+      max-width: 100px;
+    }
     .users-table > table > thead > tr > th:nth-of-type(3), 
     .users-table > table > tbody > tr > td:nth-of-type(3){
-      min-width: 150px;
-      max-width: 150px;
+      min-width: 80px;
+      max-width: 80px;
+    }
+    .users-table > table > thead > tr > th:nth-of-type(4), 
+    .users-table > table > tbody > tr > td:nth-of-type(4){
+      min-width: 80px;
+      max-width: 80px;
     }
     .users-table > table > thead > tr > th:nth-last-of-type(1), 
     .users-table > table > tbody > tr > td:nth-last-of-type(1){
-      min-width: 50px;
-      max-width: 50px;
+      min-width: 80px;
+      max-width: 80px;
     }
     .users-table > table > tbody > tr > td > svg {
       font-size: 16px;
+    }
+
+    .search-user {
+      float: right;
+      display: flex;
+      justify-content: flex-end;
+      align-items: stretch;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .search-user > input {
+        border-radius: 5px;
+        border: 1px solid var(--borderColor);
+        padding: 9px 10px;
+        color: #828282;
+        font-size: 10.764px;
+        outline: none;
+        font-family: var(--inter);
+    }
+
+    .search-user > button {
+        background-color: var(--grey);
+        padding: 5px 10px 0px;
+        border: 1px solid var(--borderColor);
+        border-radius: 5px;
+        border-left: none;
+    }
+    .search-user > button > img {
+      height: 20px;
+      width: 20px;
     }
   }

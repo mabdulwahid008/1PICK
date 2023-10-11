@@ -65,28 +65,28 @@ function AdminNavbar() {
     setSearchBoxText('Result')
   } 
  
-  const notification = async() => {
-    const response = await fetch(`/stats/notification`,{
-      method: 'GET',
-      headers:{
-        'Content-Type': 'Application/json'
-      }
-    })
+  // const notification = async() => {
+  //   const response = await fetch(`/stats/notification`,{
+  //     method: 'GET',
+  //     headers:{
+  //       'Content-Type': 'Application/json'
+  //     }
+  //   })
 
-    const res = await response.json()
-    if(response.status === 200){
-      setNotificationItem(res.events)
-      setNotificationCount(res.need_approval)
-    }
-    else{
-      toast.error(res.message);
-    }
-  }
+  //   const res = await response.json()
+  //   if(response.status === 200){
+  //     setNotificationItem(res.events)
+  //     setNotificationCount(res.need_approval)
+  //   }
+  //   else{
+  //     toast.error(res.message);
+  //   }
+  // }
 
   useEffect(()=> {
     gettrendingEvents()
 
-    setInterval(()=>notification(), 1000)
+    // setInterval(()=>notification(), 1000)
 
   }, [])
 
@@ -155,21 +155,18 @@ function AdminNavbar() {
     {/* Navbar Mobile */}
     <div className='navabr-wrapper'>
     <div className='navbar-mobile'>
-        {/* <div>  */}
-            <img src={require('../../assets/Vector.png')} alt='toggle'  onClick={()=>setmobOpenSideBar(true)}/>
+            {/* <img src={require('../../assets/Vector.png')} alt='toggle'  onClick={()=>setmobOpenSideBar(true)}/>
             <div className='sidebar-mob' style={{left: mobOpenSideBar? '0px': '-300px'}}>
                 <MobSidebarHeader />
                 <AdminSideBar />
-            </div>
-        {/* </div> */}
+            </div> */}
 
-        <Link to='/admin/dashboard/#overview' className='logo'>
+        {/* <Link to='/admin/dashboard/#overview' className='logo'>
             <img src={require('../../assets/1pick_logo 1.png')} alt='logo'/>
             <h1>1PICK<span>AI</span></h1> 
-        </Link>
+        </Link> */}
 
-        {/* <div> */}
-          <img src={require('../../assets/search_grey.png')} alt='seaarch' onClick={()=>setMobSearchBox(true)}/>
+          {/* <img src={require('../../assets/search_grey.png')} alt='seaarch' onClick={()=>setMobSearchBox(true)}/>
           <div className='search-mob'  style={{top: mobSearchBox? '-10px': '-2010px'}}>
             <div>
                   <div className='search-bar' onSubmit={(e)=>e.preventDefault()}>
@@ -190,8 +187,13 @@ function AdminNavbar() {
                     </div>
                 </div>
 
-            {/* </div> */}
-        </div>
+        </div> */}
+
+        <Link to='/admin/dashboard'> <img src={require('../../assets/overview.png')}/></Link>
+        <Link to='/admin/traffic'> <img src={require('../../assets/monitoring.png')}/></Link>
+        <Link to='/admin/members'> <img src={require('../../assets/person.png')}/></Link>
+        <Link to='/admin/events'> <img src={require('../../assets/event_list.png')}/></Link>
+        <Link to='/admin/category'> <img src={require('../../assets/category.png')}/></Link>
       </div>
       </div>
     </>

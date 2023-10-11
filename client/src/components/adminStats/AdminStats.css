@@ -67,6 +67,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--green);
+}
+.stats-card:nth-of-type(1) > span{
+    background-color: var(--red) !important;
 }
 .stats-card > span > svg {
     font-size: 22px;

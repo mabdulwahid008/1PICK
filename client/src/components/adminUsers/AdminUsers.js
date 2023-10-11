@@ -5,16 +5,25 @@ import { minifyAddress } from '../../utills'
 import { BsThreeDots } from 'react-icons/bs'
 import { PiCopy } from 'react-icons/pi'
 import { AdminContext } from '../../state/AdminProvider'
+import { BiLinkExternal } from 'react-icons/bi'
 
 function AdminUsers() {
     const { setUserPopup, refresh } = useContext(AdminContext)
     const [users, setUsers] = useState(null)
 
+    const [filteredUsers, setFilteredUsers] = useState(0)
+    let [searchAddress, setSearchAddress] = useState('x')
+
     const fetchUsers = async() => {
-        const response = await fetch('/user/lisiting',{
+        if(searchAddress.length !== 42){
+            return
+        }
+        
+        setUsers(null)
+        const response = await fetch(`/user/lisiting/${filteredUsers}/${searchAddress}`,{
             method:'GET',
             headers: {
-                'Content-Type': 'Application/json',
+                'Content-Type': 'Application/json', 
                 token: sessionStorage.getItem('token')
             }
         })
@@ -30,23 +39,26 @@ function AdminUsers() {
         else
             toast.error(res.message)
     }
+    
 
     useEffect(()=>{
         fetchUsers()
-    }, [refresh])
+    }, [refresh, filteredUsers, searchAddress])
   return (
     <div className='user-table-wrapper'>
+        <div className='search-user'>
+            <input type='text'placeholder='Search user' onChange={(e) => setSearchAddress(e.target.value)}/>
+            <button><img src={require('../../assets/download.png')}/></button>
+        </div> 
     <div className='users-table'>
         <table>
             <thead>
                 <tr>
-                    <th style={{width:'2%'}}>#</th>
-                    <th style={{width:'15%'}}>User Address</th>
-                    <th style={{width:'15%'}}>Signup Date</th>
-                    <th style={{width:'15%'}}>Active</th>
-                    <th style={{width:'10%'}}>Bet Amount</th>
-                    <th style={{width:'10%'}}>Cash</th>
-                    <th style={{width:'5%'}}>View</th>
+                    <th >#</th>
+                    <th >Address</th>
+                    <th >Bet <img src={require('../../assets/sort.png')} onClick={()=>{setFilteredUsers(1)}}/></th>
+                    <th >Funds <img src={require('../../assets/sort.png')} onClick={()=>{setFilteredUsers(2)}}/></th>
+                    <th >Score <img src={require('../../assets/sort.png')} onClick={()=>{setFilteredUsers(3)}}/></th>
                 </tr>
             </thead>
             <tbody>
@@ -54,15 +66,11 @@ function AdminUsers() {
                 {users?.length === 0 && <p>No User yet.</p>}
                 {users?.length !== 0 && users?.map((user, index) => {
                     return <tr key={index}>
-                            <td style={{width:'2%'}}>{index+1}</td>
-                            <td style={{width:'15%'}}>{minifyAddress(user.address)} <img src={require('../../assets/copy.png')} onClick={()=>{navigator.clipboard.writeText(user.address); toast.success('Address copied.')}}/></td>
-                            <td style={{width:'15%'}}>{user.created_on.substr(0,16).replace('T', ' ')}</td>
-                            <td style={{width:'15%'}}><span style={{backgroundColor: `${user.is_active == 1 ? '#00B66D' : '#FF385C' }`}}></span>{user.is_active == 1 ? 'Active' : 'Deactive'}</td>
-                            <td style={{width:'10%'}}>{user.bet_amount}P</td>
-                            <td style={{width:'10%'}}>{user.balance}P</td>
-                            <td style={{width:'5%'}}>
-                                <BsThreeDots onClick={()=>setUserPopup(user._id)}/>
-                            </td>
+                            <td >{index+1}</td>
+                            <td >{minifyAddress(user.address)} <BiLinkExternal onClick={()=>{setUserPopup(user._id)}}/></td>
+                            <td >{user.bet_amount}P</td>
+                            <td>{user.balance}P</td>
+                            <td>{"Score"}</td>
                         </tr>
                 })}
             </tbody>

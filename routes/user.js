@@ -224,10 +224,24 @@ router.patch('/transfer-balance', authorization, onlyAdmin, async(req, res) => {
 })
 
 // admin to get all users 
-router.get('/lisiting', authorization, onlyAdmin, async(req, res) => {
+router.get('/lisiting/:filter/:searchAddress', authorization, onlyAdmin, async(req, res) => {
     try {
-        const users = await db.query('SELECT _id, address, created_on, bet_amount, balance, is_active FROM USERS WHERE _id != $1 ORDER BY created_on DESC', [req.user_id])
-        return res.status(200).json(users.rows)
+
+        if(req.params.searchAddress !== 'x' && req.params.searchAddress.length > 3){
+            const users = await db.query('SELECT _id, address, created_on, bet_amount, balance, is_active FROM USERS WHERE address = $1', [req.params.searchAddress])
+            return res.status(200).json(users.rows)
+        }
+        else{
+            const users = await db.query('SELECT _id, address, created_on, bet_amount, balance, is_active FROM USERS WHERE _id != $1 ORDER BY created_on DESC', [req.user_id])
+            if(req.params.filter == 0)
+                return res.status(200).json(users.rows)
+            else if(req.params.filter == 1) // sort by bet ammount
+                return res.status(200).json(users.rows.sort((a, b) => b.bet_amount - a.bet_amount))
+            else if(req.params.filter == 2) // sort by balance
+                return res.status(200).json(users.rows.sort((a, b) => b.balance - a.balance))
+            else if(req.params.filter == 3) // // sort by scores
+                return res.status(200).json(users.rows)
+        }
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({message: error.message})

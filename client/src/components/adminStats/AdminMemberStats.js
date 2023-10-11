@@ -40,26 +40,30 @@ function AdminMemberStats() {
       <h1>Members Overview</h1>
       <p>Your wallet is entirely non-custodial and only you have access to the key</p>
       <div>
-            <div className='stats-card'>
-                <TbUsersPlus />
-                <p>Registered Today</p>
-                <h3>{stats?.new_registered? stats?.new_registered.toLocaleString(): 0}</h3>
-            </div>
-            <div className='stats-card'>
-                <LuUsers />
-                <p>Total Members</p>
-                <h3>{stats?.total_users? stats?.total_users.toLocaleString() : 0}</h3>
-            </div>
-            <div className='stats-card'>
-                <TbUserShield />
-                <p>Active Members</p>
-                <h3>{stats?.active_users? stats?.active_users.toLocaleString(): 0}</h3>
-            </div>
-            <div className='stats-card'>
-                <RiUserStarLine />
-                <p>Event Creators</p>
-                <h3>{stats?.creators? stats?.creators.toLocaleString() : 0}</h3>
-            </div>
+          <div>
+              <div className='stats-card'>
+                  <TbUsersPlus />
+                  <p>Registered Today</p>
+                  <h3>{stats?.new_registered? stats?.new_registered.toLocaleString(): 0}</h3>
+              </div>
+              <div className='stats-card'>
+                  <LuUsers />
+                  <p>Total Members</p>
+                  <h3>{stats?.total_users? stats?.total_users.toLocaleString() : 0}</h3>
+              </div>
+          </div>
+          <div>
+              <div className='stats-card'>
+                  <TbUserShield />
+                  <p>Active Members</p>
+                  <h3>{stats?.active_users? stats?.active_users.toLocaleString(): 0}</h3>
+              </div>
+              <div className='stats-card'>
+                  <RiUserStarLine />
+                  <p>Event Creators</p>
+                  <h3>{stats?.creators? stats?.creators.toLocaleString() : 0}</h3>
+              </div>
+          </div>
       </div>
     </div>
   )

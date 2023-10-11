@@ -11,7 +11,7 @@ function AdminMembers() {
 
   return (
     <div className='admin-members'>
-        <AdminMemberStats />
+        {/* <AdminMemberStats /> */}
         <div className='admin-stats' id='admin-stats'>
             <h1>Member Details</h1>
             <p>Your wallet is entirely non-custodial and only you have access to the key</p>

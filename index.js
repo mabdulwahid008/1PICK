@@ -17,7 +17,7 @@ db.connect((err)=>{
         console.log('Connected to DB');
 })
 
-app.use(express.static(path.join(__dirname, "client/build")))
+// app.use(express.static(path.join(__dirname, "client/build")))
 app.use('/images',express.static('images'))
 
 app.use('/user', require('./routes/user'))
@@ -25,9 +25,9 @@ app.use('/category', require('./routes/categories'))
 app.use('/event', require('./routes/event'))
 app.use('/stats', require('./routes/stats'))
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build", 'index.html'));
-});
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, "client/build", 'index.html'));
+// });
 
 
 app.listen(5000, ()=>{
