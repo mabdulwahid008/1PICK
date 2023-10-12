@@ -141,7 +141,7 @@ function CreateEvent() {
         setLoading(false)
     }
 
-    let setDDate = setTimeout(()=>{
+    setTimeout(()=>{
         if(!address)
             return
         const date = new Date()
@@ -161,7 +161,6 @@ function CreateEvent() {
     
     useEffect(()=>{
         if(!address){
-            clearTimeout(setDDate)
             navigate('/')
         }
         getCategoryOptions()

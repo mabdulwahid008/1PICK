@@ -21,6 +21,8 @@ client/build
 .env.prod
 .env
 
+images/
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
