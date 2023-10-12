@@ -171,7 +171,7 @@ function Navbar() {
             {address && walletAddress ? 
               <>
               <Link to='/create-event'><img src={require('../../assets/add_box.png')} /></Link>
-              <Link to='/portfolio'><PiSuitcaseSimpleDuotone /></Link>
+              <Link to={`/portfolio/${address}`}><PiSuitcaseSimpleDuotone /></Link>
               <CgProfile className='cg-profile' onClick={()=>{setmobProfile(true)}}/>
               </>
               :

@@ -5,17 +5,17 @@ import Blockies from 'react-blockies';
 import { minifyAddress } from '../../utills';
 
 function Usermetadata() {
-    const { address } = useParams()
+    const { addres } = useParams()
   return (
     <div className='usermetadata'>
         <Blockies
-            seed={address}
+            seed={addres}
             size={10}
             scale={3}
             color="#FF385C"
             bgColor="#00B66D"
         />
-        <a href={`//etherscan.io/address/${address}`} target='_blank' rel='noopener noreferrer'>{minifyAddress(address)}</a>
+        <a href={`//etherscan.io/address/${addres}`} target='_blank' rel='noopener noreferrer'>{minifyAddress(addres)}</a>
 
         <div className='user-data'>
             <div>

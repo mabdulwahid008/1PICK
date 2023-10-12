@@ -8,11 +8,12 @@ import { createEvent, createMobEvent } from '../../utills/selectStyles'
 import { Context } from '../../state/Provider'
 import Tooltip from '../toolTip/Tooltip'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 
 
 function CreateEvent() {
-    const { setDepositPopup, balance, setAddress, numbers } = useContext(Context)
+    const { setDepositPopup, balance, setAddress, numbers, address } = useContext(Context)
     const [image, setImage] = useState(null)
     const [eventData, setEventData] = useState({})
     const [loading, setLoading] = useState(false)
@@ -140,24 +141,31 @@ function CreateEvent() {
         setLoading(false)
     }
 
-    setTimeout(()=>{
+    let setDDate = setTimeout(()=>{
+        if(!address)
+            return
         const date = new Date()
         const add48hours = new Date(date.getTime() + 72 * 60 * 60 * 1000)
         
         let x = add48hours.toISOString().slice(0, 10)
         const element = document.getElementById('participation')
-        if(!element.value){
+        if(!element?.value){
             element.value = x
 
             x = `${x}T00:00`
-            console.log(x);
             eventData.e_start = x
         }
     }, 1000)
 
+    const navigate = useNavigate()
+    
     useEffect(()=>{
+        if(!address){
+            clearTimeout(setDDate)
+            navigate('/')
+        }
         getCategoryOptions()
-    }, [eventData])
+    }, [eventData, address])
 
   return (
     <div className='create-event'>

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import './Portfolio.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import UserParticipatedEvents from '../../components/userParticipatedEvents/UserParticipatedEvents'
 import { Context } from '../../state/Provider'
 import { toast } from 'react-toastify'
@@ -8,7 +8,8 @@ import Usermetadata from '../../components/userMetadata/Usermetadata'
 
 
 function Portfolio() {
-    const { balance, betAmount, numbers, setDepositPopup} = useContext(Context)
+    const { balance, betAmount, numbers, setDepositPopup, address } = useContext(Context)
+    const { addres } = useParams()
     const navigate = useNavigate()
   return (
     <div className='portfolio'>
@@ -45,7 +46,7 @@ function Portfolio() {
         </div>} */}
 
         <Usermetadata />
-        <UserParticipatedEvents />
+        {addres === address && <UserParticipatedEvents />}
     </div>
   )
 }
