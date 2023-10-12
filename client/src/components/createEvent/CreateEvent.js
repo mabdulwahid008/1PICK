@@ -142,7 +142,7 @@ function CreateEvent() {
 
     setTimeout(()=>{
         const date = new Date()
-        const add48hours = new Date(date.getTime() + 48 * 60 * 60 * 1000)
+        const add48hours = new Date(date.getTime() + 72 * 60 * 60 * 1000)
         
         let x = add48hours.toISOString().slice(0, 10)
         const element = document.getElementById('participation')

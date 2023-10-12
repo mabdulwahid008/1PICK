@@ -1,6 +1,6 @@
 .admin-members{
-    min-height: 100vh;
-    max-height: auto;
+    /* min-height: 100vh;
+    max-height: auto; */
 }
 
 .admin-members > #admin-stats{

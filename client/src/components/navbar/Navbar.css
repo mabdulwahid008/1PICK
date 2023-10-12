@@ -319,6 +319,7 @@
     .mobile-nav > div > a > svg ,
     .mobile-nav > div > svg {
         font-size: 28px;
+        color: #000;
     }
     .cg-profile{
         border-radius: 50%;

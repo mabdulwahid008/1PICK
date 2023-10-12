@@ -19,13 +19,14 @@ export const eventDataValidation = (title, description, eventDate, expireDate) =
   const selectedExpireDate = new Date(expireDate);
   const currentDateTime = new Date();
   const minExpireDate = new Date(selectedEventDate.getTime() - 60 * 60 * 1000);
-  const minEventDate = new Date(currentDateTime.getTime() + 47 * 60 * 60 * 1000);
+  const minEventDate = new Date(currentDateTime.getTime() + 48 * 60 * 60 * 1000);
+
 
   if (selectedEventDate < currentDateTime) {
     return "Event d-date should not be in the past.";
   }
   if (selectedEventDate < minEventDate) {
-    return "Event date should be at least 48 hours later than now.";
+    return "Event date should be at least 72 hours later than now.";
   }
 
   // if (selectedExpireDate < currentDateTime) {

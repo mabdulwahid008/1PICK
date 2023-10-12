@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './EventDetail2.css'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Context } from '../../state/Provider'
 import { toast } from 'react-toastify'
 import Bet from '../../components/bet/Bet'
@@ -143,7 +143,7 @@ function EventDetail2() {
                     <h2>{event.title}</h2>
                     <p>
                         Created by:
-                        <a href={`//etherscan.io/address/${event?.creator}`} target='_blank' rel='noopener noreferrer'>
+                        {/* <a href={`//etherscan.io/address/${event?.creator}`} target='_blank' rel='noopener noreferrer'>
                             <Blockies
                                 seed={event.creator}
                                 size={5}
@@ -151,7 +151,16 @@ function EventDetail2() {
                                 color="#FF385C"
                                 bgColor="#00B66D"
                             />
-                            {minifyAddress(event?.creator)}</a>
+                            {minifyAddress(event?.creator)}</a> */}
+                        <Link to={`/user/${event.creator}`}>
+                            <Blockies
+                                seed={event.creator}
+                                size={5}
+                                scale={3}
+                                color="#FF385C"
+                                bgColor="#00B66D"
+                            />
+                            {minifyAddress(event?.creator)}</Link>
                     </p>
                     <div className='event2-metadata'>
                         <div>

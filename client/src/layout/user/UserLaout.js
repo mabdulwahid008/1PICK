@@ -64,6 +64,7 @@ function UserLaout() {
                     <Route path='/create-event' element={<CreateEvent />}/>
                     <Route path='/portfolio' element={<Portfolio />}/>
                     <Route path='/withdraw-deposit' element={<With_Depo />}/>
+                    <Route path='/user/:address' element={<Portfolio />}/>
                     <Route path='/event-detail/:id' element={<EventDetail2 />}/>
                     <Route path='*' element={<Navigate to='/'/>}/>
                 </Routes>

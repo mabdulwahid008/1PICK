@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import UserParticipatedEvents from '../../components/userParticipatedEvents/UserParticipatedEvents'
 import { Context } from '../../state/Provider'
 import { toast } from 'react-toastify'
+import Usermetadata from '../../components/userMetadata/Usermetadata'
 
 
 function Portfolio() {
@@ -31,7 +32,7 @@ function Portfolio() {
                 <Link to='/withdraw-deposit' onClick={()=>localStorage.setItem('depo', 1)}>Deposit</Link>
             </div>
         </div>
-        {window.innerWidth <= 768 && <div className='port-btn'>
+        {/* {window.innerWidth <= 768 && <div className='port-btn'>
             <p>You can create your own events.</p>
             <button onClick={()=>{
                 if(balance < numbers.e_creation){
@@ -41,7 +42,9 @@ function Portfolio() {
                     navigate('/create-event')
             }}>Create Event</button>
             <p>1% commission on the event is yours.</p>
-        </div>}
+        </div>} */}
+
+        <Usermetadata />
         <UserParticipatedEvents />
     </div>
   )

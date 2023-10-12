@@ -12,14 +12,17 @@ function AdminUsers() {
     const [users, setUsers] = useState(null)
 
     const [filteredUsers, setFilteredUsers] = useState(0)
-    let [searchAddress, setSearchAddress] = useState('x')
 
-    const fetchUsers = async() => {
-        if(searchAddress.length !== 42){
-            return
+    const search = (e) => {
+        if(e.target.value.length === 42){
+            setUsers(null)
+            fetchUsers(e.target.value)
         }
-        
-        setUsers(null)
+        else
+            fetchUsers('x')
+    }
+
+    const fetchUsers = async(searchAddress) => { 
         const response = await fetch(`/user/lisiting/${filteredUsers}/${searchAddress}`,{
             method:'GET',
             headers: {
@@ -42,12 +45,13 @@ function AdminUsers() {
     
 
     useEffect(()=>{
-        fetchUsers()
-    }, [refresh, filteredUsers, searchAddress])
+        setUsers(null)
+        fetchUsers('x')
+    }, [refresh, filteredUsers])
   return (
     <div className='user-table-wrapper'>
         <div className='search-user'>
-            <input type='text'placeholder='Search user' onChange={(e) => setSearchAddress(e.target.value)}/>
+            <input type='text'placeholder='Search user' onChange={search}/>
             <button><img src={require('../../assets/download.png')}/></button>
         </div> 
     <div className='users-table'>

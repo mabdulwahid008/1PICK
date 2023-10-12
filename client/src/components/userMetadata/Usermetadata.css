@@ -1,0 +1,70 @@
+.usermetadata{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-direction: column;
+    background-color: var(--white);
+    border-radius: 10px;
+    border: 1px solid var(--borderColor);
+    padding: 15px;
+}
+
+.usermetadata > a {
+    font-size: 16px;
+    font-family: var(--poppins);
+    color: var(--roughBlack);
+    font-weight: 600;
+}
+
+.user-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.user-data > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 0px 5px;
+}
+
+.user-data > div:nth-of-type(1),
+.user-data > div:nth-of-type(2){
+    width: 28%;
+}
+.user-data > div:nth-of-type(3){
+    width: 50%;
+}
+
+.user-data > span {
+    height: 50px;
+    width: 2px;
+    background-color: var(--borderColor);
+}
+
+.user-data > div > div > h3,
+.user-data > div > h3{
+    font-size: 15px;
+    font-family: var(--poppins);
+    color: var(--roughBlack);
+    font-weight: 600;
+}
+
+.user-data > div > div {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-data > div > div > p {
+    color: var(--roughBlack);
+    font-family: var(--inter);
+    font-size: 12px;
+}

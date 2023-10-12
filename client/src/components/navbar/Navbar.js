@@ -10,6 +10,7 @@ import MobSidebarBtns from '../mobSidebarBtns/MobSidebarBtns'
 import { BsArrowDownCircle, BsSearch } from 'react-icons/bs';
 import { BiMessageSquare } from 'react-icons/bi';
 import { CgProfile } from 'react-icons/cg';
+import { PiSuitcaseSimpleDuotone } from 'react-icons/pi';
 import { getEventsAPI } from '../../utills/apiRequest'
 import { toast } from 'react-toastify'
 import { ConnectWallet } from '@thirdweb-dev/react'
@@ -169,8 +170,8 @@ function Navbar() {
              </div>
             {address && walletAddress ? 
               <>
-              <Link to='/portfolio'><img src={require('../../assets/portfolio.png')} /></Link>
-              {/* <img src={require('../../assets/dots.png')} /> */}
+              <Link to='/create-event'><img src={require('../../assets/add_box.png')} /></Link>
+              <Link to='/portfolio'><PiSuitcaseSimpleDuotone /></Link>
               <CgProfile className='cg-profile' onClick={()=>{setmobProfile(true)}}/>
               </>
               :
