@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 function CreateEvent() {
-    const { setDepositPopup, balance, setAddress, numbers, address } = useContext(Context)
+    const { setDepositPopup, balance, setAddress, numbers, address, setRefresh } = useContext(Context)
     const [image, setImage] = useState(null)
     const [eventData, setEventData] = useState({})
     const [loading, setLoading] = useState(false)
@@ -123,6 +123,7 @@ function CreateEvent() {
                 eventData.description = ''
                 eventData.pick = ''
                 eventData.resolution_url = ''
+                setRefresh((state) => !state)
                 toast.success(res.data.message)
             }
             else if(res.status === 401){

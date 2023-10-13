@@ -5,6 +5,7 @@ const db = require('../db')
 const onlyAdmin = require('../middleware/onlyAdmin')
 const { uploadJSONToIPFS, deleteFromIPFS } = require('../ipfs')
 const imageUpload = require('../utils/imageUpload')
+const { approveEvent } = require('../utils/approveEvent')
 
 
 // cretaing an event
@@ -30,17 +31,13 @@ router.post('/create', authorization, imageUpload.single("image"), async(req, re
                 title, description, d_date, e_end, resolution_url, req.file.path, content_CID, c_id, req.user_id, 0, 0, pick
             ])
 
-            return res.status(200).json({message: 'Event created. You need to approve it from admin panel.'})
+            await approveEvent(event.rows[0]._id)
+            
+            return res.status(200).json({message: 'Event created successfully.'})
         }
 
 
-        // for users
-        const user = await db.query('SELECT balance FROM USERS WHERE _id = $1',[
-            req.user_id
-        ])
-        if(user.rows[0].balance < 10000)
-            return res.status(401).json({message: 'You must have 10000 PICK coins in your service wallet for creating an event.'})
-
+        
         const content_CID = await uploadJSONToIPFS(title, description, d_date, e_end, resolution_url, c_id, req.user_id, req.file.path, pick)
 
         // have to remove is_active, is_approved WHEN WORKING ON ADMIN SIDE
@@ -48,7 +45,9 @@ router.post('/create', authorization, imageUpload.single("image"), async(req, re
             title, description, d_date, e_end, resolution_url, req.file.path, content_CID, c_id, req.user_id, 0, 0, pick
         ])
 
-        return res.status(200).json({message: 'Event submitted for the approval from the admin.'})
+        await approveEvent(event.rows[0]._id)
+
+        return res.status(200).json({message: 'Event created successfully.'})
 
     } catch (error) {
         console.log(error.message);
