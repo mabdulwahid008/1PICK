@@ -143,15 +143,6 @@ function EventDetail2() {
                     <h2>{event.title}</h2>
                     <p>
                         Created by:
-                        {/* <a href={`//etherscan.io/address/${event?.creator}`} target='_blank' rel='noopener noreferrer'>
-                            <Blockies
-                                seed={event.creator}
-                                size={5}
-                                scale={3}
-                                color="#FF385C"
-                                bgColor="#00B66D"
-                            />
-                            {minifyAddress(event?.creator)}</a> */}
                         <Link to={`/user/${event.creator}`}>
                             <Blockies
                                 seed={event.creator}
@@ -171,8 +162,6 @@ function EventDetail2() {
                             <div>
                                 <img src={require('../../assets/favorite.png')} onClick={addToMyFavourite} />
                                 <img src={require('../../assets/share2.png')} onClick={() => setShare(prev => !prev)} />
-                                {/* <AiOutlineStar onClick={addToMyFavourite}/>
-                        <GoShare onClick={()=>setShare(prev => !prev)}/> */}
                                 {share && <div className='e2-share' onClick={() => setShare(false)}>
                                     <div onClick={copyLink}>
                                         <BsLink45Deg />
