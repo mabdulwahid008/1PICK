@@ -360,6 +360,7 @@ router.post('/bet', authorization, async(req, res)=>{
 // cancel bet
 router.delete('/bet/:event_id', authorization, async(req, res)=> {
     try {
+        await removeUserScores(req.params.event_id, req.user_id)
          // Check if event end time has passed
          const event = await db.query('SELECT e_end FROM EVENTS WHERE _id = $1', [
             req.params.event_id

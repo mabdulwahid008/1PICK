@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const authorization = require('../middleware/authorization')
 const bcrypt = require('bcrypt')
 const onlyAdmin = require('../middleware/onlyAdmin')
+const e = require('express')
 
 
 
@@ -267,7 +268,7 @@ router.get('/single/:id', authorization, onlyAdmin, async(req, res) => {
 
 
 // user ranking page
-router.get('/rankings', async(req, res) => {
+router.get('/rankings/:filter', async(req, res) => {
     try {
         const users = await db.query('Select _id, address From Users')
         for (let i = 0; i < users.rows.length; i++) {
@@ -275,9 +276,23 @@ router.get('/rankings', async(req, res) => {
            users.rows[i].joinevents = joinevents.rows[0].joinevents
            const createdEvents = await db.query('Select COALESCE(COUNT(*), 0) AS createdEvents From EVENTS where creator_id = $1', [users.rows[i]._id])
            users.rows[i].createdEvents = createdEvents.rows[0].createdevents
+           const score = await db.query('Select COALESCE(sum(score), 0) AS score From USERS_SCORE where u_id = $1', [users.rows[i]._id])
+           users.rows[i].score = score.rows[0].score
         }
 
-        return res.status(200).json(users.rows)
+        let data = []
+        switch(parseInt(req.params.filter)){
+            case 0:
+                data = users.rows.sort((a, b) => a.score - b.score)
+            break;
+            case 1:
+                data = users.rows.sort((a, b) => a.joinevents - b.joinevents)
+            break;
+            case 2:
+                data = users.rows.sort((a, b) => a.createdEvents - b.createdEvents)
+            break;
+        }
+        return res.status(200).json(data)
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({message: error.message})
@@ -294,7 +309,7 @@ router.get('/user-metadata/:address', async(req, res) => {
         const score = await db.query('Select COALESCE(sum(score), 0) AS score From USERS_SCORE where u_id = $1', [user.rows[0]._id])
 
         const allUser_scores = await db.query('SELECT u_id, SUM(score) AS total_score FROM USERS_SCORE GROUP BY u_id ORDER BY total_score DESC')
-        console.log(allUser_scores.rows);
+
         let index = allUser_scores.rows.findIndex(item => item.u_id === user.rows[0]._id && item.total_score === score.rows[0].score);
 
         return res.status(200).json({

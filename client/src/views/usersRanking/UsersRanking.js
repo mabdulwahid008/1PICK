@@ -12,6 +12,9 @@ import { minifyAddress } from '../../utills';
 function UsersRanking() {
 
     const [users, setUsers] = useState(null)
+    const [valueOption1, setValueOption1] = useState({value: 0, label: 'Score'})
+    const [valueOption2, setValueOption2] = useState({value: 0, label: 'High to Low'})
+
 
     const options1 = [
         {value: 0, label: 'Score'},
@@ -24,7 +27,7 @@ function UsersRanking() {
     ] 
 
     const fetchUsers = async() => {
-        const response = await fetch('/user/rankings',{
+        const response = await fetch(`/user/rankings/${valueOption1.value}`,{
             method: 'GET',
             headers:{
                 'Content-Type' : 'Application/json'
@@ -38,9 +41,13 @@ function UsersRanking() {
             toast.error(res.message)
     }
 
+    useEffect(() => {
+            setUsers(state => state?.reverse())
+    }, [valueOption2])
+
     useEffect(()=>{
         fetchUsers()
-    }, [])
+    }, [valueOption1])
 
     return (
         <>
@@ -48,10 +55,10 @@ function UsersRanking() {
             <h2 className='predict-everything'>Users Ranking</h2>
             <div className='mobile-filter-section ranking-filter'>
                 <div>
-                    <ReactSelect isSearchable={false} value={{value: 0, label: 'Score'}} options={options1} styles={mobEventFilter} onChange={(option) => (option)} />
+                    <ReactSelect isSearchable={false} value={valueOption1} options={options1} styles={mobEventFilter} onChange={(option) => setValueOption1(option)} />
                 </div>
                 <div>
-                    <ReactSelect isSearchable={false} value={{value: 0, label: 'High to Low'}} options={options2} styles={mobEventFilter} onChange={(option) => (option)} />
+                    <ReactSelect isSearchable={false} value={valueOption2} options={options2} styles={mobEventFilter} onChange={(option) => setValueOption2(option)} />
                 </div>
             </div>
             {!users && <Loader/> }

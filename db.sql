@@ -78,8 +78,6 @@ CREATE TABLE NUMBERS(
 INSERT INTO NUMBERS(welcome, min_bet, max_bet, e_creation, min_withdraw) VALUES(500, 100, 1000, 10000, 5000)
 
 
-
-
 CREATE TABLE USERS_SCORE(
     _id SERIAL PRIMARY KEY,
     e_id INT NOT NULL,
