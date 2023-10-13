@@ -266,4 +266,23 @@ router.get('/single/:id', authorization, onlyAdmin, async(req, res) => {
 })
 
 
+// user ranking page
+router.get('/rankings', async(req, res) => {
+    try {
+        const users = await db.query('Select _id, address From Users')
+        for (let i = 0; i < users.rows.length; i++) {
+           const joinevents = await db.query('Select Count(*) From BETTING where u_id = $1', [users.rows[i]._id])
+           users.rows[i].joinevents = joinevents.rows[0].count
+           const createdEvents = await db.query('Select Count(*) From EVENTS where creator_id = $1', [users.rows[i]._id])
+           users.rows[i].createdEvents = createdEvents.rows[0].count
+        }
+
+        return res.status(200).json(users.rows)
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({message: error.message})
+    }
+})
+
+
 module.exports = router;
