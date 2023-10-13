@@ -6,9 +6,14 @@ import Provider from './state/Provider';
 import AdminProvider from "./state/AdminProvider";
 import AdminLogin from "./views/adminLogin/AdminLogin";
 import PcLayout from "./layout/pcLayout/PcLayout";
+import { useEffect } from "react";
 
 
 function App() {
+
+  useEffect(()=>{
+      window.scrollTo(0, 0)
+  }, [window.location.pathname])
 
   if (window.location.pathname.startsWith('/admin'))
     return (

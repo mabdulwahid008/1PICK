@@ -13,7 +13,7 @@ function UsersRanking() {
 
     const [users, setUsers] = useState(null)
     const [valueOption1, setValueOption1] = useState({value: 0, label: 'Score'})
-    const [valueOption2, setValueOption2] = useState({value: 0, label: 'High to Low'})
+    const [valueOption2, setValueOption2] = useState({value: 1, label: 'High to Low'})
 
 
     const options1 = [
@@ -22,8 +22,8 @@ function UsersRanking() {
         {value: 2, label: 'Create'},
     ] 
     const options2 = [
-        {value: 0, label: 'High to Low'},
-        {value: 1, label: 'Low to High'},
+        {value: 0, label: 'Low to High'},
+        {value: 1, label: 'High to Low'},
     ] 
 
     const fetchUsers = async() => {
@@ -35,14 +35,20 @@ function UsersRanking() {
         })
         const res = await response.json()
         if(response.status === 200){
+            if(valueOption2.value == 1){
+                setUsers(res.reverse())
+            }
+            else
             setUsers(res)
         }
         else
             toast.error(res.message)
     }
 
+    useEffect(()=>{
+    }, [users])
+
     useEffect(() => {
-        setUsers(state => state?.reverse())
     }, [valueOption2])
 
     useEffect(()=>{
@@ -58,7 +64,7 @@ function UsersRanking() {
                     <ReactSelect isSearchable={false} value={valueOption1} options={options1} styles={mobEventFilter} onChange={(option) => setValueOption1(option)} />
                 </div>
                 <div>
-                    <ReactSelect isSearchable={false} value={valueOption2} options={options2} styles={mobEventFilter} onChange={(option) => setValueOption2(option)} />
+                    <ReactSelect isSearchable={false} value={valueOption2} options={options2} styles={mobEventFilter} onChange={(option) => {if(option.value === valueOption2.value) return; setUsers(state => state?.reverse()); setValueOption2(option)}} />
                 </div>
             </div>
             {!users && <Loader/> }

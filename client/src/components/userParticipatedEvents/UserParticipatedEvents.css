@@ -80,8 +80,6 @@
 }
 
 .participated-event{
-    min-height: 400px;
-    max-height: auto;
     margin-top: 10px;
     overflow-x: auto;
 }

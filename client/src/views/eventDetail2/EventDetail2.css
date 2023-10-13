@@ -108,6 +108,7 @@
     justify-content: flex-start;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
     padding: 10px 10px ;
 }
 
@@ -330,7 +331,7 @@
     }
 
     .event-page-left > p{
-        font-size: 14px;
+        font-size: 12px;
         margin-top: -20px;
         display: flex;
         justify-content: flex-start;

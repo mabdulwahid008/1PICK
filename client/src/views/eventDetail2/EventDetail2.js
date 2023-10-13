@@ -155,7 +155,7 @@ function EventDetail2() {
                         <Link to={`/user/${event.creator}`}>
                             <Blockies
                                 seed={event.creator}
-                                size={5}
+                                size={4}
                                 scale={3}
                                 color="#FF385C"
                                 bgColor="#00B66D"
