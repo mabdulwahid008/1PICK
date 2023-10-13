@@ -42,7 +42,7 @@ function UsersRanking() {
     }
 
     useEffect(() => {
-            setUsers(state => state?.reverse())
+        setUsers(state => state?.reverse())
     }, [valueOption2])
 
     useEffect(()=>{
