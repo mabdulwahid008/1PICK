@@ -271,13 +271,39 @@ router.get('/rankings', async(req, res) => {
     try {
         const users = await db.query('Select _id, address From Users')
         for (let i = 0; i < users.rows.length; i++) {
-           const joinevents = await db.query('Select Count(*) From BETTING where u_id = $1', [users.rows[i]._id])
-           users.rows[i].joinevents = joinevents.rows[0].count
-           const createdEvents = await db.query('Select Count(*) From EVENTS where creator_id = $1', [users.rows[i]._id])
-           users.rows[i].createdEvents = createdEvents.rows[0].count
+            const joinevents = await db.query('Select COALESCE(COUNT(*), 0) AS joinevents From BETTING where u_id = $1', [users.rows[i]._id])
+           users.rows[i].joinevents = joinevents.rows[0].joinevents
+           const createdEvents = await db.query('Select COALESCE(COUNT(*), 0) AS createdEvents From EVENTS where creator_id = $1', [users.rows[i]._id])
+           users.rows[i].createdEvents = createdEvents.rows[0].createdevents
         }
 
         return res.status(200).json(users.rows)
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({message: error.message})
+    }
+})
+
+
+// user score portfolio
+router.get('/user-metadata/:address', async(req, res) => {
+    try {
+        const user = await db.query('SELECT _id FROM USERS WHERE address = $1', [req.params.address])
+        const joinevents = await db.query('Select COALESCE(COUNT(*), 0) AS joinevents From BETTING where u_id = $1', [user.rows[0]._id])
+        const createdEvents = await db.query('Select COALESCE(COUNT(*), 0) AS createdEvents From EVENTS where creator_id = $1', [user.rows[0]._id])
+        const score = await db.query('Select COALESCE(sum(score), 0) AS score From USERS_SCORE where u_id = $1', [user.rows[0]._id])
+
+        const allUser_scores = await db.query('SELECT u_id, SUM(score) AS total_score FROM USERS_SCORE GROUP BY u_id ORDER BY total_score DESC')
+        console.log(allUser_scores.rows);
+        let index = allUser_scores.rows.findIndex(item => item.u_id === user.rows[0]._id && item.total_score === score.rows[0].score);
+
+        return res.status(200).json({
+            joined_events: joinevents.rows[0].joinevents,
+            created_events: createdEvents.rows[0].createdevents,
+            score: score.rows[0].score,
+            rank : index + 1 // index starts from 0 
+        })
+          
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({message: error.message})

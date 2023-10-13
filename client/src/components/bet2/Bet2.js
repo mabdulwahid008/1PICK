@@ -23,6 +23,10 @@ function Bet2({ event_id, no_bet_percentage, yes_bet_percentage, pick, d_date, p
         })
         const res = await response.json()
         if (response.status === 200) {
+            if(parseInt(res) <= 0){
+                document.getElementById('bet-ammount').value = ''
+                document.getElementById('bet-ammount').focus = false
+            }
             setMyBet(res);
         }
         else if (response.status === 401) {
@@ -156,6 +160,7 @@ function Bet2({ event_id, no_bet_percentage, yes_bet_percentage, pick, d_date, p
                             <p>P</p>
                             <input type='number' id='bet-ammount' min={1} max={1000} required onChange={(e) => {
                                 const input = e.target.value;
+                                console.log(input);
                                 const sanitizedInput = input.replace(/[^0-9]/g, "");
                                 if (e.target.value.startsWith(0)) {
                                     document.getElementById('bet-ammount').value = ''
@@ -163,10 +168,10 @@ function Bet2({ event_id, no_bet_percentage, yes_bet_percentage, pick, d_date, p
                                 if (e.target.value.includes("+") || e.target.value.includes("-") || e.target.value.includes(".") || e.target.value.includes(",")) {
                                     return;
                                 }
-                                if (e.target.value > numbers.max_bet) {
-                                    document.getElementById('bet-ammount').value = numbers.max_bet
-                                    return;
-                                }
+                                // if (e.target.value > numbers.max_bet) {
+                                //     document.getElementById('bet-ammount').value = numbers.max_bet
+                                //     return;
+                                // }
 
                                 getReturns(sanitizedInput);
                                 setBetAmount(sanitizedInput)

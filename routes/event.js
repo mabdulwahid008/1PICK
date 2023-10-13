@@ -6,6 +6,7 @@ const onlyAdmin = require('../middleware/onlyAdmin')
 const { uploadJSONToIPFS, deleteFromIPFS } = require('../ipfs')
 const imageUpload = require('../utils/imageUpload')
 const { approveEvent } = require('../utils/approveEvent')
+const { addUserScore } = require('../utils/scores')
 
 
 // cretaing an event
@@ -32,7 +33,7 @@ router.post('/create', authorization, imageUpload.single("image"), async(req, re
             ])
 
             await approveEvent(event.rows[0]._id)
-            
+
             return res.status(200).json({message: 'Event created successfully.'})
         }
 
@@ -301,6 +302,8 @@ router.get('/stats/:event_id', async (req, res) => {
 router.post('/bet', authorization, async(req, res)=>{
     const { bet_amount, event_id, is_yes } = req.body
     try {
+        await addUserScore(event_id, req.user_id, is_yes) 
+
         const event = await db.query('SELECT e_end, is_approved FROM EVENTS WHERE _id = $1', [
             event_id
         ]);
@@ -341,6 +344,8 @@ router.post('/bet', authorization, async(req, res)=>{
             await db.query('UPDATE USERS SET balance = $1, bet_amount = $2 WHERE _id = $3',[
                 updated_balance, updated_bet_amount, req.user_id
             ])
+            
+
             return res.status(200).json({message: 'Bet placed successfully.'})
         }
         else
