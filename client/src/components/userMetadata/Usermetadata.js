@@ -1,6 +1,6 @@
 import React from 'react'
 import './Usermetadata.css'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Blockies from 'react-blockies';
 import { minifyAddress } from '../../utills';
 
@@ -29,7 +29,10 @@ function Usermetadata() {
             </div>
             <span></span>
             <div>
-                <h3>Score</h3>
+                <div>
+                    <Link to='/users-ranking'><img src={require('../../assets/trophy.png')}/></Link>
+                    <h3>Score</h3>
+                </div>
                 <div>
                     <p>#123</p>
                     <h3>45</h3>

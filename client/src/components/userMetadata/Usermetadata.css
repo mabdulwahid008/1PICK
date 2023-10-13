@@ -63,6 +63,16 @@
     align-items: center;
 }
 
+.user-data > div > div:nth-of-type(1){
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.user-data > div > div > a > img {
+    height: 20px;
+    width: 20px;
+}
+
 .user-data > div > div > p {
     color: var(--roughBlack);
     font-family: var(--inter);

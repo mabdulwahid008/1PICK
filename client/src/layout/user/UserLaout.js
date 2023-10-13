@@ -15,6 +15,7 @@ import WalletConnectPopup from '../../components/walletConnectPopup/WalletConnec
 import DepositPopup from '../../components/depositPopup/DepositPopup'
 import CongratsPopup from '../../components/congratsPopup/CongratsPopup'
 import MobProfile from '../../components/mobProfile/MobProfile'
+import UsersRanking from '../../views/usersRanking/UsersRanking'
 
 function UserLaout() {
     const { openSideBar, setOpenSideBar, setSearchBox, mobProfile, setmobOpenSideBar, setMobSearchBox, walletConnectPopup, depositPopup, congratsPopup } = useContext(Context)
@@ -65,6 +66,7 @@ function UserLaout() {
                     <Route path='/portfolio/:addres' element={<Portfolio />}/>
                     <Route path='/withdraw-deposit' element={<With_Depo />}/>
                     <Route path='/user/:addres' element={<Portfolio />}/>
+                    <Route path='users-ranking' element={<UsersRanking/>} />
                     <Route path='/event-detail/:id' element={<EventDetail2 />}/>
                     <Route path='*' element={<Navigate to='/'/>}/>
                 </Routes>
