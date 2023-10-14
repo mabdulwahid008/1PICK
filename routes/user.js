@@ -308,7 +308,7 @@ router.get('/user-metadata/:address', async(req, res) => {
         const createdEvents = await db.query('Select COALESCE(COUNT(*), 0) AS createdEvents From EVENTS where creator_id = $1', [user.rows[0]._id])
         const score = await db.query('Select COALESCE(sum(score), 0) AS score From USERS_SCORE where u_id = $1', [user.rows[0]._id])
 
-        const allUser_scores = await db.query('SELECT u_id, SUM(score) AS total_score FROM USERS_SCORE GROUP BY u_id ORDER BY total_score DESC')
+        const allUser_scores = await db.query('SELECT u_id, COALESCE(SUM(score), 0) AS total_score FROM USERS_SCORE GROUP BY u_id ORDER BY total_score DESC')
 
         let index = allUser_scores.rows.findIndex(item => item.u_id === user.rows[0]._id && item.total_score === score.rows[0].score);
 

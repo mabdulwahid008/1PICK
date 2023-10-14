@@ -14,6 +14,7 @@ import { addHours, format } from 'date-fns';
 import Bet2 from '../../components/bet2/Bet2'
 import Blockies from 'react-blockies';
 import Loader from '../../components/loader/Loader'
+import Comments from '../../components/comments/Comments'
 
 
 function EventDetail2() {
@@ -277,66 +278,7 @@ function EventDetail2() {
                             <h2>Comments</h2>
                             <IoIosArrowUp style={{ transform: comments ? 'rotate(0deg)' : 'rotate(180deg)' }} />
                         </div>
-                        {comments && <div className='timeline details-box'>
-                            <form className='comment-field'>
-                                <input type='comment' placeholder='Write something...' />
-                                <button><img src={require('../../assets/done.png')} /></button>
-                            </form>
-                            <div className='comments'>
-                                <div className='comment'>
-                                    <a href={`//etherscan.io/address/${event?.creator}`} target='_blank' rel='noopener noreferrer'>
-                                        <Blockies
-                                            seed={event.creator}
-                                            size={4}
-                                            scale={3}
-                                            color="#FF385C"
-                                            bgColor="#00B66D"
-                                        />
-                                        {minifyAddress(event?.creator)}</a>
-                                    <p>I think Matic price will be 0.</p>
-                                    <div>
-                                        <p>Created</p>
-                                        <div>
-                                            <img src={require('../../assets/add_comment.png')} alt='add_comment' />
-                                            <p>15</p>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div className='sub-comment'>
-                                        <a href={`//etherscan.io/address/${event?.creator}`} target='_blank' rel='noopener noreferrer'>
-                                            <Blockies
-                                                seed={event.creator}
-                                                size={4}
-                                                scale={3}
-                                                color="#FF385C"
-                                                bgColor="#00B66D"
-                                            />
-                                            {minifyAddress(event?.creator)}</a>
-                                        <p>Yes</p>
-                                    </div>
-                                </div>
-                                <div className='comment'>
-                                    <a href={`//etherscan.io/address/${event?.creator}`} target='_blank' rel='noopener noreferrer'>
-                                        <Blockies
-                                            seed={event.creator}
-                                            size={4}
-                                            scale={3}
-                                            color="#FF385C"
-                                            bgColor="#00B66D"
-                                        />
-                                        {minifyAddress(event?.creator)}</a>
-                                    <p>I think Matic price will be 0.</p>
-                                    <div>
-                                        <p>Created</p>
-                                        <div>
-                                            <img src={require('../../assets/add_comment.png')} alt='add_comment' />
-                                            <p>15</p>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                </div>
-                            </div>
-                        </div>}
+                        {comments && <Comments event_id={id}/>}
                     </div>
 
                 </div>

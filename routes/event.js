@@ -6,7 +6,7 @@ const onlyAdmin = require('../middleware/onlyAdmin')
 const { uploadJSONToIPFS, deleteFromIPFS } = require('../ipfs')
 const imageUpload = require('../utils/imageUpload')
 const { approveEvent } = require('../utils/approveEvent')
-const { addUserScore } = require('../utils/scores')
+const { addUserScore, removeUserScores } = require('../utils/scores')
 
 
 // cretaing an event
@@ -360,15 +360,15 @@ router.post('/bet', authorization, async(req, res)=>{
 // cancel bet
 router.delete('/bet/:event_id', authorization, async(req, res)=> {
     try {
-        await removeUserScores(req.params.event_id, req.user_id)
-         // Check if event end time has passed
-         const event = await db.query('SELECT e_end FROM EVENTS WHERE _id = $1', [
+        // Check if event end time has passed
+        const event = await db.query('SELECT e_end FROM EVENTS WHERE _id = $1', [
             req.params.event_id
         ]);
         const eventEnd = new Date(event.rows[0].e_end);
         if (eventEnd < new Date()) 
             return res.status(422).json({ message: 'Event has already ended.' });
-
+    
+        await removeUserScores(req.params.event_id, req.user_id)
 
         const bet = await db.query('SELECT bet_amount FROM BETTING WHERE e_id = $1 AND u_id = $2',[
             req.params.event_id, req.user_id

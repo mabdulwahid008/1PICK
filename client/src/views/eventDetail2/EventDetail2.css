@@ -394,6 +394,11 @@
         align-items: stretch;
         width: 100%;
     }
+    .comments > p {
+        font-size: 12px;
+        font-family: var(--inter);
+        color: var(--roughBlack2);
+    }
     .comment-field > input{
         width: 85%; 
         border-top-left-radius: 5px;

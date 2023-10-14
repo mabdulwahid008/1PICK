@@ -24,6 +24,7 @@ app.use('/user', require('./routes/user'))
 app.use('/category', require('./routes/categories'))
 app.use('/event', require('./routes/event'))
 app.use('/stats', require('./routes/stats'))
+app.use('/comment', require('./routes/comments'))
 
 // app.get('*', (req, res) => {
 //     res.sendFile(path.join(__dirname, "client/build", 'index.html'));
