@@ -429,6 +429,7 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+        padding: 0px !important;
         border: none !important;
         background-color: transparent !important;
         width: 100% !important;
@@ -443,6 +444,7 @@
         border: none !important;
     }
 
+    .replied-comments  > a,
     .sub-comment > a,
     .comment > a {
         color: var(--roughBlack) !important;
@@ -451,6 +453,7 @@
         gap: 5px;
     }
 
+    .replied-comments > p,
     .sub-comment > p,
     .comment > p {
         font-family: var(--poppins);
@@ -492,8 +495,30 @@
         justify-content: flex-start !important;
         align-items: flex-start !important;
         width: 70%;
-        gap: 5px;
+        gap: 10px;
         align-self: flex-end;
     }
 
+    .sub-comment > form {
+        margin-bottom: 5px;
+    }
+    
+    .replied-comments {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start !important;
+        flex-direction: column;
+        width: 100%;
+        gap: 5px !important;
+    }
+
+    .replied-comments > p:nth-of-type(2){
+        align-self: flex-end;
+    }
+
+    .replied-comments > span {
+        width: 100%;
+        height: 3px;
+        background-color: var(--bgColor);
+    }
 }

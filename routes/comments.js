@@ -19,10 +19,13 @@ router.post('/', authorization, async(req, res) => {
 
 router.get('/:e_id', async(req, res) => {
     try {
-        const comments = await db.query('SELECT content, address, EVENT_COMMENTS.created_on FROM EVENT_COMMENTS INNER JOIN USERS ON USERS._id = EVENT_COMMENTS.u_id WHERE p_comment_id = null AND e_id = $1 ORDER BY created_on DESC', [req.params.e_id])
+        const comments = await db.query('SELECT EVENT_COMMENTS._id, content, address, EVENT_COMMENTS.created_on FROM EVENT_COMMENTS INNER JOIN USERS ON USERS._id = EVENT_COMMENTS.u_id WHERE p_comment_id IS null AND e_id = $1 ORDER BY created_on ASC', [req.params.e_id])
         for (let i = 0; i < comments.rows.length; i++) {
             child = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM EVENT_COMMENTS WHERE p_comment_id = $1', [comments.rows[i]._id])
             comments.rows[i].replied = child.rows[0].count
+            
+            const replied_comments = await db.query('SELECT EVENT_COMMENTS._id, content, address, EVENT_COMMENTS.created_on FROM EVENT_COMMENTS INNER JOIN USERS ON USERS._id = EVENT_COMMENTS.u_id WHERE p_comment_id = $1 ORDER BY created_on ASC', [comments.rows[i]._id])
+            comments.rows[i].replied_comments = replied_comments.rows
         }
         return res.status(200).json(comments.rows)
     } catch (error) {
@@ -31,15 +34,6 @@ router.get('/:e_id', async(req, res) => {
     }
 })
 
-router.get('/replied/:id', async(req, res) => {
-    try {
-        const comments = await db.query('SELECT * FROM COMMENTS WHERE p_comment_id = $1 ORDER BY created_on DESC', [req.params.id])
-        return res.status(200).json(comments.rows)
-    } catch (error) {
-        console.log(error.message);
-        return res.status(500).json({message: 'Server Error'})
-    }
-})
  
 
 
