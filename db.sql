@@ -19,6 +19,8 @@ CREATE TABLE CATEGORIES(
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
 
+ALTER TABLE CATEGORIES ADD c_order INT 
+
 
 CREATE TABLE EVENTS(
     _id SERIAL PRIMARY KEY,
@@ -46,9 +48,6 @@ CREATE TABLE EVENTS(
 )
 ALTER TABLE EVENTS ADD pick VARCHAR(200)
 
--- new stuff
-ALTER TABLE EVENTS ADD report INT DEFAULT 0 -- when it gets 5 hide from home page and when admin approves make it to -99
-ALTER TABLE EVENTS ADD appeal INT DEFAULT 0 -- when it gets 10 (it is allowed after  d-date) when admin reapproves make it to -99
 
 
 CREATE TABLE BETTING (

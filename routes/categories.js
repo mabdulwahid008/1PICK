@@ -7,7 +7,7 @@ const onlyAdmin = require('../middleware/onlyAdmin')
 // get categories
 router.get('/', async(req,res)=> {
     try {
-        const categories = await db.query('SELECT _id, name, created_on FROM CATEGORIES ORDER BY _id ASC')
+        const categories = await db.query('SELECT _id, name, c_order, created_on FROM CATEGORIES ORDER BY c_order ASC')
         for (let i = 0; i < categories.rows.length; i++) {
             const eventCount = await db.query('SELECT COUNT(*) FROM EVENTS WHERE c_id = $1', [categories.rows[i]._id])
             categories.rows[i].eventCount = eventCount.rows[0].count
@@ -27,7 +27,7 @@ router.post('/', authorization, onlyAdmin, async(req,res)=> {
             name
         ])
 
-        const categories = await db.query('SELECT _id, name FROM CATEGORIES ORDER BY _id DESC')
+        const categories = await db.query('SELECT _id, name, c_order FROM CATEGORIES ORDER BY c_order ASC')
         
         return res.status(200).json({message:'Category added.', categories: categories.rows})
     } catch (error) {
@@ -38,13 +38,13 @@ router.post('/', authorization, onlyAdmin, async(req,res)=> {
 
 // Update category
 router.patch('/', authorization, onlyAdmin, async(req,res)=> {
-    const { _id, name } = req.body;
+    const { _id, name, c_order } = req.body;
     try {
-        await db.query('UPDATE CATEGORIES SET NAME = $1 WHERE _id = $2',[
-            name, _id
+        await db.query('UPDATE CATEGORIES SET NAME = $1, c_order = $2 WHERE _id = $3',[
+            name, c_order, _id
         ])
 
-        const categories = await db.query('SELECT _id, name FROM CATEGORIES ORDER BY _id DESC')
+        const categories = await db.query('SELECT _id, name, c_order FROM CATEGORIES ORDER BY c_order ASC')
         
         return res.status(200).json({message:'Category Updated.', categories: categories.rows})
     } catch (error) {
@@ -60,7 +60,7 @@ router.delete('/:id', authorization, onlyAdmin, async(req,res)=> {
              req.params.id
         ])
 
-        const categories = await db.query('SELECT _id, name FROM CATEGORIES ORDER BY _id DESC')
+        const categories = await db.query('SELECT _id, name FROM CATEGORIES ORDER BY c_order ASC')
         
         return res.status(200).json({message:'Category deleted.', categories: categories.rows})
     } catch (error) {

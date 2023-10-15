@@ -100,7 +100,7 @@ const CategoryRow = ({cat, index, fetchCategories}) => {
         'Content-Type': 'Application/json',
         token: sessionStorage.getItem('token')
       },
-      body: JSON.stringify({_id, name})
+      body: JSON.stringify({_id, name, c_order: order})
     })
     const res = await response.json()
     if(response.status === 200){
@@ -122,15 +122,15 @@ const CategoryRow = ({cat, index, fetchCategories}) => {
           <td >{index+1}</td>
           <td >{cat.name}</td>
           <td >{cat.eventCount}</td>
-          <td >{cat.order? cat.order : cat._id }</td>
+          <td >{cat.c_order? cat.c_order : cat._id }</td>
           <td >{cat.created_on.substr(0,16).replace('T', ' ')}</td>
           <td >
-            <FiEdit onClick={()=>setEdit(true)}/>
+            <FiEdit onClick={()=>{setName(cat.name);setEdit(true)}}/>
             {cat.eventCount == 0 && <BsTrash onClick={() => deleteCategory(cat._id)}/>}
           </td>
         {edit && <span className='edit-cate'>
           <input defaultValue={cat.name} required onChange={(e)=>setName(e.target.value)} placeholder='Category Name'/>
-          <input defaultValue={cat.order? cat.order : cat._id} type='number' required onChange={(e)=>setOrder(e.target.value)} placeholder='Category Order'/>
+          <input defaultValue={cat.c_order? cat.c_order : cat._id} type='number' required onChange={(e)=>setOrder(e.target.value)} placeholder='Category Order'/>
           <button onClick={()=>updateCategory(cat._id)}>Update</button>
           <RxCross1 onClick={()=>setEdit(false)}/>
         </span>}

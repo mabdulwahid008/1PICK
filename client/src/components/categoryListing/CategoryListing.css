@@ -104,6 +104,7 @@
     cursor: pointer;
     color: #8f8e8e;
     transition: .25s ease;
+    font-size: 25px;
 }
 
 .edit-cate > svg:hover {
