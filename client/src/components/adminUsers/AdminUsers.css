@@ -250,7 +250,7 @@
         font-family: var(--inter);
     }
 
-    .search-user > button {
+    .search-user > a {
         background-color: var(--grey);
         padding: 5px 10px 0px;
         border: 1px solid var(--borderColor);
@@ -258,7 +258,7 @@
         border-left: none;
         cursor: pointer;
     }
-    .search-user > button > img {
+    .search-user > a > img {
       height: 20px;
       width: 20px;
     }

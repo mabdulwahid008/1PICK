@@ -42,6 +42,13 @@ function AdminUsers() {
         else
             toast.error(res.message)
     }
+
+    const downloadXlsx = async() => {
+        const response = await fetch('/file/users', {
+            method:'GET',
+        })
+
+    }
     
 
     useEffect(()=>{
@@ -52,7 +59,7 @@ function AdminUsers() {
     <div className='user-table-wrapper'>
         <div className='search-user'>
             <input type='text'placeholder='Search user' onChange={search}/>
-            <button><img src={require('../../assets/download.png')}/></button>
+            <a href={'http://localhost:5000/file/users'} target='_blank'><img src={require('../../assets/download.png')} onClick={downloadXlsx}/></a>
         </div> 
     <div className='users-table'>
         <table>

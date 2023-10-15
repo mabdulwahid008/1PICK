@@ -47,6 +47,7 @@ router.get('/users', async(req, res) => {
                 earned_amount: user.earned_amount,
                 lost_amount: user.lost_amount,
                 deposited_amount: user.deposited_amount,
+                withdrawn_amount: user.withdrawn_amount,
                 joined: user.created_on,
                 created_events: user.created_events,
                 joined_events: user.joined_events
