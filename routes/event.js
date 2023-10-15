@@ -307,9 +307,6 @@ router.post('/bet', authorization, async(req, res)=>{
         const event = await db.query('SELECT e_end, is_approved FROM EVENTS WHERE _id = $1', [
             event_id
         ]);
-        //check if event is approved by admin
-        if(event.rows[0].is_approved == 0)
-            return res.status(422).json({message: 'Event has not approved yet.'})
 
         const betNumbers = await db.query('SELECT min_bet, max_bet FROM NUMBERS')
         if(parseInt(bet_amount) < parseInt(betNumbers.rows[0].min_bet) || parseInt(bet_amount) > parseInt(betNumbers.rows[0].max_bet))
@@ -534,28 +531,33 @@ router.get('/participated', authorization, async(req, res) => {
         let createdEvents
         let favouriteEvents
 
-        participatedEvents = await db.query(`SELECT EVENTS._id, e_start, image_cid, pick, BETTING.created_on, EVENTS.title, c_id, name AS market, bet_amount, BETTING.is_yes, EVENTS.is_active, EVENTS.executed_as FROM BETTING 
+        participatedEvents = await db.query(`SELECT EVENTS._id, address as creator, e_start, image_cid, pick, BETTING.created_on, EVENTS.title, BETTING.bet_amount, BETTING.is_yes, EVENTS.is_active, EVENTS.executed_as FROM BETTING 
                                             INNER JOIN EVENTS
                                                 ON BETTING.e_id = EVENTS._id
                                             INNER JOIN CATEGORIES 
                                                 ON CATEGORIES._id = EVENTS.c_id 
-                                                WHERE u_id = $1`, [req.user_id])
+                                            INNER JOIN USERS
+                                                ON USERS._id = EVENTS.creator_id
+                                                WHERE u_id = $1 AND EVENTS.is_active != 3`, [req.user_id])
 
-        createdEvents = await db.query(`SELECT EVENTS._id, e_start, image_cid, pick, EVENTS.created_on, EVENTS.title, c_id, name AS market, EVENTS.is_active FROM EVENTS
+        createdEvents = await db.query(`SELECT EVENTS._id, address as creator, e_start, image_cid, pick, EVENTS.created_on, EVENTS.title, EVENTS.is_active, EVENTS.executed_as FROM EVENTS
                                                 INNER JOIN CATEGORIES
                                                     ON CATEGORIES._id = EVENTS.c_id 
-                                                    WHERE creator_id = $1`, [req.user_id])  
+                                                INNER JOIN USERS
+                                                    ON USERS._id = EVENTS.creator_id
+                                                    WHERE creator_id = $1 AND EVENTS.is_active != 3`, [req.user_id])  
 
-        favouriteEvents = await db.query(`SELECT EVENTS._id, e_start, image_cid, pick, FAVOURITE.created_on, EVENTS.title, c_id, name AS market, EVENTS.is_active FROM EVENTS
+        favouriteEvents = await db.query(`SELECT EVENTS._id, address as creator, e_start, image_cid, pick, FAVOURITE.created_on, EVENTS.title, EVENTS.is_active, EVENTS.executed_as FROM EVENTS
                                                 INNER JOIN CATEGORIES
                                                     ON CATEGORIES._id = EVENTS.c_id 
                                                 INNER JOIN FAVOURITE 
                                                     ON EVENTS._id = FAVOURITE.e_id
-                                                    WHERE FAVOURITE.u_id = $1`, [req.user_id])  
+                                                INNER JOIN USERS
+                                                    ON USERS._id = EVENTS.creator_id
+                                                    WHERE FAVOURITE.u_id = $1 AND EVENTS.is_active != 3`, [req.user_id])  
         
         // favourite events
         for (let i = 0; i < favouriteEvents.rows.length; i++) {
-            favouriteEvents.rows[i].outcome = null;
             favouriteEvents.rows[i].is_favourite = true;
             events.push(favouriteEvents.rows[i])
             
@@ -565,10 +567,11 @@ router.get('/participated', authorization, async(req, res) => {
         for (let i = 0; i < createdEvents.rows.length; i++) {
             const total_volume = await db.query('SELECT SUM(bet_amount) FROM BETTING WHERE e_id = $1', [createdEvents.rows[i]._id])
             const percent_1 = parseFloat(total_volume.rows[0].sum)/100
-            createdEvents.rows[i].outcome = percent_1
-            
+            createdEvents.rows[i].created_outcome = percent_1
+            createdEvents.rows[i].is_created = true
             events.push(createdEvents.rows[i])
-        }                                    
+        }  
+        
         
         // calculte my bet outcome
         for (let i = 0; i < participatedEvents.rows.length; i++) {
@@ -585,24 +588,121 @@ router.get('/participated', authorization, async(req, res) => {
             let is_yes = participatedEvents.rows[0].is_yes;
 
             if(executed_as == -1)
-                participatedEvents.rows[i].outcome = user_return.toString()
+                participatedEvents.rows[i].bet_outcome = user_return.toString()
             else{
-                participatedEvents.rows[i].outcome = executed_as == is_yes ? user_return.toString() : "0"
+                participatedEvents.rows[i].bet_outcome = (executed_as == is_yes) ? user_return.toString() : "0"
             }
             
-
+            participatedEvents.rows[i].is_betted = true
             events.push(participatedEvents.rows[i])
         }
 
 
-        for (let i = 0; i < events.length; i++) {
-            let bet_amount = await db.query('SELECT sum(bet_amount) FROM BETTING WHERE e_id = $1', [events[i]._id])
-            let no_bet_voloume = await db.query('SELECT sum(bet_amount) FROM BETTING WHERE is_yes = 0 AND e_id = $1', [events[i]._id])
+
+        let filtered_events = []
+        // filter created events
+        for (let i = 0; i < events?.length; i++) {
+            let event = createdEvents.rows?.filter(obj => obj?._id === events[i]?._id)[0]
+            if (event) {
+                event = {
+                    ...event,
+                    is_created: true,
+                    is_betted: false,
+                    is_favourite: false,
+                    is_yes: null,
+                    bet_amount: 0,
+                    bet_outcome: null
+                };
+                // check participated_created has already that event ?
+                const check = filtered_events.filter((obj) => obj._id === event._id)[0]
+                if(check){
+                    check.is_created = true
+                    check.is_betted = false
+                    check.is_favourite = false
+                    check.is_yes = null
+                    check.bet_amount = 0
+                    check.bet_outcome = null
+                }
+                else
+                    filtered_events.push(event);
+            }
+        }
+
+        // filter bet_events
+        for (let i = 0; i < events?.length; i++) {
+            let event = participatedEvents?.rows?.filter(obj => obj?._id === events[i]?._id)[0]
+            if(event){
+                event = {
+                    ...event,
+                    is_betted: true,
+                    is_favourite: false
+                };
+
+                // check participated_created has already that event ?
+                const check = filtered_events.filter((obj) => obj._id === event._id)[0]
+                if(check){
+                    check.is_betted = true
+                    check.is_favourite = false
+                    check.is_yes = event.is_yes
+                    check.executed_as = event.executed_as
+                    check.bet_amount = event.bet_amount
+                    check.bet_outcome = event.bet_outcome
+                }
+                else
+                    filtered_events.push(event)
+            }
+        }
+
+
+        // filter favourite_events
+        for (let i = 0; i < events?.length; i++) {
+            let event = favouriteEvents?.rows?.filter(obj => obj?._id === events[i]?._id)[0]
+            // console.log(event);
+            if(event){
+                event = {
+                    ...event,
+                    is_favourite: true,
+                    is_created : false,
+                    is_betted : false,
+                    is_yes : null,
+                    bet_amount : 0,
+                    bet_outcome : null,
+                    // exceuted_as
+                };
+
+                // check participated_created has already that event ?
+                const check = filtered_events.filter((obj) => obj._id === event._id)[0]
+                if(check){
+                    check.is_favourite = true
+                    is_created = false
+                    is_betted = false
+                    is_yes = null
+                    bet_amount = 0
+                    bet_outcome = null
+                    // exceuted_as
+                }
+                else
+                    filtered_events.push(event)
+            }
+        }
+
+
+
+        // calculate outcome and no_bet_percentage
+        for (let i = 0; i < filtered_events.length; i++) {
+            let bet_amount = await db.query('SELECT sum(bet_amount) FROM BETTING WHERE e_id = $1', [filtered_events[i]._id])
+            let no_bet_voloume = await db.query('SELECT sum(bet_amount) FROM BETTING WHERE is_yes = 0 AND e_id = $1', [filtered_events[i]._id])
             let no_bet_percentage = (parseInt(no_bet_voloume.rows[0].sum) * 100 / parseInt(bet_amount.rows[0].sum))
-            events[i].no_bet_percentage = no_bet_percentage
+            filtered_events[i].no_bet_percentage = no_bet_percentage
+
+            let bet_outcome = filtered_events[i].bet_outcome? filtered_events[i].bet_outcome : 0
+            let created_outcome = filtered_events[i].created_outcome? filtered_events[i].created_outcome : 0
+
+            filtered_events[i].outcome = parseFloat(bet_outcome) + parseFloat(created_outcome)
             
         }
-        
+
+        return res.json(filtered_events)
         let data = events
         if(title != "null"){
           data = events.filter((event) =>
@@ -799,8 +899,78 @@ router.patch('/admin/cancel/:id', authorization, onlyAdmin, async(req, res) => {
     }
 })
 
-//////////////////////////////////////////////////////////////
-/////////////////////////// VERSION 2 ////////////////////////
+
+// report event
+router.patch('/report/:id', authorization, async(req, res) => {
+    try {
+        // if event particapation ends, accept no reports
+        const event = await db.query('SELECT e_end, is_approved FROM EVENTS WHERE _id = $1', [
+            req.params.id
+        ]);
+
+        const eventEnd = new Date(event.rows[0].e_end);
+        if (eventEnd < new Date()) 
+            return res.status(422).json({ message: 'No reports are allowed after participation time.' });
+
+        // check user has already reported
+        const check = await db.query('SELECT * FROM REPORTS_APPEAL WHERE e_id = $1 AND u_id = $2 AND reported = true', [req.params.id, req.user_id])
+
+        if (check.rows.length !== 0)
+            return res.status(422).json({ message: 'You have already reported this event.' });
+
+        // insert new report
+        await db.query('INSERT INTO REPORTS_APPEAL(u_id, e_id, reported) VALUES($1, $2, $3)', [req.user_id, req.params.id, true])
+
+        const total_reports = await db.query('SELECT COALESCE(COUNT(*), 0) FROM REPORTS_APPEAL WHERE e_id = $1 AND reported = true', [req.params.id])
+
+        if (total_reports.rows[0].count >= 5){
+            // inactive event, hide from service page
+            await db.query('UPDATE EVENTS SET is_active = 0 WHERE _id = $1', [req.params.id])
+        }
+
+        return res.status(200).json({message: 'Event reported successfully.'})
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({message: 'Server Error'})
+    }
+})
+
+// appeal
+router.patch('/appeal/:id', authorization, async(req, res) => {
+    try {
+        // if event particapation ends, accept no reports
+        const event = await db.query('SELECT e_end, is_approved FROM EVENTS WHERE _id = $1', [
+            req.params.id
+        ]);
+
+        const eventEnd = new Date(event.rows[0].e_start);
+        if (eventEnd > new Date()) 
+            return res.status(422).json({ message: 'Appeal request are accepted after D-date' });
+
+        // check user has already appealed
+        const check = await db.query('SELECT * FROM REPORTS_APPEAL WHERE e_id = $1 AND u_id = $2 AND appealed = true', [req.params.id, req.user_id])
+
+        if (check.rows.length !== 0)
+            return res.status(422).json({ message: 'You have already reported this event.' });
+
+        // insert new report
+        await db.query('INSERT INTO REPORTS_APPEAL(u_id, e_id, reported) VALUES($1, $2, $3)', [req.user_id, req.params.id, true])
+
+        const total_reports = await db.query('SELECT COALESCE(COUNT(*), 0) FROM REPORTS_APPEAL WHERE e_id = $1 AND reported = true', [req.params.id])
+
+        if (total_reports.rows[0].count >= 5){
+            // inactive event, hide from service page
+            await db.query('UPDATE EVENTS SET is_active = 0 WHERE _id = $1', [req.params.id])
+        }
+
+        return res.status(200).json({message: 'Event reported successfully.'})
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({message: 'Server Error'})
+    }
+})
+
+
 
 
 

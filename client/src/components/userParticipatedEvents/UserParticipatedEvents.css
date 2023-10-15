@@ -185,11 +185,60 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 50%;
+        width: 100%;
     }
     .myselect > span{
         width: 33.3%;
         flex: 1;
         text-align: right;
+    }
+
+    .parcipated-footer{
+        display: flex;
+        gap: 20px;
+        margin-top: 7px;
+        justify-content: space-between;
+    }
+
+    .parcipated-footer > div {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .parcipated-footer > div > span{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .myselect,
+    .parcipated-footer > div > span > p {
+        color: #686868;
+        font-family: var(--inter);
+        font-weight: 400 !important;
+        font-size: 13px;
+    }
+
+    .parcipated-footer > div > button{
+        background-color: var(--grey);
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: 1px solid var(--borderColor);
+        outline: none;
+        cursor: pointer;
+        font-family: var(--poppins);
+        color: var(--roughBlack);
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 12px;
+        width: 70%;
+    }
+    .parcipated-footer > div > button > span {
+        font-size: 10px !important;
+        font-weight: 400 !important;
+        line-height: 10px;
     }
 }

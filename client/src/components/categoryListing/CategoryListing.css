@@ -143,16 +143,21 @@
     }
     .category-lists > table > tbody > tr > td:nth-of-type(3),
     .category-lists > table > thead > tr > th:nth-of-type(3){
-        min-width: 150px;
-        max-width: 150px;
+        min-width: 90px;
+        max-width: 90px;
     }
     .category-lists > table > tbody > tr > td:nth-of-type(4),
     .category-lists > table > thead > tr > th:nth-of-type(4){
-        min-width: 70px;
-        max-width: 70px;
+        min-width: 50px;
+        max-width: 50px;
     }
     .category-lists > table > tbody > tr > td:nth-of-type(5),
     .category-lists > table > thead > tr > th:nth-of-type(5){
+        min-width: 100px;
+        max-width: 100px;
+    }
+    .category-lists > table > tbody > tr > td:nth-of-type(6),
+    .category-lists > table > thead > tr > th:nth-of-type(6){
         min-width: 70px;
         max-width: 70px;
     }

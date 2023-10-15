@@ -18,7 +18,7 @@ import Comments from '../../components/comments/Comments'
 
 
 function EventDetail2() {
-    const { categoryIDforEventFiltering, setCategoryIDforEventFiltering, setPageForEvent, setEvents, setAddress, refresh } = useContext(Context)
+    const { categoryIDforEventFiltering, setCategoryIDforEventFiltering, setPageForEvent, setEvents, setAddress, address, refresh } = useContext(Context)
     const navigate = useNavigate()
 
     const { id } = useParams()
@@ -98,6 +98,25 @@ function EventDetail2() {
         }
     }
 
+    const reportEvent = async() => {
+        const confirm = window.confirm('Report this event?')
+        if(!confirm)
+            return;
+
+        const response = await fetch(`/event/report/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'Application/json',
+                token: sessionStorage.getItem('token')
+            }
+        })
+        const res = await response.json()
+        if(response.status === 200){
+            toast.success(res.message)
+        }
+        else
+            toast.error(res.message)
+    }
 
 
     const getEvent = async () => {
@@ -154,6 +173,7 @@ function EventDetail2() {
                             />
                             {minifyAddress(event?.creator)}</Link>
                     </p>
+                   {address && <img className='report-btn' src={require('../../assets/report.png')} alt='report' onClick={reportEvent}/>}
                     <div className='event2-metadata'>
                         <div>
                             <div>

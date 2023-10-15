@@ -38,11 +38,12 @@ function CategoryListing() {
           <table>
             <thead>
               <tr>
-                <th style={{width:'5%'}}>#</th>
-                <th style={{width:'30%'}}>Name</th>
-                <th style={{width:'30%'}}>Added On</th>
-                <th style={{width:'20%'}}>Event Count</th>
-                <th style={{width:'20%'}}>Actions</th>
+                <th >#</th>
+                <th >Name</th>
+                <th >Event Count</th>
+                <th >Order</th>
+                <th >Added On</th>
+                <th >Actions</th>
               </tr>
             </thead>
           <tbody>
@@ -63,6 +64,7 @@ const CategoryRow = ({cat, index, fetchCategories}) => {
   
   const [edit, setEdit] = useState(false)
   const [name, setName] = useState(null)
+  const [order, setOrder] = useState(null)
   
   const deleteCategory = async(id) => {
     const check = window.confirm('Are you sure deleting this category?')
@@ -117,16 +119,18 @@ const CategoryRow = ({cat, index, fetchCategories}) => {
   
   return <> 
       <tr key={index}>
-          <td style={{width:'5%'}}>{index+1}</td>
-          <td style={{width:'30%'}}>{cat.name}</td>
-          <td style={{width:'30%'}}>{cat.created_on.substr(0,16).replace('T', ' ')}</td>
-          <td style={{width:'20%'}}>{cat.eventCount}</td>
-          <td style={{width:'20%'}}>
+          <td >{index+1}</td>
+          <td >{cat.name}</td>
+          <td >{cat.eventCount}</td>
+          <td >{cat.order? cat.order : cat._id }</td>
+          <td >{cat.created_on.substr(0,16).replace('T', ' ')}</td>
+          <td >
             <FiEdit onClick={()=>setEdit(true)}/>
             {cat.eventCount == 0 && <BsTrash onClick={() => deleteCategory(cat._id)}/>}
           </td>
         {edit && <span className='edit-cate'>
-          <input defaultValue={cat.name} required onChange={(e)=>setName(e.target.value)}/>
+          <input defaultValue={cat.name} required onChange={(e)=>setName(e.target.value)} placeholder='Category Name'/>
+          <input defaultValue={cat.order? cat.order : cat._id} type='number' required onChange={(e)=>setOrder(e.target.value)} placeholder='Category Order'/>
           <button onClick={()=>updateCategory(cat._id)}>Update</button>
           <RxCross1 onClick={()=>setEdit(false)}/>
         </span>}

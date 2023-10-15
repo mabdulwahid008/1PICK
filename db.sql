@@ -31,14 +31,24 @@ CREATE TABLE EVENTS(
     content_CID VARCHAR(64),
     c_id INT NOT NULL,
     creator_id INT NOT NULL,
-    is_active INT DEFAULT 0,   -- 0:inactive , 1:active, -1:expired
+    is_active INT DEFAULT 0,   
+                -- -2:canceled (admin cancels or no decision has taken by the creator)
+                -- -1:expired (excuted/resolved)
+                --  0:inactive (report) // when event gets five reporsts
+                --  1:active, (live)
+                --  2:pending: (parscipate time to distribution time) // appeal period
+                --  3:hide from web after 60 days from distrubtion date
     is_approved INT DEFAULT 0, -- admin to approve new events
     executed_as INT DEFAULT -1, -- 0:NO, 1:YES
     FOREIGN KEY (c_id) REFERENCES CATEGORIES(_id),
     FOREIGN KEY (creator_id) REFERENCES USERS(_id),
-    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 )
 ALTER TABLE EVENTS ADD pick VARCHAR(200)
+
+-- new stuff
+ALTER TABLE EVENTS ADD report INT DEFAULT 0 -- when it gets 5 hide from home page and when admin approves make it to -99
+ALTER TABLE EVENTS ADD appeal INT DEFAULT 0 -- when it gets 10 (it is allowed after  d-date) when admin reapproves make it to -99
 
 
 CREATE TABLE BETTING (
@@ -77,7 +87,7 @@ CREATE TABLE NUMBERS(
 
 INSERT INTO NUMBERS(welcome, min_bet, max_bet, e_creation, min_withdraw) VALUES(500, 100, 1000, 10000, 5000)
 
-
+-- new stuff
 CREATE TABLE USERS_SCORE(
     _id SERIAL PRIMARY KEY,
     e_id INT NOT NULL,
@@ -96,6 +106,15 @@ CREATE TABLE EVENT_COMMENTS(
     p_comment_id INT,
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (p_comment_id) REFERENCES EVENT_COMMENTS(_id) ON DELETE CASCADE,
+    FOREIGN KEY (e_id) REFERENCES EVENTS(_id) ON DELETE CASCADE,
+    FOREIGN KEY (u_id) REFERENCES USERS(_id) ON DELETE CASCADE
+)
+
+CREATE TABLE REPORTS_APPEAL(
+    u_id INT NOT NULL,
+    e_id INT NOT NULL,
+    reported BOOLEAN,
+    appealed BOOLEAN,
     FOREIGN KEY (e_id) REFERENCES EVENTS(_id) ON DELETE CASCADE,
     FOREIGN KEY (u_id) REFERENCES USERS(_id) ON DELETE CASCADE
 )

@@ -75,6 +75,7 @@ function UsersRanking() {
                         <tr>
                             <th>#</th>
                             <th>Address</th>
+                            <th>Scores</th>
                             <th>Join</th>
                             <th>Create</th>
                         </tr>
@@ -84,6 +85,7 @@ function UsersRanking() {
                             return <tr key={index}>
                                         <td>{index+1}</td>
                                         <td><Link to={`/user/${user.address}`}><Blockies seed={user.address} size={5} scale={3} color="#FF385C" bgColor="#00B66D" /> {minifyAddress(user.address)} </Link></td>
+                                        <td>{user.score}</td>
                                         <td>{user.joinevents}</td>
                                         <td>{user.createdEvents}</td>
                                     </tr>
