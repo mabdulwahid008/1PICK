@@ -121,7 +121,7 @@ function UserParticipatedEvents() {
       </div>}
 
       <div className='participated-event'>
-        <table responsive={true}>
+        {/* <table responsive={true}>
           <thead>
             <tr>
               <th style={{ width: '8%' }}>Market</th>
@@ -149,7 +149,7 @@ function UserParticipatedEvents() {
           </tbody>
           <tbody>
           </tbody>
-        </table>
+        </table> */}
 
         {events?.map((event, index) => {
           return <div className='event-item-mob' key={index}>
@@ -176,12 +176,31 @@ function UserParticipatedEvents() {
               <div>
                 {address === event.creator? 
                   <>
-                  <button onClick={()=>setDecisionPopup(true)}>Decision <br /> <span>YES or NO</span></button>
+                          {event.result_decided?
+                            <>
+                              <p className='myselect'>Termination: {(event.will_exeute_as == 1 && 'YES') || (event.will_exeute_as == 0 && 'NO')}</p>
+                              <button onClick={()=>setDecisionPopup(event._id)}>Appeal</button>
+                            </>
+                          :
+                          <button onClick={()=>setDecisionPopup(event._id)}>Decision <br /> <span>YES or NO</span></button>}
                   </>
                   :
                   <>
-                  <p className='myselect'>{event.bet_amount != 0 ? 'Bet' : 'Favorite'}</p>
-                  <p className='myselect'>Hello</p>
+                          {event.result_decided?
+                          <>
+                              <p className='myselect'>Termination: {(event.will_exeute_as == 1 && 'YES') || (event.will_exeute_as == 0 && 'NO')}</p>
+                              {event.is_betted?
+                                  <button onClick={()=>setDecisionPopup(event._id)}>Appeal</button>
+                                :
+                                <p className='myselect'>Favorite</p>
+                              }
+                          </>
+                          :
+                          <>
+                              <p className='myselect'>{event.bet_amount != 0 ? 'Bet' : 'Favorite'}</p>
+                              <p className='myselect'>{(event.executed_as == -1 && 'Active') || (event.executed_as == 0 && 'Waiting') || (event.executed_as == -2 && 'Canceled')}</p>
+                          </>
+                          }
                   </>
                 }
               </div>

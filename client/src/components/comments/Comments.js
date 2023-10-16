@@ -75,6 +75,9 @@ function Comments({ event_id }) {
             setConetnt('')
             fetchComments()
         }
+        else if (response.status === 401) {
+            setAddress(null)
+        }
         else
             toast.error(res.message)
         setLoading(false)
@@ -98,6 +101,9 @@ function Comments({ event_id }) {
             document.getElementById('sub-comment').value = ''
             setSubConetnt('')
             fetchComments()
+        }
+        else if (response.status === 401) {
+            setAddress(null)
         }
         else
             toast.error(res.message)

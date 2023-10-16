@@ -607,6 +607,16 @@ router.get('/participated', authorization, async(req, res) => {
         // filter created events
         for (let i = 0; i < events?.length; i++) {
             let event = createdEvents.rows?.filter(obj => obj?._id === events[i]?._id)[0]
+
+            const result_decided = await db.query('SELECT * FROM EVENT_EXECUTION WHERE e_id = $1', [event._id])
+            if(result_decided.rows.length === 0){
+                event.result_decided = false;
+            }
+            else{
+                event.result_decided = true;
+                event.will_exeute_as = result_decided.rows[0].will_exeute_as
+            }
+
             if (event) {
                 event = {
                     ...event,
@@ -635,6 +645,16 @@ router.get('/participated', authorization, async(req, res) => {
         // filter bet_events
         for (let i = 0; i < events?.length; i++) {
             let event = participatedEvents?.rows?.filter(obj => obj?._id === events[i]?._id)[0]
+
+            const result_decided = await db.query('SELECT * FROM EVENT_EXECUTION WHERE e_id = $1', [event._id])
+            if(result_decided.rows.length === 0){
+                event.result_decided = false;
+            }
+            else{
+                event.result_decided = true;
+                event.will_exeute_as = result_decided.rows[0].will_exeute_as
+            }
+
             if(event){
                 event = {
                     ...event,
@@ -661,7 +681,16 @@ router.get('/participated', authorization, async(req, res) => {
         // filter favourite_events
         for (let i = 0; i < events?.length; i++) {
             let event = favouriteEvents?.rows?.filter(obj => obj?._id === events[i]?._id)[0]
-            // console.log(event);
+            
+            const result_decided = await db.query('SELECT * FROM EVENT_EXECUTION WHERE e_id = $1', [event._id])
+            if(result_decided.rows.length === 0){
+                event.result_decided = false;
+            }
+            else{
+                event.result_decided = true;
+                event.will_exeute_as = result_decided.rows[0].will_exeute_as
+            }
+
             if(event){
                 event = {
                     ...event,
@@ -911,7 +940,6 @@ router.patch('/admin/cancel/:id', authorization, onlyAdmin, async(req, res) => {
     }
 })
 
-
 // report event
 router.patch('/report/:id', authorization, async(req, res) => {
     try {
@@ -982,7 +1010,6 @@ router.patch('/appeal/:id', authorization, async(req, res) => {
     }
 })
 
-
 // add veiw
 router.patch('/add-view/:id', async(req, res) => {
     try {
@@ -1000,6 +1027,23 @@ router.patch('/add-view/:id', async(req, res) => {
     }
 })
 
+
+// create decision
+router.post('/decision', authorization, async(req, res) => {
+    const { event_id, will_exeute_as } = req.body
+    try {
+        const creator = await db.query('SELECT creator_id FROM EVENTS WHERE _id = $1', [event_id])
+
+        if(creator.rows[0].creator_id != req.user_id)
+            return res.status(422).json({message: 'Only creator can decide the result.'})
+
+        await db.query('INSERT INTO EVENT_EXECUTION(e_id, will_exeute_as) VALUES($1, $2)', [event_id, will_exeute_as])
+        return res.status(200).json({})
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({message: 'Server Error'})
+    }
+})
 
 
 

@@ -1,13 +1,34 @@
 import React, { useContext, useState } from 'react'
 import './DecisionPopup.css'
 import { Context } from '../../state/Provider'
+import { toast } from 'react-toastify'
 
 function DecisionPopup() {
-    const { setDecisionPopup } = useContext(Context)
+    const { setDecisionPopup, decisionPopup, setAddress } = useContext(Context)
     const [decisionTaken, setDecisionTaken] = useState(false)
+    const [loading, setLoading] = useState(false)
 
-    const descision = () => {
+    const descision = async(will_exeute_as) => {
+      setLoading(true)
+      const response = await fetch('/event/decision',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'Application/json',
+          token: sessionStorage.getItem('token')
+        },
+        body: JSON.stringify({event_id:decisionPopup, will_exeute_as })
+      })
+      const res = await response.json()
+      if(response.status === 200){
         setDecisionTaken(true)
+      }
+      else if(response.status === 401){
+        setAddress(null)
+      }
+      else
+        toast.error(res.message)
+      
+      setLoading(false)
     }
 
   return (
@@ -17,8 +38,8 @@ function DecisionPopup() {
        {!decisionTaken? <>
           <h4>Please select accurately based on actual results.</h4>
             <div className='decision-btns'>
-                <button onClick={descision}>YES</button>
-                <button onClick={descision}>NO</button>
+                <button disabled={loading} onClick={()=>descision(1)}>YES</button>
+                <button disabled={loading} onClick={()=>descision(0)}>NO</button>
             </div>  
         </>
         :
