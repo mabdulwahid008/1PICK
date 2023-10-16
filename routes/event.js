@@ -560,6 +560,7 @@ router.get('/participated', authorization, async(req, res) => {
                                                     ON USERS._id = EVENTS.creator_id
                                                     WHERE FAVOURITE.u_id = $1 AND EVENTS.is_active != 3`, [req.user_id])  
         
+                                                
         // favourite events
         for (let i = 0; i < favouriteEvents.rows.length; i++) {
             favouriteEvents.rows[i].is_favourite = true;
@@ -607,17 +608,19 @@ router.get('/participated', authorization, async(req, res) => {
         // filter created events
         for (let i = 0; i < events?.length; i++) {
             let event = createdEvents.rows?.filter(obj => obj?._id === events[i]?._id)[0]
-
-            const result_decided = await db.query('SELECT * FROM EVENT_EXECUTION WHERE e_id = $1', [event._id])
-            if(result_decided.rows.length === 0){
-                event.result_decided = false;
-            }
-            else{
-                event.result_decided = true;
-                event.will_exeute_as = result_decided.rows[0].will_exeute_as
-            }
+            
+           
 
             if (event) {
+                const result_decided = await db.query('SELECT * FROM EVENT_EXECUTION WHERE e_id = $1', [event?._id])
+                if(result_decided.rows.length === 0){
+                    event.result_decided = false;
+                }
+                else{
+                    event.result_decided = true;
+                    event.will_exeute_as = result_decided.rows[0].will_exeute_as
+                }
+
                 event = {
                     ...event,
                     is_created: true,
@@ -628,7 +631,7 @@ router.get('/participated', authorization, async(req, res) => {
                     bet_outcome: null
                 };
                 // check participated_created has already that event ?
-                const check = filtered_events.filter((obj) => obj._id === event._id)[0]
+                const check = filtered_events.filter((obj) => obj?._id === event._id)[0]
                 if(check){
                     check.is_created = true
                     check.is_betted = false
@@ -646,16 +649,17 @@ router.get('/participated', authorization, async(req, res) => {
         for (let i = 0; i < events?.length; i++) {
             let event = participatedEvents?.rows?.filter(obj => obj?._id === events[i]?._id)[0]
 
-            const result_decided = await db.query('SELECT * FROM EVENT_EXECUTION WHERE e_id = $1', [event._id])
-            if(result_decided.rows.length === 0){
-                event.result_decided = false;
-            }
-            else{
-                event.result_decided = true;
-                event.will_exeute_as = result_decided.rows[0].will_exeute_as
-            }
-
+            
             if(event){
+                const result_decided = await db.query('SELECT * FROM EVENT_EXECUTION WHERE e_id = $1', [event._id])
+                if(result_decided.rows.length === 0){
+                    event.result_decided = false;
+                }
+                else{
+                    event.result_decided = true;
+                    event.will_exeute_as = result_decided.rows[0].will_exeute_as
+                }
+
                 event = {
                     ...event,
                     is_betted: true,
@@ -682,16 +686,17 @@ router.get('/participated', authorization, async(req, res) => {
         for (let i = 0; i < events?.length; i++) {
             let event = favouriteEvents?.rows?.filter(obj => obj?._id === events[i]?._id)[0]
             
-            const result_decided = await db.query('SELECT * FROM EVENT_EXECUTION WHERE e_id = $1', [event._id])
-            if(result_decided.rows.length === 0){
-                event.result_decided = false;
-            }
-            else{
-                event.result_decided = true;
-                event.will_exeute_as = result_decided.rows[0].will_exeute_as
-            }
-
+            
             if(event){
+                const result_decided = await db.query('SELECT * FROM EVENT_EXECUTION WHERE e_id = $1', [event._id])
+                if(result_decided.rows.length === 0){
+                    event.result_decided = false;
+                }
+                else{
+                    event.result_decided = true;
+                    event.will_exeute_as = result_decided.rows[0].will_exeute_as
+                }
+                
                 event = {
                     ...event,
                     is_favourite: true,
@@ -1032,10 +1037,16 @@ router.patch('/add-view/:id', async(req, res) => {
 router.post('/decision', authorization, async(req, res) => {
     const { event_id, will_exeute_as } = req.body
     try {
-        const creator = await db.query('SELECT creator_id FROM EVENTS WHERE _id = $1', [event_id])
+        const event = await db.query('SELECT creator_id, e_start FROM EVENTS WHERE _id = $1', [event_id])
 
-        if(creator.rows[0].creator_id != req.user_id)
+        if(event.rows[0].creator_id != req.user_id)
             return res.status(422).json({message: 'Only creator can decide the result.'})
+
+        // decison can only be taken after d-date
+        const eventEnd = new Date(event.rows[0].e_start);
+        if (eventEnd < new Date()) 
+            return res.status(422).json({ message: 'Decisions are allowed after D-date.' });
+
 
         await db.query('INSERT INTO EVENT_EXECUTION(e_id, will_exeute_as) VALUES($1, $2)', [event_id, will_exeute_as])
         return res.status(200).json({})
