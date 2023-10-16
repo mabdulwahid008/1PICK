@@ -146,7 +146,7 @@ function CreateEvent() {
         if(!address)
             return
         const date = new Date()
-        const add48hours = new Date(date.getTime() + 72 * 60 * 60 * 1000)
+        const add48hours = new Date(date.getTime() + 96 * 60 * 60 * 1000)
         
         let x = add48hours.toISOString().slice(0, 10)
         const element = document.getElementById('participation')
@@ -195,7 +195,7 @@ function CreateEvent() {
                 <label>Category <Tooltip text={"Please select the category to which the event belongs."}/></label>
                 <Select id='cate-select' isSearchable={ false } onChange={(option) => {eventData.c_id = option.value}} required placeholder="Select Category" options={categoryOptions} styles={window.innerWidth <= 768 ? createMobEvent : createEvent} />
             </div>
-            <div className='formGroup'>
+            <div className='formGroup'> 
                 <label>Date of event <Tooltip text={"Please enter the date of the event \nex) 2023.09.01"}/></label>
                 <input type='date' name='e_start' id='participation' required onChange={onChange}/>
             </div>
