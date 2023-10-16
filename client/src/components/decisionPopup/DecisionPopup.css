@@ -1,0 +1,44 @@
+.decision-popup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 20px;
+    height: auto;
+    overflow: hidden;
+}
+
+.decision-popup > h4 {
+    text-align: center;
+    font-family: var(--poppins);
+    color: var(--roughBlack);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.decision-btns{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row !important;
+    gap: 10px;
+    width: 90%;
+    padding: 0px !important;
+}
+.decision-btns > button {
+    font-family: var(--poppins);
+    background-color: var(--green);
+    border: none;
+    outline: none;
+    padding: 7px;
+    font-size: 14px;
+    color: var(--white);
+    width: 50%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.decision-btns > button:nth-of-type(2){
+    background-color: var(--red);
+}

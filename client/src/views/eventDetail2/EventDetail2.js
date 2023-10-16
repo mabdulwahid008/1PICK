@@ -34,7 +34,7 @@ function EventDetail2() {
 
     const addView = async() => {
         let viewed = localStorage.getItem('viewed_events')
-        const already_viewed = viewed.includes(id)
+        const already_viewed = viewed?.includes(id)
         if(already_viewed)
             return;
        

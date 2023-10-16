@@ -18,7 +18,7 @@ const options = [
 
 function UserParticipatedEvents() {
 
-  const { setAddress, address } = useContext(Context)
+  const { setAddress, address, setDecisionPopup } = useContext(Context)
 
   const [events, setEvents] = useState(null)
   const [allevents, setALLEvents] = useState(null)
@@ -176,7 +176,7 @@ function UserParticipatedEvents() {
               <div>
                 {address === event.creator? 
                   <>
-                  <button>Decision <br /> <span>YES or NO</span></button>
+                  <button onClick={()=>setDecisionPopup(true)}>Decision <br /> <span>YES or NO</span></button>
                   </>
                   :
                   <>

@@ -18,6 +18,7 @@ function Provider(props) {
     const [mobSearchBox, setMobSearchBox] = useState(false)
     const [walletConnectPopup, setWalletConnectPopup] = useState(false)
     const [depositPopup, setDepositPopup] = useState(false)
+    const [decisionPopup, setDecisionPopup] = useState(false)
     const [congratsPopup, setCongratsPopup] = useState(false)
     
     const [mobProfile, setmobProfile] = useState(false)
@@ -203,7 +204,8 @@ function Provider(props) {
         setCongratsPopup,
         pickBalance,
         numbers,
-        mobProfile, setmobProfile
+        mobProfile, setmobProfile,
+        decisionPopup, setDecisionPopup
     }
 
   return (

@@ -233,10 +233,7 @@
         border: 1px solid var(--borderColor);
     }
     .pick-val{
-        /* font-family: var(--poppins);
-        color: var(--roughBlack);
-        font-size: 12px;
-        margin-bottom: 2px; */
+       font-size: 14px;
     }
     .event-item-mob > div:nth-of-type(1){
         margin-top: 15px;
