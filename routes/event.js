@@ -367,7 +367,7 @@ router.delete('/bet/:event_id', authorization, async(req, res)=> {
         ]);
         const eventEnd = new Date(event.rows[0].e_end);
         if (eventEnd < new Date()) 
-            return res.status(422).json({ message: 'Event has already ended.' });
+            return res.status(422).json({ message: 'Bets can be cancelled before participation time.' });
     
         await removeUserScores(req.params.event_id, req.user_id)
 
@@ -1044,7 +1044,7 @@ router.post('/decision', authorization, async(req, res) => {
 
         // decison can only be taken after d-date
         const eventEnd = new Date(event.rows[0].e_start);
-        if (eventEnd < new Date()) 
+        if (eventEnd > new Date()) 
             return res.status(422).json({ message: 'Decisions are allowed after D-date.' });
 
 

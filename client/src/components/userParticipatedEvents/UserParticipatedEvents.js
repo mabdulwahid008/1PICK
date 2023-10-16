@@ -18,7 +18,7 @@ const options = [
 
 function UserParticipatedEvents() {
 
-  const { setAddress, address, setDecisionPopup } = useContext(Context)
+  const { setAddress, address, setDecisionPopup, refresh } = useContext(Context)
 
   const [events, setEvents] = useState(null)
   const [allevents, setALLEvents] = useState(null)
@@ -84,7 +84,7 @@ function UserParticipatedEvents() {
   useEffect(() => {
     setEvents(null)
     getEvents()
-  }, [defaultValueStatus, defaultValueMarket, searchTitle])
+  }, [defaultValueStatus, defaultValueMarket, searchTitle, refresh])
 
 
 

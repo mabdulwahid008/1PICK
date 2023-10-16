@@ -4,7 +4,7 @@ import { Context } from '../../state/Provider'
 import { toast } from 'react-toastify'
 
 function DecisionPopup() {
-    const { setDecisionPopup, decisionPopup, setAddress } = useContext(Context)
+    const { setDecisionPopup, decisionPopup, setAddress, setRefresh } = useContext(Context)
     const [decisionTaken, setDecisionTaken] = useState(false)
     const [loading, setLoading] = useState(false)
 
@@ -21,6 +21,7 @@ function DecisionPopup() {
       const res = await response.json()
       if(response.status === 200){
         setDecisionTaken(true)
+        setRefresh(state => !state)
       }
       else if(response.status === 401){
         setAddress(null)
