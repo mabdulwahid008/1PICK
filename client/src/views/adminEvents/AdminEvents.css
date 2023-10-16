@@ -1,0 +1,71 @@
+.admin-events{
+    padding: 80px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.admin-events > .event-item-mob {
+    width: auto !important;
+}
+
+.event-views-bets{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row !important;
+    gap: 20px;
+}
+
+.event-views-bets > span {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 7px;
+}
+
+.event-views-bets > span > img {
+    height: 20px;
+    width: 20px;
+}
+
+.parcipated-footer ~ button{
+    margin-top: 5px;
+    background-color: var(--grey);
+    outline: none;
+    border-radius: 7px;
+    border: 1px solid var(--borderColor);
+    font-family: var(--poppins);
+    color: var(--roughBlack);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.admin-filter-events{
+    width: 60%;
+    align-self: flex-end;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.admin-filter-events > a {
+    background-color: var(--grey);
+    padding: 6px 10px 5px;
+    border: 1px solid var(--borderColor);
+    border-radius: 5px;
+    border-left: none;
+    cursor: pointer;
+}
+
+.admin-filter-events > a > img {
+    height: 22px;
+    width: 22px;
+}
+
+.admin-filter-events > div { 
+    width: 70%;
+}

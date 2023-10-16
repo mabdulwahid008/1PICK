@@ -12,6 +12,7 @@ import CategoryPage from '../../views/categoryPage/CategoryPage'
 import NumbersSet from '../../components/numbersSet/NumbersSet'
 import AdminDashboardStats from '../../components/adminStats/AdminDashboardStats'
 import AdminGraph from '../../components/adminGraph/AdminGraph'
+import AdminEvents from '../../views/adminEvents/AdminEvents'
 
 
 function AdminLayout() {
@@ -40,6 +41,7 @@ function AdminLayout() {
               <Route path='/admin/members' element={<AdminMembers/>} />
               <Route path='/admin/category' element={<CategoryPage/>} />
               <Route path='/admin/traffic' element={<AdminGraph/>} />
+              <Route path='/admin/events' element={<AdminEvents/>} />
               <Route path='*' element={<Navigate to='/admin' />}/>
             </Routes>
           </div>

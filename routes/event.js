@@ -100,7 +100,7 @@ router.get('/', async(req, res) => {
             totalEvents = await db.query(`SELECT COUNT(*) FROM EVENTS WHERE is_active = 1 AND creator_id IN (${users})`)
             total_data += parseInt(totalEvents.rows[0].count)
 
-            events = await db.query(`SELECT EVENTS._id, title, e_start, pick, EVENTS.created_on, EVENTS.is_active, image_CID, address AS creator, name AS c_name FROM EVENTS 
+            events = await db.query(`SELECT EVENTS._id, title, e_start, views, pick, EVENTS.created_on, EVENTS.is_active, image_CID, address AS creator, name AS c_name FROM EVENTS 
                                             INNER JOIN CATEGORIES 
                                                 ON EVENTS.c_id = CATEGORIES._id 
                                             INNER JOIN USERS 
@@ -113,7 +113,7 @@ router.get('/', async(req, res) => {
         else{
             totalEvents = await db.query(`SELECT COUNT(*) FROM EVENTS WHERE is_active = 1 AND c_id = $1  AND creator_id IN (${users})`, [category])
             total_data += parseInt(totalEvents.rows[0].count)
-            events = await db.query(`SELECT EVENTS._id, title, e_start,pick, EVENTS.created_on, EVENTS.is_active, image_CID, address AS creator, name AS c_name FROM EVENTS 
+            events = await db.query(`SELECT EVENTS._id, title, e_start,pick, views, EVENTS.created_on, EVENTS.is_active, image_CID, address AS creator, name AS c_name FROM EVENTS 
                                             INNER JOIN CATEGORIES 
                                                 ON EVENTS.c_id = CATEGORIES._id 
                                             INNER JOIN USERS 
@@ -131,6 +131,10 @@ router.get('/', async(req, res) => {
             // total valume
             const total_volume = await db.query('SELECT sum(bet_amount) FROM BETTING WHERE e_id = $1', [data[i]._id])
             data[i].total_volume = total_volume.rows[0].sum
+
+            // RESPONSES 
+            const responses = await db.query('SELECT COUNT(*) FROM BETTING WHERE e_id = $1', [data[i]._id])
+            data[i].responses = responses.rows[0].count
 
             let no_bet_voloume = await db.query('SELECT sum(bet_amount) FROM BETTING WHERE is_yes = 0 AND e_id = $1', [data[i]._id])
             // no percentage
@@ -840,12 +844,20 @@ router.post('/favourite', authorization, async(req, res) => {
 // admin listing events
 router.get('/admin/event-listing', authorization, onlyAdmin, async(req, res) => {
     try {
-        const events = await db.query('SELECT _id, title, e_start, image_CID, is_active, is_approved, created_on FROM EVENTS')
+        const events = await db.query('SELECT _id, title, views, e_start, pick, image_CID, is_active, is_approved, created_on FROM EVENTS')
         for (let i = 0; i < events.rows?.length; i++) {
             const bet_amount = await db.query('SELECT SUM(bet_amount) FROM BETTING WHERE e_id = $1', [events.rows[i]._id])
             const responses = await db.query('SELECT COUNT(*) FROM BETTING WHERE e_id = $1', [events.rows[i]._id])
             events.rows[i].bet_amount = bet_amount.rows[0].sum? bet_amount.rows[0].sum : 0
             events.rows[i].responses = responses.rows[0].count
+        }
+
+        for (let i = 0; i < events.rows.length; i++) {
+            let bet_amount = await db.query('SELECT sum(bet_amount) FROM BETTING WHERE e_id = $1', [events.rows[i]._id])
+            let no_bet_voloume = await db.query('SELECT sum(bet_amount) FROM BETTING WHERE is_yes = 0 AND e_id = $1', [events.rows[i]._id])
+            let no_bet_percentage = (parseInt(no_bet_voloume.rows[0].sum) * 100 / parseInt(bet_amount.rows[0].sum))
+            events.rows[i].no_bet_percentage = no_bet_percentage
+            
         }
 
         return res.status(200).json(events.rows.sort((a,b) => b.created_on - a.created_on))
@@ -970,6 +982,23 @@ router.patch('/appeal/:id', authorization, async(req, res) => {
     }
 })
 
+
+// add veiw
+router.patch('/add-view/:id', async(req, res) => {
+    try {
+        const event = await db.query('SELECT views FROM EVENTS WHERE _id = $1', [req.params.id])
+
+        let updated_views = parseInt(event.rows[0].views) + 1
+
+        await db.query('UPDATE EVENTS SET views = $1 WHERE _id = $2', [updated_views, req.params.id])
+
+        return res.status(200).json({})
+
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({message: 'Server Error'})
+    }
+})
 
 
 

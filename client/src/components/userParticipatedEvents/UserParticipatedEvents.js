@@ -159,7 +159,6 @@ function UserParticipatedEvents() {
                 <p>{event.e_start.replace('T', ' ')}</p>
               </Link>
               <div>
-                {/* {event.image_cid && <img src={`https://ipfs.io/ipfs/${event.image_cid}`}  alt='event-image'/>} */}
                 {event.image_cid && <img src={`${process.env.REACT_APP_URL}/${event.image_cid}`} alt='event-image' />}
               </div>
             </Link>

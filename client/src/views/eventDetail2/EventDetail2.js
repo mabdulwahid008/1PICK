@@ -32,6 +32,27 @@ function EventDetail2() {
     const [stats, setStats] = useState(true)
     const [share, setShare] = useState(false)
 
+    const addView = async() => {
+        let viewed = localStorage.getItem('viewed_events')
+        const already_viewed = viewed.includes(id)
+        if(already_viewed)
+            return;
+       
+        const response = await fetch(`/event/add-view/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'Application/json'
+            }
+        })
+        const res = await response.json()
+        if(response.status === 200){
+            viewed = viewed + `,${id}`
+            localStorage.setItem('viewed_events', viewed)
+        }
+        else
+            toast.error(res.message)
+    }
+
     const addToMyFavourite = async () => {
         const response = await fetch('/event/favourite', {
             method: 'POST',
@@ -142,6 +163,7 @@ function EventDetail2() {
     }
 
     useEffect(() => {
+        addView()
     }, [])
 
     useEffect(() => {

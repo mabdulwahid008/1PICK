@@ -85,7 +85,6 @@ function EventItem({eventSytle, event}) {
                         <div className='event-owner-add'>
                             <p>{minifyAddress(event.creator)}</p>
                         </div>
-                        {/* {event.image_cid && <img src={`https://ipfs.io/ipfs/${event.image_cid}`}  alt='event-image'/>} */}
                         {event.image_cid && <img src={`${process.env.REACT_APP_URL}/${event.image_cid}`}  alt='event-image'/>}
                 </div>
         </Link>
@@ -97,7 +96,16 @@ function EventItem({eventSytle, event}) {
             </div>
         </div> 
         <div>
-            <p>OPEN</p>
+                <div className='event-views-bets'>
+                    <span>
+                        <img src={require('../../assets/eye.png')}/>
+                        <p className='myselect'>{parseInt(event.views).toLocaleString()}</p>
+                    </span>
+                    <span>
+                        <img src={require('../../assets/handshake.png')}/>
+                        <p className='myselect'>{parseInt(event.responses).toLocaleString()}</p>
+                    </span>
+                </div>
             <p>Pool &nbsp; {event.total_volume}P</p>
         </div>
     </Link>
