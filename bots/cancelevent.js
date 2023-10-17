@@ -2,6 +2,8 @@ const db = require("../db");
 
 exports.cancelEvent = async() => {
     try {
+        console.log("Cancellation Bot Started");
+
         // getting events which are set for cancellation
         const cancel_event = await db.query('SELECT * FROM EVENTS WHERE is_active = -2 AND canceled = false')
 
@@ -21,6 +23,7 @@ exports.cancelEvent = async() => {
             await db.query('UPDATE EVENTS SET canceled = true WHERE _id = $1', [cancel_event?.rows[i]])
         }
 
+        console.log("Cancellation Bot Ended");
 
     } catch (error) {
         console.log("cancel event");

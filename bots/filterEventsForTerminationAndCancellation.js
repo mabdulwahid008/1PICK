@@ -1,4 +1,7 @@
 const db = require('../db')
+const { cancelEvent } = require('./cancelevent')
+const { hideEventsAfter60days } = require('./hideEventsAfter60days')
+const { terminateEvent } = require('./terminateEvent')
 
 exports.filterEventsForTerminationAndCancellation = async() => {
 
@@ -26,8 +29,6 @@ exports.filterEventsForTerminationAndCancellation = async() => {
                 cancel_events.push(all_events.rows[i])
             continue;
         }
-
-        // if decision has taken 
         
         // if decision has taken
         const decisionDate = new Date(creatorHasTakenDecision.rows[0].created_on)
@@ -40,17 +41,39 @@ exports.filterEventsForTerminationAndCancellation = async() => {
     }
 
     for (let i = 0; i < cancel_events.length; i++) {
-       
         // setting events for cancellation
-        // await db.query('UPDATE EVENTS SET is_active = -2 WHERE _id = $1', [cancel_events[i]._id])
+        await db.query('UPDATE EVENTS SET is_active = -2 WHERE _id = $1', [cancel_events[i]._id])
     }
 
     for (let i = 0; i < terminate_events.length; i++) {
-        // function to terminate event
+        // setting events for termination
+        await db.query('UPDATE EVENTS SET is_active = 2 WHERE _id = $1', [terminate_events[i]._id])
     }
-    console.log(all_events.rows.length);
-    console.log(cancel_events.length);
-    console.log(terminate_events.length);
-    // console.log(cancel_events);
+
+    await new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("Wating for sometime to things get in their place");
+        }, 30000);
+    });
+
+    await cancelEvent()
+
+    await new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("Wating for sometime to things get in their place");
+        }, 30000);
+    });
+
+    await terminateEvent()
+
+    await new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("Wating for sometime to things get in their place");
+        }, 30000);
+    });
+    
+    await hideEventsAfter60days()
     
 }
+
+

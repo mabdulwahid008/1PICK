@@ -1,5 +1,8 @@
+const db = require("../db")
+
 exports.terminateEvent = async() => {
     try {
+        console.log("Termination Bot Started");
         // get events which need termination
         // is_active = 2 means event need termination
         // executed_as = -1 means event has not not terminated yet
@@ -61,7 +64,9 @@ exports.terminateEvent = async() => {
             }
 
             await db.query('UPDATE EVENTS SET executed_as = $1, is_active = -1 WHERE _id = $2', [is_yes, events_need_termination.rows[i]._id])
+
         }
+        console.log("Termination Bot Ended");
 
     } catch (error) {
         console.log("Termination Event");
