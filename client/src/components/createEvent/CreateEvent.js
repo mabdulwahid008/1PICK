@@ -81,11 +81,11 @@ function CreateEvent() {
             return;
         }
         // if user balance balance is less than 10000
-        if(balance < numbers.e_creation){
-            setLoading(false)
-            setDepositPopup(true)
-            return;
-        }
+        // if(balance < numbers.e_creation){
+        //     setLoading(false)
+        //     setDepositPopup(true)
+        //     return;
+        // }
         
         // const image_CID = await uploadImageToIPFS(eventData.image)
         // eventData.image_CID = image_CID

@@ -958,9 +958,9 @@ router.patch('/report/:id', authorization, async(req, res) => {
         // insert new report
         await db.query('INSERT INTO REPORTS_APPEAL(u_id, e_id, reported) VALUES($1, $2, $3)', [req.user_id, req.params.id, true])
 
-        const total_reports = await db.query('SELECT COALESCE(COUNT(*), 0) FROM REPORTS_APPEAL WHERE e_id = $1 AND reported = true', [req.params.id])
+        const total_reports = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE e_id = $1 AND reported = true', [req.params.id])
 
-        if (total_reports.rows[0].count >= 5){
+        if (total_reports.rows[0].count >= 1){
             // inactive event, hide from service page
             await db.query('UPDATE EVENTS SET is_active = 0 WHERE _id = $1', [req.params.id])
         }

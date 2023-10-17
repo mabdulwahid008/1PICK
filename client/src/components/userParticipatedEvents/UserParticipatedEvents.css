@@ -198,12 +198,14 @@
         gap: 20px;
         margin-top: 7px;
         justify-content: space-between;
+        align-items: flex-end !important;
     }
 
     .parcipated-footer > div {
         width: 50%;
         display: flex;
         flex-direction: column;
+        justify-content: flex-end;
         gap: 8px;
     }
 

@@ -18,7 +18,7 @@ import Comments from '../../components/comments/Comments'
 
 
 function EventDetail2() {
-    const { categoryIDforEventFiltering, setCategoryIDforEventFiltering, setPageForEvent, setEvents, setAddress, address, refresh } = useContext(Context)
+    const { categoryIDforEventFiltering, setCategoryIDforEventFiltering, setPageForEvent, setEvents, setAddress, address, refresh, setRefresh } = useContext(Context)
     const navigate = useNavigate()
 
     const { id } = useParams()
@@ -134,6 +134,7 @@ function EventDetail2() {
         const res = await response.json()
         if(response.status === 200){
             toast.success(res.message)
+            setRefresh(stats=> !stats)
         }
         else
             toast.error(res.message)

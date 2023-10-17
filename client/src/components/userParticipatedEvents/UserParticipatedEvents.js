@@ -176,13 +176,21 @@ function UserParticipatedEvents() {
               <div>
                 {address === event.creator? 
                   <>
-                          {event.result_decided?
-                            <>
-                              <p className='myselect'>Termination: {(event.will_exeute_as == 1 && 'YES') || (event.will_exeute_as == 0 && 'NO')}</p>
-                              <button onClick={()=>setDecisionPopup(event._id)}>Appeal</button>
-                            </>
-                          :
-                          <button onClick={()=>setDecisionPopup(event._id)}>Decision <br /> <span>YES or NO</span></button>}
+                          {event.is_active == -2?
+                              <button>Canceled</button>
+                              :
+                              // is_active = 0 show pending
+                              <>  
+                                {event.result_decided?
+                                  <>
+                                    <p className='myselect'>Termination: {(event.will_exeute_as == 1 && 'YES') || (event.will_exeute_as == 0 && 'NO')}</p>
+                                    <button onClick={()=>setDecisionPopup(event._id)}>Appeal</button>
+                                  </>
+                                :
+                                <button onClick={()=>setDecisionPopup(event._id)}>Decision <br /> <span>YES or NO</span></button>
+                                }
+                                </>
+                          }
                   </>
                   :
                   <>
