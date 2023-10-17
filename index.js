@@ -3,7 +3,7 @@ const db = require('./db')
 const cors = require('cors')
 const path = require('path')
 const bodyParser = require('body-parser');
-const { eventTermination } = require('./bots/eventTermination');
+const { filterEventsForTerminationAndCancellation } = require('./bots/filterEventsForTerminationAndCancellation');
 
 const app = express()
 
@@ -36,5 +36,5 @@ app.use('/file', require('./routes/files'))
 
 app.listen(5000, ()=>{
     console.log('Server is listening on port 5000');
-    eventTermination()
+    filterEventsForTerminationAndCancellation()
 })

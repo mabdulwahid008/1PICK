@@ -928,17 +928,9 @@ router.get('/admin/single/:id', authorization, onlyAdmin, async(req, res) => {
 // cancel event
 router.patch('/admin/cancel/:id', authorization, onlyAdmin, async(req, res) => {
     try {
-        const bets = await db.query('SELECT u_id, bet_amount FROM BETTING WHERE e_id = $1', [req.params.id])
-        for (let i = 0; i < bets.rows.length; i++) {
-            const user = await db.query('SELECT bet_amount, balance FROM USERS WHERE _id = $1', [bets.rows[i].u_id])
-            let updated_balance = parseFloat(user.rows[0].balance) + parseFloat(bets.rows[i].bet_amount)
-            let updated_bet_amount = parseFloat(user.rows[0].bet_amount) - parseFloat(bets.rows[i].bet_amount)
-            await db.query('UPDATE USERS SET balance = $1, bet_amount = $2 WHERE _id = $3', [updated_balance, updated_bet_amount, bets.rows[i].u_id])
-        }
-        await db.query('DELETE FROM BETTING WHERE e_id = $1', [req.params.id])
-        await db.query('UPDATE EVENTS SET is_active = 0 WHERE _id = $1', [req.params.id])
+        await db.query('UPDATE EVENTS SET is_active = -2 WHERE _id = $1', [req.params.id])
 
-        return res.status(200).json({message:'Event cancelled successfully.'})
+        return res.status(200).json({message:'Event set for cancellation successfully.'})
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({message: 'Server Error'})
@@ -1033,7 +1025,7 @@ router.patch('/add-view/:id', async(req, res) => {
 })
 
 
-// create decision
+// creator to take decision
 router.post('/decision', authorization, async(req, res) => {
     const { event_id, will_exeute_as } = req.body
     try {

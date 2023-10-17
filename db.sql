@@ -40,13 +40,14 @@ CREATE TABLE EVENTS(
                 --  2:pending: (parscipate time to distribution time) // appeal period
                 --  3:hide from web after 60 days from distrubtion date
     is_approved INT DEFAULT 0, -- admin to approve new events
-    executed_as INT DEFAULT -1, -- 0:NO, 1:YES
+    executed_as INT DEFAULT -1, -- 0:NO, 1:YES 
     FOREIGN KEY (c_id) REFERENCES CATEGORIES(_id),
     FOREIGN KEY (creator_id) REFERENCES USERS(_id),
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 )
 ALTER TABLE EVENTS ADD pick VARCHAR(200)
 
+ALTER TABLE EVENTS ADD canceled BOOLEAN DEFAULT FALSE
 
 
 
