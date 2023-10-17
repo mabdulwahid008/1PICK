@@ -36,5 +36,5 @@ app.use('/file', require('./routes/files'))
 
 app.listen(5000, ()=>{
     console.log('Server is listening on port 5000');
-    filterEventsForTerminationAndCancellation()
+    // filterEventsForTerminationAndCancellation()
 })
