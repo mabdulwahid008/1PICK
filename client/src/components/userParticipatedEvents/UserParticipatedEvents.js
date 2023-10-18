@@ -7,11 +7,17 @@ import { Context } from '../../state/Provider'
 import { Link, useNavigate } from "react-router-dom";
 import { getCategoriesAPI } from '../../utills/apiRequest'
 
-const options = [
-  { value: '2', label: 'All' },
-  { value: '0', label: 'Approving' },
+const status = [
+  { value: '99', label: 'All' },
   { value: '1', label: 'Open' },
-  { value: '-1', label: 'Close' }
+  { value: '0', label: 'Pending' },
+  { value: '-1', label: 'Closeed' },
+]
+const Filters = [
+  { value: '99', label: 'All' },
+  { value: '1', label: 'Created' },
+  { value: '2', label: 'Participated' },
+  { value: '3', label: 'Favorite' },
 ]
 
 
@@ -30,22 +36,7 @@ function UserParticipatedEvents() {
 
   const navigate = useNavigate()
 
-  const getGateories = async () => {
-    const { response, res } = await getCategoriesAPI()
-    if (response.status === 200) {
-      let options = [{ value: 0, label: 'All' }]
-      for (let i = 0; i < res.length; i++) {
-        let obj = {
-          value: res[i]._id,
-          label: res[i].name
-        }
-        options.push(obj)
-      }
-      setCategoryOption(options)
-    }
-    else
-      toast.error(res.message)
-  }
+
 
   const getEvents = async () => {
     const response = await fetch(`/event/participated?title=${searchTitle}&status=${defaultValueStatus.value}&category=${defaultValueMarket.value}`, {
@@ -91,10 +82,6 @@ function UserParticipatedEvents() {
   useEffect(() => {
   }, [events, window.innerWidth])
 
-  useEffect(() => {
-    getGateories()
-  }, [])
-
   return (
     <div className='user-particiaptedd-events'>
       <div>
@@ -112,10 +99,10 @@ function UserParticipatedEvents() {
         </form>
 
         <div>
-          <Select value={defaultValueStatus} isSearchable={false} options={options} styles={window.innerWidth > 768 ? portfolioStyles : mobEventFilter} onChange={(opt) => { setDefaultValueMarket({ value: 2, label: 'All' }); setDefaultValueStatus(opt); }} />
+          <Select value={defaultValueStatus} isSearchable={false} options={status} styles={window.innerWidth > 768 ? portfolioStyles : mobEventFilter} onChange={(opt) => { setDefaultValueMarket({ value: 2, label: 'All' }); setDefaultValueStatus(opt); }} />
         </div>
         <div>
-          <Select value={defaultValueMarket} isSearchable={false} options={categoryOption} styles={window.innerWidth > 768 ? portfolioStyles : mobEventFilter} onChange={(opt) => { setDefaultValueStatus({ value: 0, label: 'All' }); setDefaultValueMarket(opt); }} />
+          <Select value={defaultValueMarket} isSearchable={false} options={Filters} styles={window.innerWidth > 768 ? portfolioStyles : mobEventFilter} onChange={(opt) => { setDefaultValueStatus({ value: 0, label: 'All' }); setDefaultValueMarket(opt); }} />
         </div>
         {window.innerWidth > 768 && <button className='show-all' onClick={showALL}>Show All</button>}
       </div>}
@@ -174,49 +161,97 @@ function UserParticipatedEvents() {
 
             <div className='parcipated-footer'>
               <div>
-                {address === event.creator? 
+                {address === event.creator ?
                   <>
-                          {event.is_active == -2?
-                              <button>Canceled</button>
-                              :
-                              // is_active = 0 show pending
-                              <>  
-                                {event.result_decided?
-                                  <>
-                                    <p className='myselect'>Termination: {(event.will_exeute_as == 1 && 'YES') || (event.will_exeute_as == 0 && 'NO')}</p>
-                                    <button onClick={()=>setAppealPopup(event._id)}>Appeal</button>
-                                  </>
-                                :
-                                <button onClick={()=>setDecisionPopup(event._id)}>Decision <br /> <span>YES or NO</span></button>
-                                }
-                                </>
-                          }
-                  </>
-                  :
-                  <>
-                          {event.result_decided?
+                    {event.is_active == -2 ?
+                      <>
+                        <p className='myselect'>Created</p>
+                        <p className='myselect'>Canceled</p>
+                      </>
+                      :
+                      <>
+                        {event.is_active == 0 ?
                           <>
-                              <p className='myselect'>Termination: {(event.will_exeute_as == 1 && 'YES') || (event.will_exeute_as == 0 && 'NO')}</p>
-                              {event.is_betted?
-                                  <button onClick={()=>setAppealPopup(event._id)}>Appeal</button>
-                                :
-                                <p className='myselect'>Favorite</p>
-                              }
+                            <p className='myselect'>Created</p>
+                            <p className='myselect'>Pending</p>
                           </>
                           :
                           <>
-                              <p className='myselect'>{event.bet_amount != 0 ? 'Bet' : 'Favorite'}</p>
-                              <p className='myselect'>{(event.executed_as == -1 && 'Active') || (event.executed_as == 0 && 'Waiting') || (event.executed_as == -2 && 'Canceled')}</p>
+                            {event.is_active == -1 ?
+                              <>
+                                <p className='myselect'>Created</p>
+                                <p className='myselect'>Closed</p>
+                              </>
+                              :
+                              <>
+                                {event.result_decided ?
+                                  <>
+                                    <p className='myselect'>Termination: {(event.will_exeute_as == 1 && 'YES') || (event.will_exeute_as == 0 && 'NO')}</p>
+                                    <button onClick={() => setAppealPopup(event._id)}>Appeal</button>
+                                  </>
+                                  :
+                                  <button onClick={() => setDecisionPopup(event._id)}>Decision <br /> <span>YES or NO</span></button>
+                                }
+                              </>
+                            }
                           </>
-                          }
+                        }
+                      </>
+
+                    }
+                  </>
+                  :
+                  <>  {event.is_active == -2 ?
+                    <>
+                      <p className='myselect'>{event.bet_amount != 0 ? 'Bet (withdrawn)' : 'Favorite'}</p>
+                      <p className='myselect'>Canceled</p>
+                    </>
+                    :
+                    <>
+                      {event.is_active == 0 ?
+                        <>
+                          <p className='myselect'>Bet</p>
+                          <p className='myselect'>Pending</p>
+                        </>
+                        :
+                        <>
+                          {event.is_active == -1 ?
+                            <>
+                              <p className='myselect'>{event.bet_amount != 0 ? 'Bet' : 'Favorite'}</p>
+                              <p className='myselect'>Closed</p>
+                            </>
+                            :
+                            <>
+                              {event.result_decided ?
+                                <>
+                                  <p className='myselect'>Termination: {(event.will_exeute_as == 1 && 'YES') || (event.will_exeute_as == 0 && 'NO')}</p>
+                                  {event.is_betted ?
+                                    <button onClick={() => setAppealPopup(event._id)}>Appeal</button>
+                                    :
+                                    <p className='myselect'>Favorite</p>
+                                  }
+                                </>
+                                :
+                                <>
+                                  <p className='myselect'>{event.bet_amount != 0 ? 'Bet' : 'Favorite'}</p>
+                                  <p className='myselect'>{(event.executed_as == -1 && 'Active') || (event.executed_as == 0 && 'Waiting') || (event.executed_as == -2 && 'Canceled')}</p>
+                                </>
+                              }
+                            </>}
+
+                        </>
+
+                      }
+
+                    </>}
                   </>
                 }
               </div>
               <div>
                 <p className='myselect'>
                   <span>MySelect</span>
-                  <span>{event.bet_amount != 0? `${event.is_yes == 1 ? 'YES' : 'NO'}` : ' '}</span>
-                  <span>{event.bet_amount != 0? `${event.bet_amount}P` : '---'}</span>
+                  <span>{event.bet_amount != 0 ? `${event.is_yes == 1 ? 'YES' : 'NO'}` : ' '}</span>
+                  <span>{event.bet_amount != 0 ? `${event.bet_amount}P` : '---'}</span>
                 </p>
                 <p className='myselect'>
                   <span>Outcome</span>
@@ -230,42 +265,10 @@ function UserParticipatedEvents() {
                     </>
                   }
                 </p>
-                {/* <span>
-                              <p>Outcome</p>
-                              <p>{event.bet_outcome > 0? (event.created_outcome > 0? parseInt(event.bet_outcome) + parseInt(event.created_outcome) : '----') : '----'}</p>
-                            </span> */}
+
               </div>
             </div>
 
-            {/* {event.is_favourite ? 
-                      <div>
-                        <p>Favorite</p>
-                      </div>
-                      :
-                      <div>
-                        <p>{event.bet_amount? `Bet`: 'Creation'}</p>
-                        <p className='myselect'>
-                              <span>MySelect</span> 
-                              <span>{event.bet_amount? `${event.is_yes == 1? 'YES' : 'NO'}`: ' '}</span>  
-                              <span>{event.bet_amount? `${event.bet_amount}P` : '---'}</span>
-                        </p>
-                      </div>} */}
-
-            {/* <div>
-                        <p>{event.is_active == 1 && 'Open' || event.is_active == -1 && 'Closed' || event.is_active == 0 && 'Approving'}</p>
-                        <p className='myselect'>
-                            <span>Outcome</span> 
-                            {event.is_active == -1 ?<>
-                            <span>{event.bet_amount? `${event.is_yes == 1? 'YES' : 'NO'}`: ' '}</span> 
-                            <span>{event.outcome? `${parseFloat(event.outcome).toFixed(2)}P`: '---'}</span> 
-                            </>
-                            :
-                            <>
-                            <span> </span><span>---</span>
-                            </>
-                            }
-                        </p>
-                      </div> */}
           </div>
         })}
       </div>
