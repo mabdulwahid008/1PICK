@@ -27,7 +27,7 @@ function App() {
               }
               <ToastContainer position="top-center" autoClose={5000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable={false} pauseOnHover theme="light" />
           </div>
-          <PcLayout url="http://localhost:3001/admin" />
+          <PcLayout url="http://localhost:3000/admin" />
         </AdminProvider>
       </>
     )
@@ -39,7 +39,7 @@ function App() {
             <UserLaout />
             <ToastContainer position="top-center" autoClose={5000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable={false} pauseOnHover theme="light" />
           </div>
-          <PcLayout url="http://localhost:3001" />
+          <PcLayout url="http://localhost:3000" />
         </Provider>
       </>
     );

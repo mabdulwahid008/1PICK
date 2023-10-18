@@ -16,7 +16,7 @@ const status = [
 const Filters = [
   { value: '99', label: 'All' },
   { value: '1', label: 'Created' },
-  { value: '2', label: 'Participated' },
+  { value: '2', label: 'Joined' },
   { value: '3', label: 'Favorite' },
 ]
 
