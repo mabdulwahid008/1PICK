@@ -25,6 +25,7 @@ function DecisionPopup() {
       }
       else if(response.status === 401){
         setAddress(null)
+        setDecisionPopup(false)
       }
       else
         toast.error(res.message)

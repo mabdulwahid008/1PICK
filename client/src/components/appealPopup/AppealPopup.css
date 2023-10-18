@@ -1,0 +1,42 @@
+.appeal-popup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 20px;
+    height: auto;
+    overflow: hidden;
+}
+
+.appeal-popup > h4 {
+    text-align: center;
+    font-family: var(--poppins);
+    color: var(--roughBlack);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.appeal-btns{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row !important;
+    gap: 10px;
+    width: 90%;
+    padding: 0px !important;
+}
+.appeal-btns > button {
+    font-family: var(--poppins);
+    background-color: var(--grey);
+    border: none;
+    outline: none;
+    padding: 7px;
+    font-size: 14px;
+    color: var(--roughBlack);
+    width: 50%;
+    border-radius: 5px;
+    border: 1px solid var(--borderColor);
+    cursor: pointer;
+}
+

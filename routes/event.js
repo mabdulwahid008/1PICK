@@ -975,32 +975,45 @@ router.patch('/report/:id', authorization, async(req, res) => {
 // appeal
 router.patch('/appeal/:id', authorization, async(req, res) => {
     try {
-        // if event particapation ends, accept no reports
-        const event = await db.query('SELECT e_end, is_approved FROM EVENTS WHERE _id = $1', [
-            req.params.id
-        ]);
+        // if event payout time ends, accept no appeals
+        const termination = await db.query('SELECT created_on from EVENT_EXECUTION WHERE e_id = $1', [req.params.id])
 
-        const eventEnd = new Date(event.rows[0].e_start);
-        if (eventEnd > new Date()) 
-            return res.status(422).json({ message: 'Appeal request are accepted after D-date' });
+        const terminationDate = new Date(termination.rows[0].created_on)
+        const payoutDate = terminationDate.setHours(terminationDate.getHours() + 96)
+        if(payoutDate <= new Date())
+            return res.status(422).json({ message: 'Appeal request are not accepted after payout.' });
+            
 
         // check user has already appealed
         const check = await db.query('SELECT * FROM REPORTS_APPEAL WHERE e_id = $1 AND u_id = $2 AND appealed = true', [req.params.id, req.user_id])
 
         if (check.rows.length !== 0)
-            return res.status(422).json({ message: 'You have already reported this event.' });
+            return res.status(422).json({ message: 'You have already appealed this event.' });
 
         // insert new report
-        await db.query('INSERT INTO REPORTS_APPEAL(u_id, e_id, reported) VALUES($1, $2, $3)', [req.user_id, req.params.id, true])
+        await db.query('INSERT INTO REPORTS_APPEAL(u_id, e_id, appealed) VALUES($1, $2, $3)', [req.user_id, req.params.id, true])
 
-        const total_reports = await db.query('SELECT COALESCE(COUNT(*), 0) FROM REPORTS_APPEAL WHERE e_id = $1 AND reported = true', [req.params.id])
+        const total_reports = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE e_id = $1 AND appealed = true', [req.params.id])
 
-        if (total_reports.rows[0].count >= 5){
+        if (total_reports.rows[0].count >= 1){
             // inactive event, hide from service page
             await db.query('UPDATE EVENTS SET is_active = 0 WHERE _id = $1', [req.params.id])
         }
 
         return res.status(200).json({message: 'Event reported successfully.'})
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({message: 'Server Error'})
+    }
+})
+
+// already appealed
+router.get('/already-appealed/:id', authorization, async(req, res) => {
+    try {
+        const appealed = await db.query('SELECT * FROM REPORTS_APPEAL where e_id = $1 AND u_id = $2', [req.params.id, req.user_id])
+        if(appealed.rows.length === 0)
+            return res.status(200).json({appealed: false})
+        return res.status(200).json({appealed: true})
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({message: 'Server Error'})

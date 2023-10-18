@@ -17,9 +17,10 @@ import CongratsPopup from '../../components/congratsPopup/CongratsPopup'
 import MobProfile from '../../components/mobProfile/MobProfile'
 import UsersRanking from '../../views/usersRanking/UsersRanking'
 import DecisionPopup from '../../components/decisionPopup/DecisionPopup'
+import AppealPopup from '../../components/appealPopup/AppealPopup'
 
 function UserLaout() {
-    const { openSideBar, setOpenSideBar, setSearchBox, mobProfile, setmobOpenSideBar, decisionPopup, setMobSearchBox, walletConnectPopup, depositPopup, congratsPopup } = useContext(Context)
+    const { openSideBar, setOpenSideBar, appealPopup, setSearchBox, mobProfile, setmobOpenSideBar, decisionPopup, setMobSearchBox, walletConnectPopup, depositPopup, congratsPopup } = useContext(Context)
     const location = useLocation()
 
     window.onpopstate = function(event) {
@@ -80,6 +81,7 @@ function UserLaout() {
         {congratsPopup && <CongratsPopup />}
         {mobProfile && <MobProfile />}
         {decisionPopup && <DecisionPopup />}
+        {appealPopup && <AppealPopup />}
     </>
   )
 }

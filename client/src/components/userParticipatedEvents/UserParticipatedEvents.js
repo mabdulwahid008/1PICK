@@ -18,7 +18,7 @@ const options = [
 
 function UserParticipatedEvents() {
 
-  const { setAddress, address, setDecisionPopup, refresh } = useContext(Context)
+  const { setAddress, address, setDecisionPopup, refresh, setAppealPopup } = useContext(Context)
 
   const [events, setEvents] = useState(null)
   const [allevents, setALLEvents] = useState(null)
@@ -184,7 +184,7 @@ function UserParticipatedEvents() {
                                 {event.result_decided?
                                   <>
                                     <p className='myselect'>Termination: {(event.will_exeute_as == 1 && 'YES') || (event.will_exeute_as == 0 && 'NO')}</p>
-                                    <button onClick={()=>setDecisionPopup(event._id)}>Appeal</button>
+                                    <button onClick={()=>setAppealPopup(event._id)}>Appeal</button>
                                   </>
                                 :
                                 <button onClick={()=>setDecisionPopup(event._id)}>Decision <br /> <span>YES or NO</span></button>
@@ -198,7 +198,7 @@ function UserParticipatedEvents() {
                           <>
                               <p className='myselect'>Termination: {(event.will_exeute_as == 1 && 'YES') || (event.will_exeute_as == 0 && 'NO')}</p>
                               {event.is_betted?
-                                  <button onClick={()=>setDecisionPopup(event._id)}>Appeal</button>
+                                  <button onClick={()=>setAppealPopup(event._id)}>Appeal</button>
                                 :
                                 <p className='myselect'>Favorite</p>
                               }
