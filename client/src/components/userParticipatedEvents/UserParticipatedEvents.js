@@ -9,8 +9,9 @@ import { getCategoriesAPI } from '../../utills/apiRequest'
 
 const status = [
   { value: '99', label: 'All' },
-  { value: '1', label: 'Open' },
-  { value: '0', label: 'Pending' },
+  { value: '1', label: 'Active' },
+  { value: '10', label: 'Hidden' }, // events which are is_active = 0 by 5 reports  
+  { value: '0', label: 'Pending' }, // events  which are is_active = 0 by 10 appeals
   { value: '-1', label: 'Closeed' },
 ]
 const Filters = [

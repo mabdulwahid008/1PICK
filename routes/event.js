@@ -608,8 +608,7 @@ router.get('/participated', authorization, async(req, res) => {
         // filter created events
         for (let i = 0; i < events?.length; i++) {
             let event = createdEvents.rows?.filter(obj => obj?._id === events[i]?._id)[0]
-            
-           
+
 
             if (event) {
                 const result_decided = await db.query('SELECT * FROM EVENT_EXECUTION WHERE e_id = $1', [event?._id])
@@ -745,14 +744,25 @@ router.get('/participated', authorization, async(req, res) => {
         if(title != "null"){
           data = filtered_events.filter((event) =>
             event.title.toLowerCase().includes(title.toLocaleLowerCase())
-            );}
+        );}
         
-            console.log(status);
         if(status ==  1) // means, active
             data = filtered_events.filter((event) => event.is_active == 1)
             console.log(status);
-        if(status ==  0) // means, pending
-            data = filtered_events.filter((event) => event.is_active == 0)
+        if(status ==  0) {// means, pending
+            // data = filtered_events.filter((events) => events.is_active == 0)
+            // let appealed_events = []
+            // for (let i = 0; i < data.length; i++) {
+            //     const appealed = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE appealed = true AND e_id = $1', [data[i]._id])
+            //     if(appealed.rows[0].count >= 10){
+            //         appealed_events.push(data[i])
+            //     }
+            // }
+            // data = appealed_events
+        }
+        if(status == 10) {
+            
+        }
         if(status ==  -1) // means, closed
             data = filtered_events.filter((event) => event.is_active == -1)
         
