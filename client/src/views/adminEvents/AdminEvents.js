@@ -10,9 +10,9 @@ import ReactSelect from 'react-select'
 const filters = [
     {value: 99, label: 'All'},
     {value: 1, label: 'Active'},
-    {value: 2, label: 'Pending'},
-    {value: 0, label: 'Inactive'},
-    {value: -1, label: 'Terminated'},
+    {value: 10, label: 'Waiting'}, // is_active = 0 and reporeted by users
+    {value: 0, label: 'Pending'}, // is_active = 0 and appealed by users
+    {value: -1, label: 'Closed'},
     {value: -2, label: 'Canceled'},
     {value: 3, label: 'Hidden'},
 ]
@@ -25,7 +25,7 @@ function AdminEvents() {
     const [filteredObj, setFilteredObj] = useState({value: 99, label: 'Active'})
 
     const fetchEvents = async() => {
-        const responses = await fetch('/event/admin/event-listing', {
+        const responses = await fetch(`/event/admin/event-listing/${filteredObj.value}`, {
             method: 'GET',
             headers: {
                 'Content-Type' : 'Application/json',
@@ -47,53 +47,13 @@ function AdminEvents() {
         }
     }
 
-    const filterEvents = (filter) => {
-        if(filter === 0){
-            setEvents(allEvents)
-        }
-        if(filter === 1){
-            let filtered = []
-            for (let i = 0; i < allEvents.length; i++) {
-                if(allEvents[i].is_active === 0 && allEvents[i].bet_amount === 0)
-                    filtered.push(allEvents[i])
-                
-            }
-            setEvents(filtered)
-        }
-        if(filter === 2){
-            let filtered = []
-            for (let i = 0; i < allEvents.length; i++) {
-                if(allEvents[i].is_active === 1)
-                    filtered.push(allEvents[i])
-                
-            }
-            setEvents(filtered)
-        }
-        if(filter === 3){
-            let filtered = []
-            for (let i = 0; i < allEvents.length; i++) {
-                if(allEvents[i].is_active === 0 && allEvents[i].bet_amount !== 0)
-                    filtered.push(allEvents[i])
-                
-            }
-            setEvents(filtered)
-        }
-        if(filter === 4){
-            let filtered = []
-            for (let i = 0; i < allEvents.length; i++) {
-                if(allEvents[i].is_active === -1)
-                    filtered.push(allEvents[i])
-                
-            }
-            setEvents(filtered)
-        }
 
-        // setFilterBox(false)
-    }
-
-    const downloadXlsx = async() => {
-
-    }
+    useEffect(() => {
+        setAllEvents(null)
+        fetchEvents()
+    }, [filteredObj])
+   
+    
 
 
     useEffect(()=>{
@@ -102,8 +62,8 @@ function AdminEvents() {
   return (
     <div className='admin-events'>
         <div className='admin-filter-events'>
-        <ReactSelect isSearchable={ false } value={filteredObj}  options={filters} styles={mobEventFilter} onChange={(option)=>setFilteredObj(option)}/>
-        <a href={'http://localhost:5000/file/users'} target='_blank'><img src={require('../../assets/download.png')} onClick={downloadXlsx}/></a>
+        <ReactSelect isSearchable={ false } value={filteredObj} options={filters} styles={mobEventFilter} onChange={(option)=>setFilteredObj(option)}/>
+        <a href={'http://localhost:5000/file/events'} target='_blank'><img src={require('../../assets/download.png')} /></a>
     </div>
       {events?.map((event, index) => {
           return <div className='event-item-mob' key={index}>
@@ -143,11 +103,10 @@ function AdminEvents() {
                 </p>
             </div>
 
-            {event.is_active == 1 ?
-             <button>Go / Stop</button>
-            :
-            <button>Pending</button>
-            }
+            {event.is_active == 1 && <button>Go / Stop</button>}
+            
+            {event.is_active == 0 && <button>Pending</button>}
+            
           </div>
         })}
     </div>

@@ -10,7 +10,7 @@ import { useEffect } from "react";
 
 
 function App() {
-
+  const URL = window.location
   useEffect(()=>{
       window.scrollTo(0, 0)
   }, [window.location.pathname])
@@ -27,7 +27,7 @@ function App() {
               }
               <ToastContainer position="top-center" autoClose={5000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable={false} pauseOnHover theme="light" />
           </div>
-          <PcLayout url="http://localhost:3000/admin" />
+          <PcLayout url={URL} />
         </AdminProvider>
       </>
     )
@@ -39,7 +39,7 @@ function App() {
             <UserLaout />
             <ToastContainer position="top-center" autoClose={5000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable={false} pauseOnHover theme="light" />
           </div>
-          <PcLayout url="http://localhost:3000" />
+          <PcLayout url={URL} />
         </Provider>
       </>
     );

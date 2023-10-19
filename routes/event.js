@@ -731,7 +731,7 @@ router.get('/participated', authorization, async(req, res) => {
             let bet_amount = await db.query('SELECT sum(bet_amount) FROM BETTING WHERE e_id = $1', [filtered_events[i]._id])
             let no_bet_voloume = await db.query('SELECT sum(bet_amount) FROM BETTING WHERE is_yes = 0 AND e_id = $1', [filtered_events[i]._id])
             let no_bet_percentage = (parseInt(no_bet_voloume.rows[0].sum) * 100 / parseInt(bet_amount.rows[0].sum))
-            filtered_events[i].no_bet_percentage = no_bet_percentage
+            filtered_events[i].no_bet_percentage = no_bet_percentage? no_bet_percentage : 0
 
             let bet_outcome = filtered_events[i].bet_outcome? filtered_events[i].bet_outcome : 0
             let created_outcome = filtered_events[i].created_outcome? filtered_events[i].created_outcome : 0
@@ -865,9 +865,9 @@ router.post('/favourite', authorization, async(req, res) => {
 })
 
 // admin listing events
-router.get('/admin/event-listing', authorization, onlyAdmin, async(req, res) => {
+router.get('/admin/event-listing/:filter', authorization, onlyAdmin, async(req, res) => {
     try {
-        const events = await db.query('SELECT _id, title, views, e_start, pick, image_CID, is_active, is_approved, created_on FROM EVENTS')
+        const events = await db.query('SELECT _id, title, views, is_active, e_start, pick, image_CID, is_active, created_on FROM EVENTS ORDER BY created_on DESC')
         for (let i = 0; i < events.rows?.length; i++) {
             const bet_amount = await db.query('SELECT SUM(bet_amount) FROM BETTING WHERE e_id = $1', [events.rows[i]._id])
             const responses = await db.query('SELECT COUNT(*) FROM BETTING WHERE e_id = $1', [events.rows[i]._id])
@@ -879,11 +879,54 @@ router.get('/admin/event-listing', authorization, onlyAdmin, async(req, res) => 
             let bet_amount = await db.query('SELECT sum(bet_amount) FROM BETTING WHERE e_id = $1', [events.rows[i]._id])
             let no_bet_voloume = await db.query('SELECT sum(bet_amount) FROM BETTING WHERE is_yes = 0 AND e_id = $1', [events.rows[i]._id])
             let no_bet_percentage = (parseInt(no_bet_voloume.rows[0].sum) * 100 / parseInt(bet_amount.rows[0].sum))
-            events.rows[i].no_bet_percentage = no_bet_percentage
-            
+            events.rows[i].no_bet_percentage = no_bet_percentage? no_bet_percentage : 0 
         }
 
-        return res.status(200).json(events.rows.sort((a,b) => b.created_on - a.created_on))
+        console.log(req.params.filter);
+        let data = events.rows
+        if(req.params.filter == 1) // sending active events
+            data = data.filter((event) => event.is_active == 1)
+        else if(req.params.filter == -1) // sending closed 
+            data = data.filter((event) => event.is_active == -1)
+        else if(req.params.filter == -2) // sending canceled 
+            data = data.filter((event) => event.is_active == -2)
+        else if(req.params.filter == 3) // sending canceled 
+            data = data.filter((event) => event.is_active == 3)
+        else if(req.params.filter == 0){ // sending events that get inactive by 10 appeals
+            data = data.filter((events) => events.is_active == 0)
+            let appealed_events = []
+            for (let i = 0; i < data.length; i++) {
+                const appealed = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE appealed = true AND e_id = $1', [data[i]._id])
+                if(appealed.rows[0].count >= 10){
+                    appealed_events.push(data[i])
+                }
+            }
+            data = appealed_events
+        }
+        else if(req.params.filter == 10){ // sending events that get inactive by 5 reports
+            data = data.filter((events) => events.is_active == 0)
+            let reported_events = []
+            for (let i = 0; i < data.length; i++) {
+                const reported = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE reported = true AND e_id = $1', [data[i]._id])
+                if(reported.rows[0].count >= 5){
+                    reported_events.push(data[i])
+                }
+            }
+            data = reported_events
+        }
+        
+        else{
+            data = data
+        }
+        // else if(req.params.filter == 0){ // sending appealed events
+        //     data = data.filter((event) => event.is_active == 0)
+        //     for (let  = 0;  < array.length; ++) {
+        //         const element = array[];
+                
+        //     }
+        // } 
+
+        return res.status(200).json(data)
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({message: error.message})
