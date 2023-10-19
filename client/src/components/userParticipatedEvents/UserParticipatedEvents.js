@@ -28,10 +28,9 @@ function UserParticipatedEvents() {
 
   const [events, setEvents] = useState(null)
   const [allevents, setALLEvents] = useState(null)
-  const [categoryOption, setCategoryOption] = useState([])
 
-  const [defaultValueStatus, setDefaultValueStatus] = useState({ value: 2, label: 'All' })
-  const [defaultValueMarket, setDefaultValueMarket] = useState({ value: 0, label: 'All' })
+  const [defaultstatus, setDefaultStatus] = useState({ value: 99, label: 'All' })
+  const [defaultFilters, setDefaulFilters] = useState({ value: 99, label: 'All' })
   const [searchTitle, setSearchTitle] = useState("null")
 
   const navigate = useNavigate()
@@ -39,7 +38,7 @@ function UserParticipatedEvents() {
 
 
   const getEvents = async () => {
-    const response = await fetch(`/event/participated?title=${searchTitle}&status=${defaultValueStatus.value}&category=${defaultValueMarket.value}`, {
+    const response = await fetch(`/event/participated?title=${searchTitle}&status=${defaultstatus.value}&filter=${defaultFilters.value}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'Application/json',
@@ -58,15 +57,11 @@ function UserParticipatedEvents() {
       toast.error(res.message)
   }
 
-  const showALL = () => {
-    setDefaultValueStatus({ value: 2, label: 'Status' })
-    setDefaultValueMarket({ value: 0, label: 'Market' })
-    setSearchTitle("null")
-  }
+
 
   const titleSearch = (e) => {
-    setDefaultValueStatus({ value: 2, label: 'Status' })
-    setDefaultValueMarket({ value: 0, label: 'Market' })
+    setDefaultStatus({ value: 99, label: 'All' })
+    setDefaulFilters({ value: 99, label: 'All' })
 
     setSearchTitle(e.target.value)
   }
@@ -75,7 +70,7 @@ function UserParticipatedEvents() {
   useEffect(() => {
     setEvents(null)
     getEvents()
-  }, [defaultValueStatus, defaultValueMarket, searchTitle, refresh])
+  }, [defaultstatus, defaultFilters, searchTitle, refresh])
 
 
 
@@ -99,12 +94,12 @@ function UserParticipatedEvents() {
         </form>
 
         <div>
-          <Select value={defaultValueStatus} isSearchable={false} options={status} styles={window.innerWidth > 768 ? portfolioStyles : mobEventFilter} onChange={(opt) => { setDefaultValueMarket({ value: 2, label: 'All' }); setDefaultValueStatus(opt); }} />
+          <Select value={defaultstatus} isSearchable={false} options={status} styles={window.innerWidth > 768 ? portfolioStyles : mobEventFilter} onChange={(opt) => { setDefaulFilters({ value: 99, label: 'All' }); setDefaultStatus(opt); }} />
         </div>
         <div>
-          <Select value={defaultValueMarket} isSearchable={false} options={Filters} styles={window.innerWidth > 768 ? portfolioStyles : mobEventFilter} onChange={(opt) => { setDefaultValueStatus({ value: 0, label: 'All' }); setDefaultValueMarket(opt); }} />
+          <Select value={defaultFilters} isSearchable={false} options={Filters} styles={window.innerWidth > 768 ? portfolioStyles : mobEventFilter} onChange={(opt) => { setDefaultStatus({ value: 99, label: 'All' }); setDefaulFilters(opt); }} />
         </div>
-        {window.innerWidth > 768 && <button className='show-all' onClick={showALL}>Show All</button>}
+        {/* {window.innerWidth > 768 && <button className='show-all' onClick={showALL}>Show All</button>} */}
       </div>}
 
       <div className='participated-event'>

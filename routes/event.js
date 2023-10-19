@@ -528,7 +528,7 @@ router.delete('/delete/:id', authorization, onlyAdmin, async(req, res) => {
 
 // user to get his participated events
 router.get('/participated', authorization, async(req, res) => {
-    let { title, status, category } = req.query
+    let { title, status, filter } = req.query
     try {
         let events = []
         let participatedEvents
@@ -740,41 +740,30 @@ router.get('/participated', authorization, async(req, res) => {
             
         }
 
-        return res.json(filtered_events)
-        let data = events
+        // return res.json(filtered_events)
+        let data = filtered_events
         if(title != "null"){
-          data = events.filter((event) =>
+          data = filtered_events.filter((event) =>
             event.title.toLowerCase().includes(title.toLocaleLowerCase())
             );}
         
-        if(category == 0){
-            status = 2
-        }
+            console.log(status);
+        if(status ==  1) // means, active
+            data = filtered_events.filter((event) => event.is_active == 1)
+            console.log(status);
+        if(status ==  0) // means, pending
+            data = filtered_events.filter((event) => event.is_active == 0)
+        if(status ==  -1) // means, closed
+            data = filtered_events.filter((event) => event.is_active == -1)
         
-        if(status == 2){
-            category = 0
-        }
+        if(filter ==  1) // means, created
+            data = filtered_events.filter((event) => event.is_created == true)
+        if(filter ==  2) // means, joined
+            data = filtered_events.filter((event) => event.is_betted == true)
+        if(filter ==  3) // means, favourite
+            data = filtered_events.filter((event) => event.is_favourite == true)
+        
 
-        if(status != 2){
-            data = events.filter(event => event.is_active == status)
-            data.sort((a, b) => {return b.created_on - a.created_on})
-            return res.status(200).json(data)
-            console.log('cond 1');
-        }
-        else if(category != 0){
-            data = events.filter(event => event.c_id == category)
-            data.sort((a, b) => {return b.created_on - a.created_on})
-            return res.status(200).json(data)
-            console.log('cond 2');
-        }
-        else if(status == 2 || category == 0){
-            data = events
-            console.log("cond 3");
-        }
-        else{
-            data = events
-            console.log('cond 4');
-        }
         data.sort((a, b) => {return b.created_on - a.created_on})
     
         return res.status(200).json(data)
