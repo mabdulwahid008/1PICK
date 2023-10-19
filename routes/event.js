@@ -918,13 +918,6 @@ router.get('/admin/event-listing/:filter', authorization, onlyAdmin, async(req, 
         else{
             data = data
         }
-        // else if(req.params.filter == 0){ // sending appealed events
-        //     data = data.filter((event) => event.is_active == 0)
-        //     for (let  = 0;  < array.length; ++) {
-        //         const element = array[];
-                
-        //     }
-        // } 
 
         return res.status(200).json(data)
     } catch (error) {
