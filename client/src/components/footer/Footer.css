@@ -45,8 +45,12 @@
 .powered-by > a {
     padding: 9.55px 14.23px 7.9px;
     border-radius: 5px;
-    background: #FFFFFD;
+    background: var(--roughBlack);
     box-shadow: 0px 4.66026px 5.82532px rgba(0, 0, 0, 0.05);
+}
+
+.powered-by > a > h4 {
+    color: var(--roughBlack) !important;
 }
 
 .powered-by > a:nth-of-type(2){
@@ -271,5 +275,11 @@
     }
     .footer{
         height: auto;
+    }
+
+    .mobile-stuff > div > a > h4,
+    .powered-by > a > h4{
+        color: #000 !important;
+        font-weight: 600;
     }
 }

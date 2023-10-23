@@ -137,7 +137,7 @@ function Navbar() {
       <AnnouncementBar />
       <div className='mobile-nav'>
        <Link to='/' className='logo'  onClick={()=>setmobOpenSideBar(true)}>
-            <img src={require('../../assets/logo_updated.webp')} alt='logo'/>
+            <img src={require('../../assets/logo_updated.png')} alt='logo'/>
             <h1>1PICK<span>AI</span></h1> 
         </Link>
         {/* <div className='sidebar-mob' style={{left: mobOpenSideBar? '0px': '-300px'}}>

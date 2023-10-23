@@ -52,9 +52,9 @@ function Footer() {
                  <h3>1PICK</h3>
             </div>
             <div className='powered-by'>
-                <a href='https://etherscan.io/token/0x1250c8f5099902ddfb574474612436b0b5Db0a15'>
+                <a href='https://etherscan.io/token/0x1250c8f5099902ddfb574474612436b0b5Db0a15' target='_blank'>
                     {/* <img src={require('../../assets/eth.png')} alt='UMA'/> */}
-                    <h4>0x1250c8f5099902ddfb574474612436b0b5Db0a15</h4>
+                    <h4 style={{color: '#4A4A4A !important'}}>0x1250c8f5099902ddfb574474612436b0b5Db0a15</h4>
                 </a>
             </div>
          </div>
