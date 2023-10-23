@@ -3,7 +3,7 @@ const router = express.Router()
 const authorization = require('../middleware/authorization')
 const db = require('../db')
 const onlyAdmin = require('../middleware/onlyAdmin')
-const { uploadJSONToIPFS, deleteFromIPFS } = require('../ipfs')
+const { uploadJSONToIPFS, deleteFromIPFS, NFTStroage } = require('../ipfs')
 const imageUpload = require('../utils/imageUpload')
 const { approveEvent } = require('../utils/approveEvent')
 const { addUserScore, removeUserScores } = require('../utils/scores')
@@ -34,7 +34,7 @@ router.post('/create', authorization, imageUpload.single("image"), async(req, re
         var e_end = `${year}-${month}-${day}T${hours}:${minutes}`;
 
         if(req.is_admin){
-            const content_CID = await uploadJSONToIPFS(title, description, d_date, e_end, resolution_url, c_id, req.user_id, req.file.path, pick)
+            const content_CID = await NFTStroage(title, description, d_date, e_end, resolution_url, c_id, req.user_id, req.file.path, pick)
 
             const event = await db.query('INSERT INTO EVENTS(title, description, e_start, e_end, resolution_url, image_CID, content_CID, c_id, creator_id, is_active, is_approved, pick) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning *',[
                 title, description, d_date, e_end, resolution_url, req.file.path, content_CID, c_id, req.user_id, 0, 0, pick
@@ -47,7 +47,7 @@ router.post('/create', authorization, imageUpload.single("image"), async(req, re
 
 
         
-        const content_CID = await uploadJSONToIPFS(title, description, d_date, e_end, resolution_url, c_id, req.user_id, req.file.path, pick)
+        const content_CID = await NFTStroage(title, description, d_date, e_end, resolution_url, c_id, req.user_id, req.file.path, pick)
 
         // have to remove is_active, is_approved WHEN WORKING ON ADMIN SIDE
         const event = await db.query('INSERT INTO EVENTS(title, description, e_start, e_end, resolution_url, image_CID, content_CID, c_id, creator_id, is_active, is_approved, pick) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning *',[
