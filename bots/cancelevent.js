@@ -13,14 +13,14 @@ exports.cancelEvent = async() => {
                 continue;
 
             // getting bets of that event 
-            const bets = await db.query('SELECT u_id, bet_amount FROM BETTING WHERE e_id = $1', [cancel_event?.rows[i]._id])
+            const bets = await db.query('SELECT u_id, bet_amount FROM BETTING WHERE e_id = $1', [cancel_event?.rows[i]?._id])
             for (let i = 0; i < bets.rows.length; i++) {
                 const user = await db.query('SELECT bet_amount, balance FROM USERS WHERE _id = $1', [bets.rows[i].u_id])
                 let updated_balance = parseFloat(user.rows[0].balance) + parseFloat(bets.rows[i].bet_amount)
                 let updated_bet_amount = parseFloat(user.rows[0].bet_amount) - parseFloat(bets.rows[i].bet_amount)
                 await db.query('UPDATE USERS SET balance = $1, bet_amount = $2 WHERE _id = $3', [updated_balance, updated_bet_amount, bets.rows[i].u_id])
                 
-                await removeUserScores(cancel_event?.rows[i]._id, bets.rows[i].u_id)
+                await removeUserScores(cancel_event?.rows[i]?._id, bets.rows[i]?.u_id)
             }
             // await db.query('DELETE FROM BETTING WHERE e_id = $1', [cancel_event?.rows[i]])
             await db.query('UPDATE EVENTS SET canceled = true WHERE _id = $1', [cancel_event?.rows[i]._id])

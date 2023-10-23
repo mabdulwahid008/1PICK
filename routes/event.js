@@ -236,6 +236,13 @@ router.get('/single/:id', async(req, res) => {
 
         event.rows[0].bettors = bettors.rows
 
+        const particapationDate = new Date(event.rows[0].e_end)
+       
+        event.rows[0].report_btn = true
+        
+        if(particapationDate < new Date())
+            event.rows[0].report_btn = false
+
         return res.status(200).json(event.rows[0])
                                                 
     } catch (error) {
@@ -739,6 +746,8 @@ router.get('/participated', authorization, async(req, res) => {
             
         }
 
+        
+
         // return res.json(filtered_events)
         let data = filtered_events
         if(title != "null"){
@@ -750,18 +759,28 @@ router.get('/participated', authorization, async(req, res) => {
             data = filtered_events.filter((event) => event.is_active == 1)
             console.log(status);
         if(status ==  0) {// means, pending
-            // data = filtered_events.filter((events) => events.is_active == 0)
-            // let appealed_events = []
-            // for (let i = 0; i < data.length; i++) {
-            //     const appealed = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE appealed = true AND e_id = $1', [data[i]._id])
-            //     if(appealed.rows[0].count >= 10){
-            //         appealed_events.push(data[i])
-            //     }
-            // }
-            // data = appealed_events
+            data = filtered_events.filter((events) => events.is_active == 0)
+            let appealed_events = []
+            for (let i = 0; i < data.length; i++) {
+                const appealed = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE appealed = true AND e_id = $1', [data[i]._id])
+                if(appealed.rows[0].count >= 1){
+                    data[i].appealed = true
+                    appealed_events.push(data[i])
+                }
+            }
+            data = appealed_events
         }
-        if(status == 10) {
-            
+        if(status == 10) { // means reported
+            data = filtered_events.filter((events) => events.is_active == 0)
+            let reported_events = []
+            for (let i = 0; i < data.length; i++) {
+                const appealed = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE reported = true AND e_id = $1', [data[i]._id])
+                if(appealed.rows[0].count >= 5){
+                    data[i].reported = true;
+                    reported_events.push(data[i])
+                }
+            }
+            data = reported_events
         }
         if(status ==  -1) // means, closed
             data = filtered_events.filter((event) => event.is_active == -1)
@@ -972,13 +991,35 @@ router.patch('/admin/cancel/:id', authorization, onlyAdmin, async(req, res) => {
     }
 })
 
+// admin reapproves event
+router.patch('/admin/approve/:id', authorization, onlyAdmin, async(req, res) => {
+    const { can_be_appealed } = req.body
+    try {
+        if(can_be_appealed)
+            await db.query('UPDATE EVENTS SET is_active = 1, can_be_appealed = false WHERE _id = $1', [req.params.id])
+        
+        else
+            await db.query('UPDATE EVENTS SET is_active = 1, can_be_reported = false WHERE _id = $1', [req.params.id])
+        
+        return res.status(200).json({message:'Event is live again.'})
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({message: 'Server Error'})
+    }
+})
+
 // report event
 router.patch('/report/:id', authorization, async(req, res) => {
     try {
         // if event particapation ends, accept no reports
-        const event = await db.query('SELECT e_end, is_approved FROM EVENTS WHERE _id = $1', [
+        const event = await db.query('SELECT e_end, is_approved, can_be_reported FROM EVENTS WHERE _id = $1', [
             req.params.id
         ]);
+
+        // if false
+        if(!event.rows[0].can_be_reported){
+            return;
+        }
 
         const eventEnd = new Date(event.rows[0].e_end);
         if (eventEnd < new Date()) 
@@ -995,7 +1036,7 @@ router.patch('/report/:id', authorization, async(req, res) => {
 
         const total_reports = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE e_id = $1 AND reported = true', [req.params.id])
 
-        if (total_reports.rows[0].count >= 1){
+        if (total_reports.rows[0].count >= 5){
             // inactive event, hide from service page
             await db.query('UPDATE EVENTS SET is_active = 0 WHERE _id = $1', [req.params.id])
         }
@@ -1011,7 +1052,11 @@ router.patch('/report/:id', authorization, async(req, res) => {
 router.patch('/appeal/:id', authorization, async(req, res) => {
     try {
         // if event payout time ends, accept no appeals
-        const termination = await db.query('SELECT created_on from EVENT_EXECUTION WHERE e_id = $1', [req.params.id])
+        const termination = await db.query('SELECT created_on, can_be_appealed from EVENT_EXECUTION WHERE e_id = $1', [req.params.id])
+
+        if(!termination.rows[0].can_be_appealed){
+            return
+        }
 
         const terminationDate = new Date(termination.rows[0].created_on)
         const payoutDate = terminationDate.setHours(terminationDate.getHours() + 96)
@@ -1030,7 +1075,7 @@ router.patch('/appeal/:id', authorization, async(req, res) => {
 
         const total_reports = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE e_id = $1 AND appealed = true', [req.params.id])
 
-        if (total_reports.rows[0].count >= 1){
+        if (total_reports.rows[0].count >= 10){
             // inactive event, hide from service page
             await db.query('UPDATE EVENTS SET is_active = 0 WHERE _id = $1', [req.params.id])
         }

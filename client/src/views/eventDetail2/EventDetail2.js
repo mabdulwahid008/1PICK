@@ -196,7 +196,7 @@ function EventDetail2() {
                             />
                             {minifyAddress(event?.creator)}</Link>
                     </p>
-                   {address && <img className='report-btn' src={require('../../assets/report.png')} alt='report' onClick={reportEvent}/>}
+                   {address && event.report_btn && <img className='report-btn' src={require('../../assets/report.png')} alt='report' onClick={reportEvent}/>}
                     <div className='event2-metadata'>
                         <div>
                             <div>
