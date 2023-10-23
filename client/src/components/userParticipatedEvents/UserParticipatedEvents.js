@@ -169,7 +169,7 @@ function UserParticipatedEvents() {
                         {event.is_active == 0 ?
                           <>
                             <p className='myselect'>Created</p>
-                            <p className='myselect'>Pending</p>
+                            <p className='myselect'>{event.totol_reports > event.totol_appeals ? 'Waiting' : 'Pending'}</p>
                           </>
                           :
                           <>
@@ -207,7 +207,7 @@ function UserParticipatedEvents() {
                       {event.is_active == 0 ?
                         <>
                           <p className='myselect'>Bet</p>
-                          <p className='myselect'>Pending</p>
+                          <p className='myselect'>{event.totol_reports > event.totol_appeals ? 'Waiting' : 'Pending'}</p>
                         </>
                         :
                         <>

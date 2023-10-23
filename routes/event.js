@@ -13,6 +13,14 @@ const { addUserScore, removeUserScores } = require('../utils/scores')
 router.post('/create', authorization, imageUpload.single("image"), async(req, res)=> {
     const { title, description, d_date, resolution_url, c_id, image_CID, pick } = req.body;
     try {
+
+        const todayEvents = await db.query('SELECT COUNT(*) FROM EVENTS WHERE DATE(created_on) = CURRENT_DATE')
+        const eventLimit = await db.query('SELECT per_day_event_creation FROm NUMBERS')
+        if(todayEvents.rows[0].count == eventLimit.rows[0].per_day_event_creation){
+            return res.status(422).json({message: 'Daily event creation limit exceeds.'})
+        }
+
+
         let inputDate = new Date(d_date+":00.000Z");
         let time = inputDate.setHours(inputDate.getHours() - 3);
 
@@ -744,7 +752,13 @@ router.get('/participated', authorization, async(req, res) => {
 
             filtered_events[i].outcome = parseFloat(bet_outcome) + parseFloat(created_outcome)
             
+            const reports = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE reported = true AND e_id = $1', [filtered_events[i]._id])
+            const appeals = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE appealed = true AND e_id = $1', [filtered_events[i]._id])
+            
+            filtered_events[i].totol_reports = reports.rows[0].count
+            filtered_events[i].totol_appeals = appeals.rows[0].count
         }
+
 
         
 
