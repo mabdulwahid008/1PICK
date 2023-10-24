@@ -13,10 +13,11 @@ import NumbersSet from '../../components/numbersSet/NumbersSet'
 import AdminDashboardStats from '../../components/adminStats/AdminDashboardStats'
 import AdminGraph from '../../components/adminGraph/AdminGraph'
 import AdminEvents from '../../views/adminEvents/AdminEvents'
+import GoStopPopup from '../../components/goStop/GoStopPopup'
 
 
 function AdminLayout() {
-  const { eventPopup, userPopup, numberPopup, setSearchbox, setmobOpenSideBar } = useContext(AdminContext)
+  const { eventPopup, userPopup, goStopPopup, numberPopup, setSearchbox, setmobOpenSideBar } = useContext(AdminContext)
 
 
   return (
@@ -49,6 +50,7 @@ function AdminLayout() {
         {eventPopup && <EventPopup />}
         {userPopup && <UserDetailPopup />}
         {numberPopup && <NumbersSet />}
+        {goStopPopup && <GoStopPopup />}
       </div>
     </>
   )

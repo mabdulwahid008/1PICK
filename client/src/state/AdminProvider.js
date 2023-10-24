@@ -31,6 +31,8 @@ function AdminProvider(props) {
     const [mobOpenSideBar, setmobOpenSideBar] = useState(false)
     const [mobSearchBox, setMobSearchBox] = useState(false)
 
+    const [goStopPopup, setGoStopPopup] = useState(false)
+
     const walletAddress = useAddress()
     const { contract } = useContract(PICK_TOKEN_CONTRACT_ADDRESS, PICK_TOKEN_CONTRACT_ABI)
 
@@ -101,6 +103,7 @@ function AdminProvider(props) {
         setSearchbox, 
         pickBalance,
         numberPopup, setNumberPopup,
+        goStopPopup, setGoStopPopup,
         mobOpenSideBar, setmobOpenSideBar, mobSearchBox, setMobSearchBox
     }
 

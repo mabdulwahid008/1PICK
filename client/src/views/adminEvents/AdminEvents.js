@@ -10,15 +10,16 @@ import ReactSelect from 'react-select'
 const filters = [
     {value: 99, label: 'All'},
     {value: 1, label: 'Active'},
-    {value: 10, label: 'Waiting'}, // is_active = 0 and reporeted by users
-    {value: 0, label: 'Pending'}, // is_active = 0 and appealed by users
+    {value: 0, label: 'Waiting'}, // is_active = 0 and reporeted by users
+    {value: 4, label: 'Pending'}, // is_active = 0 and appealed by users
     {value: -1, label: 'Closed'},
     {value: -2, label: 'Canceled'},
     {value: 3, label: 'Hidden'},
 ]
 
 function AdminEvents() {
-    const { refresh } = useContext(AdminContext)
+    const { refresh, setGoStopPopup } = useContext(AdminContext)
+   
 
     const [allEvents, setAllEvents] = useState(null)
     const [events, setEvents] = useState(null)
@@ -53,7 +54,7 @@ function AdminEvents() {
         fetchEvents()
     }, [filteredObj])
    
-    
+     
 
 
     useEffect(()=>{
@@ -103,9 +104,9 @@ function AdminEvents() {
                 </p>
             </div>
 
-            {event.is_active == 1 && <button>Go / Stop</button>}
-            
-            {event.is_active == 0 && <button>Pending</button>}
+            {event.is_active == 1 && <button onClick={() => setGoStopPopup(event._id)}>Go / Stop</button>}
+            {event.is_active == 0 && <button onClick={() => setGoStopPopup(event._id)}>Waiting</button>}
+            {event.is_active == 4 && <button onClick={() => setGoStopPopup(event._id)}>Pending</button>}
             
           </div>
         })}

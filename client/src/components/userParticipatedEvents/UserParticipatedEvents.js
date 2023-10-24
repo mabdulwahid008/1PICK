@@ -10,8 +10,8 @@ import { getCategoriesAPI } from '../../utills/apiRequest'
 const status = [
   { value: '99', label: 'All' },
   { value: '1', label: 'Active' },
-  { value: '10', label: 'Waiting' }, // events which are is_active = 0 by 5 reports  
-  { value: '0', label: 'Pending' }, // events  which are is_active = 0 by 10 appeals
+  { value: '0', label: 'Waiting' }, // events which are is_active = 0 by 5 reports  
+  { value: '4', label: 'Pending' }, // events  which are is_active = 0 by 10 appeals
   { value: '-1', label: 'Closeed' },
 ]
 const Filters = [
@@ -169,7 +169,7 @@ function UserParticipatedEvents() {
                         {event.is_active == 0 ?
                           <>
                             <p className='myselect'>Created</p>
-                            <p className='myselect'>{event.totol_reports > event.totol_appeals ? 'Waiting' : 'Pending'}</p>
+                            <p className='myselect'>Waiting</p>
                           </>
                           :
                           <>
@@ -180,14 +180,25 @@ function UserParticipatedEvents() {
                               </>
                               :
                               <>
-                                {event.result_decided ?
+                                {event.is_active == 4 ?
                                   <>
-                                    <p className='myselect'>Termination: {(event.will_exeute_as == 1 && 'YES') || (event.will_exeute_as == 0 && 'NO')}</p>
-                                    <button onClick={() => setAppealPopup(event._id)}>Appeal</button>
+                                   <p className='myselect'>Created</p>
+                                   <p className='myselect'>Pending</p>
+                                 </>
+                                 :
+                                 <>
+                                    {event.result_decided ?
+                                      <>
+                                        <p className='myselect'>Termination: {(event.will_exeute_as == 1 && 'YES') || (event.will_exeute_as == 0 && 'NO')}</p>
+                                        <button onClick={() => setAppealPopup(event._id)}>Appeal</button>
+                                      </>
+                                      :
+                                      <button onClick={() => setDecisionPopup(event._id)}>Decision <br /> <span>YES or NO</span></button>
+                                    }
                                   </>
-                                  :
-                                  <button onClick={() => setDecisionPopup(event._id)}>Decision <br /> <span>YES or NO</span></button>
+
                                 }
+                                
                               </>
                             }
                           </>
@@ -207,7 +218,7 @@ function UserParticipatedEvents() {
                       {event.is_active == 0 ?
                         <>
                           <p className='myselect'>Bet</p>
-                          <p className='myselect'>{event.totol_reports > event.totol_appeals ? 'Waiting' : 'Pending'}</p>
+                          <p className='myselect'>Waiting</p>
                         </>
                         :
                         <>
@@ -218,21 +229,30 @@ function UserParticipatedEvents() {
                             </>
                             :
                             <>
-                              {event.result_decided ?
-                                <>
-                                  <p className='myselect'>Termination: {(event.will_exeute_as == 1 && 'YES') || (event.will_exeute_as == 0 && 'NO')}</p>
-                                  {event.is_betted ?
-                                    <button onClick={() => setAppealPopup(event._id)}>Appeal</button>
-                                    :
-                                    <p className='myselect'>Favorite</p>
-                                  }
-                                </>
-                                :
-                                <>
-                                  <p className='myselect'>{event.bet_amount != 0 ? 'Bet' : 'Favorite'}</p>
-                                  <p className='myselect'>{(event.executed_as == -1 && 'Active') || (event.executed_as == 0 && 'Waiting') || (event.executed_as == -2 && 'Canceled')}</p>
-                                </>
-                              }
+                            {event.is_active == 4?
+                              <>
+                                <p className='myselect'>{event.bet_amount != 0 ? 'Bet' : 'Favorite'}</p>
+                                <p className='myselect'>Pending</p>
+                              </>
+                              :
+                              <>
+                                {event.result_decided ?
+                                  <>
+                                    <p className='myselect'>Termination: {(event.will_exeute_as == 1 && 'YES') || (event.will_exeute_as == 0 && 'NO')}</p>
+                                    {event.is_betted ?
+                                      <button onClick={() => setAppealPopup(event._id)}>Appeal</button>
+                                      :
+                                      <p className='myselect'>Favorite</p>
+                                    }
+                                  </>
+                                  :
+                                  <>
+                                    <p className='myselect'>{event.bet_amount != 0 ? 'Bet' : 'Favorite'}</p>
+                                    <p className='myselect'>{(event.executed_as == -1 && 'Active') || (event.executed_as == 0 && 'Closed') || (event.executed_as == 1 && 'Closed')}</p>
+                                  </>
+                                }
+                              </>
+                            }
                             </>}
 
                         </>

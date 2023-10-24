@@ -772,29 +772,11 @@ router.get('/participated', authorization, async(req, res) => {
         if(status ==  1) // means, active
             data = filtered_events.filter((event) => event.is_active == 1)
             console.log(status);
-        if(status ==  0) {// means, pending
-            data = filtered_events.filter((events) => events.is_active == 0)
-            let appealed_events = []
-            for (let i = 0; i < data.length; i++) {
-                const appealed = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE appealed = true AND e_id = $1', [data[i]._id])
-                if(appealed.rows[0].count >= 1){
-                    data[i].appealed = true
-                    appealed_events.push(data[i])
-                }
-            }
-            data = appealed_events
+        if(status ==  4) {// means, pending
+            data = filtered_events.filter((events) => events.is_active == 4)
         }
-        if(status == 10) { // means reported
+        if(status == 0) { // means reported
             data = filtered_events.filter((events) => events.is_active == 0)
-            let reported_events = []
-            for (let i = 0; i < data.length; i++) {
-                const appealed = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE reported = true AND e_id = $1', [data[i]._id])
-                if(appealed.rows[0].count >= 5){
-                    data[i].reported = true;
-                    reported_events.push(data[i])
-                }
-            }
-            data = reported_events
         }
         if(status ==  -1) // means, closed
             data = filtered_events.filter((event) => event.is_active == -1)
@@ -923,6 +905,13 @@ router.get('/admin/event-listing/:filter', authorization, onlyAdmin, async(req, 
             let no_bet_voloume = await db.query('SELECT sum(bet_amount) FROM BETTING WHERE is_yes = 0 AND e_id = $1', [events.rows[i]._id])
             let no_bet_percentage = (parseInt(no_bet_voloume.rows[0].sum) * 100 / parseInt(bet_amount.rows[0].sum))
             events.rows[i].no_bet_percentage = no_bet_percentage? no_bet_percentage : 0 
+
+            const reports = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE reported = true AND e_id = $1', [ events.rows[i]._id])
+            const appeals = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE appealed = true AND e_id = $1', [ events.rows[i]._id])
+            
+            events.rows[i].totol_reports = reports.rows[0].count
+            events.rows[i].totol_appeals = appeals.rows[0].count
+
         }
 
         console.log(req.params.filter);
@@ -935,34 +924,18 @@ router.get('/admin/event-listing/:filter', authorization, onlyAdmin, async(req, 
             data = data.filter((event) => event.is_active == -2)
         else if(req.params.filter == 3) // sending canceled 
             data = data.filter((event) => event.is_active == 3)
-        else if(req.params.filter == 0){ // sending events that get inactive by 10 appeals
-            data = data.filter((events) => events.is_active == 0)
-            let appealed_events = []
-            for (let i = 0; i < data.length; i++) {
-                const appealed = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE appealed = true AND e_id = $1', [data[i]._id])
-                if(appealed.rows[0].count >= 10){
-                    appealed_events.push(data[i])
-                }
-            }
-            data = appealed_events
+        else if(req.params.filter == 4){ // sending events that get inactive by 10 appeals
+            data = data.filter((events) => events.is_active == 4)
         }
-        else if(req.params.filter == 10){ // sending events that get inactive by 5 reports
+        else if(req.params.filter == 0){ // sending events that get inactive by 5 reports
             data = data.filter((events) => events.is_active == 0)
-            let reported_events = []
-            for (let i = 0; i < data.length; i++) {
-                const reported = await db.query('SELECT COALESCE(COUNT(*), 0) as count FROM REPORTS_APPEAL WHERE reported = true AND e_id = $1', [data[i]._id])
-                if(reported.rows[0].count >= 5){
-                    reported_events.push(data[i])
-                }
-            }
-            data = reported_events
         }
         
         else{
             data = data
         }
 
-        return res.status(200).json(data)
+        return res.status(200).json(data.sort((a, b) => b.created_on - a.created_on))
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({message: error.message})
@@ -999,6 +972,18 @@ router.patch('/admin/cancel/:id', authorization, onlyAdmin, async(req, res) => {
         await db.query('UPDATE EVENTS SET is_active = -2 WHERE _id = $1', [req.params.id])
 
         return res.status(200).json({message:'Event set for cancellation successfully.'})
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({message: 'Server Error'})
+    }
+})
+
+// cancel event
+router.patch('/admin/hide/:id', authorization, onlyAdmin, async(req, res) => {
+    try {
+        await db.query('UPDATE EVENTS SET is_active = 0 WHERE _id = $1', [req.params.id])
+
+        return res.status(200).json({message:'Event deactivated successfully.'})
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({message: 'Server Error'})
@@ -1091,7 +1076,7 @@ router.patch('/appeal/:id', authorization, async(req, res) => {
 
         if (total_reports.rows[0].count >= 10){
             // inactive event, hide from service page
-            await db.query('UPDATE EVENTS SET is_active = 0 WHERE _id = $1', [req.params.id])
+            await db.query('UPDATE EVENTS SET is_active = 4 WHERE _id = $1', [req.params.id])
         }
 
         return res.status(200).json({message: 'Event reported successfully.'})

@@ -1,0 +1,19 @@
+.go-stop{
+    height: auto;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.go-stop > h4 {
+    text-align: center;
+    font-family: var(--poppins);
+    color: var(--roughBlack);
+    font-size: 16px;
+    font-weight: 600;
+}
+.go-stop > .appeal-btns {
+    margin-top: 15px;
+}
