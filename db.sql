@@ -35,9 +35,10 @@ CREATE TABLE EVENTS(
     is_active INT DEFAULT 0,   
                 -- -2:canceled (admin cancels or no decision has taken by the creator)
                 -- -1:expired (excuted/resolved)
-                --  0:inactive (report) // when event gets five reporsts
+                --  0:inactive (report) waiting
+                --  4:inactive (appeal) pending 
                 --  1:active, (live)
-                --  2:pending: (parscipate time to distribution time) // appeal period
+                --  2:set for termination:
                 --  3:hide from web after 60 days from distrubtion date
     is_approved INT DEFAULT 0, -- admin to approve new events
     executed_as INT DEFAULT -1, -- 0:NO, 1:YES 

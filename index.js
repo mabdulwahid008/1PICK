@@ -18,7 +18,7 @@ db.connect((err)=>{
         console.log('Connected to DB');
 })
 
-app.use(express.static(path.join(__dirname, "client/build")))
+// app.use(express.static(path.join(__dirname, "client/build")))
 app.use('/images',express.static('images'))
 
 app.use('/user', require('./routes/user'))
@@ -28,13 +28,19 @@ app.use('/stats', require('./routes/stats'))
 app.use('/comment', require('./routes/comments'))
 app.use('/file', require('./routes/files'))
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build", 'index.html'));
-});
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, "client/build", 'index.html'));
+// });
 
 
 
 app.listen(5000, ()=>{
     console.log('Server is listening on port 5000');
-    // filterEventsForTerminationAndCancellation()
+    setInterval(()=>{
+        try {
+            filterEventsForTerminationAndCancellation();
+        } catch (error) {
+            console.error('Error occurred:', error);
+        }
+    }, 1000 * 60 * 60)
 })

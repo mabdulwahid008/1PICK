@@ -151,7 +151,7 @@ function EventDetail2() {
         const res = await response.json()
         if (response.status === 200) {
             const originalDate = new Date(res.e_start);
-            const newDate = addHours(originalDate, 24);
+            const newDate = addHours(originalDate, 120);
             const formattedNewDate = format(newDate, 'yyyy-MM-dd HH:mm');
             res.payout = formattedNewDate
             setEvent(res)

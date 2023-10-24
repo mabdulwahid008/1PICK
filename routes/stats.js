@@ -151,10 +151,10 @@ router.get('/notification', async(req, res) => {
 })
 
 router.patch('/numbers', authorization, onlyAdmin, async(req, res) => {
-    const { welcome, min_bet, max_bet, e_creation, min_withdraw } = req.body
+    const { welcome, min_bet, max_bet, per_day_event_creation, min_withdraw } = req.body
     try {
-        await db.query('UPDATE NUMBERS SET welcome = $1, min_bet = $2, max_bet = $3, e_creation = $4, min_withdraw = $5',[
-            welcome, min_bet, max_bet, e_creation, min_withdraw 
+        await db.query('UPDATE NUMBERS SET welcome = $1, min_bet = $2, max_bet = $3, per_day_event_creation = $4, min_withdraw = $5',[
+            welcome, min_bet, max_bet, per_day_event_creation, min_withdraw 
         ])
         return res.status(200).json({message: 'Numbers updated successfully.'})
     } catch (error) {

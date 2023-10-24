@@ -100,6 +100,7 @@ function GoStopPopup() {
       <div className='overlay' onClick={()=>setGoStopPopup(false)}></div>
       <div className='card-popup go-stop'>
         <h4>Change event status</h4>
+        <p>Make sure to choose the appropriate status for the event.</p>
         <div className='appeal-btns'>
             <button disabled={loading} onClick={activateEvent}>Go</button>
             <button disabled={loading} onClick={hideEvent}>Stop</button>

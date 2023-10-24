@@ -194,6 +194,7 @@ function AdminNavbar() {
         <Link to='/admin/members'> <img src={require('../../assets/person.png')}/></Link>
         <Link to='/admin/events'> <img src={require('../../assets/event_list.png')}/></Link>
         <Link to='/admin/category'> <img src={require('../../assets/category.png')}/></Link>
+        <Link to='/admin/setting'> <img src={require('../../assets/setting.png')}/></Link>
       </div>
       </div>
     </>

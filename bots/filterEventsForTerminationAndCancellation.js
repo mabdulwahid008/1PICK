@@ -42,13 +42,13 @@ exports.filterEventsForTerminationAndCancellation = async() => {
 
     for (let i = 0; i < cancel_events.length; i++) {
         // setting events for cancellation
-        if(cancel_events[i].is_active != 0) // if event is reported or appealed, confirmation needed from admin
+        if(cancel_events[i].is_active != 0 ) // if event is reported or appealed, confirmation needed from admin
              await db.query('UPDATE EVENTS SET is_active = -2 WHERE _id = $1', [cancel_events[i]._id])
     }
 
     for (let i = 0; i < terminate_events.length; i++) {
         // setting events for termination
-        if(terminate_events[i].is_active != 0) // if event is reported or appealed, confirmation needed from admin
+        if(terminate_events[i].is_active != 0 && terminate_events[i].executed_as == -1) // if event is reported or appealed, confirmation needed from admin
             await db.query('UPDATE EVENTS SET is_active = 2 WHERE _id = $1', [terminate_events[i]._id])
     }
 

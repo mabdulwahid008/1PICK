@@ -43,6 +43,7 @@ function AdminLayout() {
               <Route path='/admin/category' element={<CategoryPage/>} />
               <Route path='/admin/traffic' element={<AdminGraph/>} />
               <Route path='/admin/events' element={<AdminEvents/>} />
+              <Route path='/admin/setting' element={<NumbersSet/>} />
               <Route path='*' element={<Navigate to='/admin' />}/>
             </Routes>
           </div>

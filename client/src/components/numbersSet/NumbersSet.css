@@ -3,7 +3,7 @@
     border-radius: 8px;
     border: 1px solid var(--borderColor);
     padding: 20px 20px;
-    width: 20%;
+    margin: 80px 20px;
     z-index: 99;
 }
 .number-set > h2{

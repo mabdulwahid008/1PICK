@@ -992,11 +992,10 @@ router.patch('/admin/hide/:id', authorization, onlyAdmin, async(req, res) => {
 
 // admin reapproves event
 router.patch('/admin/approve/:id', authorization, onlyAdmin, async(req, res) => {
-    const { can_be_appealed } = req.body
     try {
-        if(can_be_appealed)
-            await db.query('UPDATE EVENTS SET is_active = 1, can_be_appealed = false WHERE _id = $1', [req.params.id])
-        
+        const event = await db.query('Select is_active FROM EVENTS WHERE _id = $1', [req.params.id])
+        if(event.rows[0].is_active == 4)
+            await db.query('UPDATE EVENTS SET is_active = 1, can_be_appealed = false WHERE _id = $1', [req.params.id])    
         else
             await db.query('UPDATE EVENTS SET is_active = 1, can_be_reported = false WHERE _id = $1', [req.params.id])
         

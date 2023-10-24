@@ -196,4 +196,7 @@
         font-family: var(--roboto);
         font-weight: 500;
     }
+    .navbar-mobile > a > img{
+        height: 25px;
+    }
 }
