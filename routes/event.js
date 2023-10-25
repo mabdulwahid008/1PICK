@@ -7,6 +7,7 @@ const { uploadJSONToIPFS, deleteFromIPFS, NFTStroage } = require('../ipfs')
 const imageUpload = require('../utils/imageUpload')
 const { approveEvent } = require('../utils/approveEvent')
 const { addUserScore, removeUserScores } = require('../utils/scores')
+const { betOnEvent } = require('../utils/notifications')
 
 
 // cretaing an event
@@ -361,6 +362,7 @@ router.post('/bet', authorization, async(req, res)=>{
                 updated_balance, updated_bet_amount, req.user_id
             ])
             
+            betOnEvent(req.user_id, event_id, bet_amount, is_yes)
 
             return res.status(200).json({message: 'Bet placed successfully.'})
         }
