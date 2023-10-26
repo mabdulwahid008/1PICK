@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './PcLayout.css'
 import EventItem from '../../components/eventItem/EventItem'
 import { Context } from '../../state/Provider'
@@ -18,9 +18,10 @@ function PcLayout({ url }) {
         setCurrent(current === 0 ? trending_5_events?.length - 1 : current - 1)
     }
 
-    // setTimeout(()=>{
-    //     next()
-    // }, 4000)
+    useEffect(() => {
+        const intervalId = setInterval(next, 4000);
+        return () => clearInterval(intervalId);
+    }, [current, trending_5_events]);
 
 
     return (
@@ -48,7 +49,7 @@ function PcLayout({ url }) {
                         </AnimatePresence>
                     </div>
                     <div className='event-slider-btns'>
-                        <p>{current+1} / 5</p>
+                        <p>{current+1} / {trending_5_events.length}</p>
                         <span onClick={prev}>&lt;</span>
                         <span onClick={next}>&gt;</span>
                     </div>

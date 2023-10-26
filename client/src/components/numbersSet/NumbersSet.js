@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import './NumbersSet.css'
 import { AdminContext } from '../../state/AdminProvider'
 import { toast } from 'react-toastify'
+import AdminAnnouncement from '../adminAnnouncement/AdminAnnouncement'
 
 function NumbersSet() {
     const { setNumberPopup } = useContext(AdminContext)
@@ -57,6 +58,8 @@ function NumbersSet() {
         fetchNumbers()
     }, [])
   return (
+    <>
+    <AdminAnnouncement />
         <div className='number-set'>
             <h2>Update Service Amounts</h2>
             <form onSubmit={onSubmit}>
@@ -83,6 +86,7 @@ function NumbersSet() {
                 <button>Update</button>
             </form>
         </div>
+    </>
   )
 }
 

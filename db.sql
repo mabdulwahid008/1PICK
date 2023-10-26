@@ -140,7 +140,7 @@ ALTER TABLE NUMBERS ADD per_day_event_creation INT DEFAULT 5
 
 CREATE TABLE NOTIFICATIONS (
     _id SERIAL PRIMARY KEY,
-    is_yes INT,
+    is_yes VARCHAR(10),
     bet_amount INT,
     text VARCHAR(250) NOT NULL,
     by_admin BOOLEAN DEFAULT FALSE,

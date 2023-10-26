@@ -1,0 +1,70 @@
+.admin-announcement{
+    border-radius: 7px;
+    background-color: var(--white);
+    border: 1px solid var(--borderColor);
+    padding: 20px;
+    height: auto;
+    margin: 80px 20px 20px;
+}
+
+.admin-announcement > h2{
+    font-family: var(--poppins);
+    color: #000;
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.admin-announcement > form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.admin-announcement > form > input {
+    color: black !important;
+    padding: 7px 7px;
+    border: 1px solid var(--borderColor);
+    border-radius: 4px;
+    outline: none;
+    width: 72%;
+}
+
+.admin-announcement > form > button{
+    background-color: var(--green);
+    color: var(--white);
+    font-family: var(--inter);
+    padding:  7px;
+    width: 20%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+.admin-announcement > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.admin-announcement > div > span {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--poppins);
+    font-size: 12px;
+    font-weight: 400;
+    padding: 5px 0px;
+    border-bottom: 2px solid var(--bgColor);
+}
+
+.admin-announcement > div > span > svg {
+    font-size: 14px;
+    cursor: pointer;
+}

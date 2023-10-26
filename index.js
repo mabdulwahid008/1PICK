@@ -4,6 +4,7 @@ const cors = require('cors')
 const path = require('path')
 const bodyParser = require('body-parser');
 const { filterEventsForTerminationAndCancellation } = require('./bots/filterEventsForTerminationAndCancellation');
+const { router } =  require('./utils/notifications')
 
 const app = express()
 
@@ -27,7 +28,7 @@ app.use('/event', require('./routes/event'))
 app.use('/stats', require('./routes/stats'))
 app.use('/comment', require('./routes/comments'))
 app.use('/file', require('./routes/files'))
-app.use('/notifications', require('./utils/notifications'))
+app.use('/notifications', router)
 
 // app.get('*', (req, res) => {
 //     res.sendFile(path.join(__dirname, "client/build", 'index.html'));

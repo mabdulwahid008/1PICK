@@ -8,16 +8,16 @@ const minifyAddress = (address) => {
     return `${start}...${end}`
 }
 
-exports.eventCreated = async(u_id, e_title, pick) => {
+const eventCreated = async(u_id, e_title, pick) => {
     const user = await db.query('SELECT address from USERS WHERE _id = $1', [u_id])
 
-    await db.query('INSERT INTO NOTIFICATIONS(text) VALUES($11)',[
+    await db.query('INSERT INTO NOTIFICATIONS(text) VALUES($1)',[
         `${e_title.substr(0, 20)}-${pick} by ${minifyAddress(user.rows[0].address)}`
     ])
     
 }
 
-exports.eventCanceled = async(e_id) => {
+const eventCanceled = async(e_id) => {
     const event = await db.query('SELECT title, pick FROM EVENTS WHERE _id = $1', [e_id])
 
     await db.query('INSERT INTO NOTIFICATIONS(text) VALUES($11)',[
@@ -25,7 +25,7 @@ exports.eventCanceled = async(e_id) => {
     ])
 }
 
-exports.eventTerminated = async(e_id) => {
+const eventTerminated = async(e_id) => {
     const event = await db.query('SELECT title, pick FROM EVENTS WHERE _id = $1', [e_id])
 
     await db.query('INSERT INTO NOTIFICATIONS(text) VALUES($11)',[
@@ -33,11 +33,11 @@ exports.eventTerminated = async(e_id) => {
     ])
 }
 
-exports.betOnEvent = async(e_id, amount, is_yes) => {
+const betOnEvent = async(e_id, amount, is_yes) => {
     const event = await db.query('SELECT title, pick FROM EVENTS WHERE _id = $1', [e_id])
 
     await db.query('INSERT INTO NOTIFICATIONS(is_yes, bet_amount, text) VALUES($1, $2, $3)',[
-        is_yes, amount, `${event.rows[0].title.substr(0, 20)} - ${event.rows[0].pick}`
+        is_yes==1? 'YES' : 'NO', amount, `${event.rows[0].title.substr(0, 20)} - ${event.rows[0].pick}`
     ])
 }
 
@@ -47,16 +47,15 @@ router.get('/', async(req, res) => {
         const activities = await db.query("SELECT * FROM NOTIFICATIONS WHERE by_admin = false AND created_on >= current_timestamp - interval '5 minutes'")
         const by_admin = await db.query("SELECT * FROM NOTIFICATIONS WHERE by_admin = TRUE")
 
-        activities.rows.concat(by_admin.rows)
+        const x = activities.rows.concat(by_admin.rows)
 
-        return res.status(200).json(activities.rows)
+        return res.status(200).json(x)
 
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({message:'Server Error'})
     }
 })
-
 
 router.post('/', async(req, res) => {
     const { text } = req.body
@@ -79,7 +78,7 @@ router.get('/admin', async(req, res) => {
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({message:'Server Error'})
-    }
+    }  
 })
 
 router.delete('/:id', async(req, res) => {
@@ -92,4 +91,4 @@ router.delete('/:id', async(req, res) => {
     }
 })
 
-module.exports = router
+module.exports = {router, betOnEvent, eventTerminated, eventCanceled, eventCreated}

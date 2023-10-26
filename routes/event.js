@@ -324,8 +324,6 @@ router.get('/stats/:event_id', async (req, res) => {
 router.post('/bet', authorization, async(req, res)=>{
     const { bet_amount, event_id, is_yes } = req.body
     try {
-        await addUserScore(event_id, req.user_id, is_yes) 
-        await betOnEvent(event_id, bet_amount, is_yes)
 
         const event = await db.query('SELECT e_end, is_approved FROM EVENTS WHERE _id = $1', [
             event_id
@@ -339,6 +337,10 @@ router.post('/bet', authorization, async(req, res)=>{
         const eventEnd = new Date(event.rows[0].e_end);
         if (eventEnd < new Date()) 
             return res.status(422).json({ message: 'Event timeline passed.' });
+
+        
+        await addUserScore(event_id, req.user_id, is_yes) 
+        await betOnEvent(event_id, bet_amount, is_yes)
 
         const user = await db.query('SELECT balance, bet_amount FROM USERS WHERE _id = $1', [
             req.user_id
