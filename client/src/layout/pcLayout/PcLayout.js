@@ -49,7 +49,7 @@ function PcLayout({ url }) {
                         </AnimatePresence>
                     </div>
                     <div className='event-slider-btns'>
-                        <p>{current+1} / {trending_5_events.length}</p>
+                        <p>{current+1} / {trending_5_events?.length}</p>
                         <span onClick={prev}>&lt;</span>
                         <span onClick={next}>&gt;</span>
                     </div>
