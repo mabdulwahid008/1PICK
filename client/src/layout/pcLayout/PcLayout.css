@@ -14,7 +14,8 @@
   justify-content: flex-start;
   padding: 0px 18%;
   align-items: center;
-  background: linear-gradient(to right, #f6ddf4, #dfeaf8);
+  /* background: linear-gradient(to right, #f6ddf4, #dfeaf8); */
+  background: linear-gradient(84deg, #f9d2f6 0%, #b6d4fb 81%);
 }
 
 .section-1>.contentt {
