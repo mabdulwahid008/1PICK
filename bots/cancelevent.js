@@ -1,4 +1,5 @@
 const db = require("../db");
+const { eventCanceled } = require("../utils/notifications");
 const { removeUserScores } = require("../utils/scores");
 
 exports.cancelEvent = async() => {
@@ -22,8 +23,9 @@ exports.cancelEvent = async() => {
                 
                 await removeUserScores(cancel_event?.rows[i]?._id, bets.rows[i]?.u_id)
             }
-            // await db.query('DELETE FROM BETTING WHERE e_id = $1', [cancel_event?.rows[i]])
-            await db.query('UPDATE EVENTS SET canceled = true WHERE _id = $1', [cancel_event?.rows[i]._id])
+            
+            await eventCanceled(cancel_event?.rows[i]?._id)
+            await db.query('UPDATE EVENTS SET canceled = true WHERE _id = $1', [cancel_event?.rows[i]?._id])
         }
 
         console.log("Cancellation Bot Ended");

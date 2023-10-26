@@ -7,7 +7,7 @@ const { uploadJSONToIPFS, deleteFromIPFS, NFTStroage } = require('../ipfs')
 const imageUpload = require('../utils/imageUpload')
 const { approveEvent } = require('../utils/approveEvent')
 const { addUserScore, removeUserScores } = require('../utils/scores')
-const { betOnEvent } = require('../utils/notifications')
+const { betOnEvent, eventCreated } = require('../utils/notifications')
 
 
 // cretaing an event
@@ -43,6 +43,7 @@ router.post('/create', authorization, imageUpload.single("image"), async(req, re
 
             await approveEvent(event.rows[0]._id)
 
+            await eventCreated(req.user_id, title, pick)
             return res.status(200).json({message: 'Event created successfully.'})
         }
 
@@ -57,6 +58,7 @@ router.post('/create', authorization, imageUpload.single("image"), async(req, re
 
         await approveEvent(event.rows[0]._id)
 
+        await eventCreated(req.user_id, title, pick)
         return res.status(200).json({message: 'Event created successfully.'})
 
     } catch (error) {
@@ -323,6 +325,7 @@ router.post('/bet', authorization, async(req, res)=>{
     const { bet_amount, event_id, is_yes } = req.body
     try {
         await addUserScore(event_id, req.user_id, is_yes) 
+        await betOnEvent(event_id, bet_amount, is_yes)
 
         const event = await db.query('SELECT e_end, is_approved FROM EVENTS WHERE _id = $1', [
             event_id
@@ -362,7 +365,6 @@ router.post('/bet', authorization, async(req, res)=>{
                 updated_balance, updated_bet_amount, req.user_id
             ])
             
-            betOnEvent(req.user_id, event_id, bet_amount, is_yes)
 
             return res.status(200).json({message: 'Bet placed successfully.'})
         }

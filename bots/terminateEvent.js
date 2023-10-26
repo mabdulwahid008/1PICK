@@ -1,4 +1,5 @@
-const db = require("../db")
+const db = require("../db");
+const { eventTerminated } = require("../utils/notifications");
 
 exports.terminateEvent = async() => {
     try {
@@ -63,6 +64,7 @@ exports.terminateEvent = async() => {
                     ])
             }
 
+            await eventTerminated(events_need_termination.rows[i]._id)
             await db.query('UPDATE EVENTS SET executed_as = $1, is_active = -1 WHERE _id = $2', [is_yes, events_need_termination.rows[i]._id])
 
         }
