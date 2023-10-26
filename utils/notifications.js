@@ -58,4 +58,38 @@ router.get('/', async(req, res) => {
 })
 
 
+router.post('/', async(req, res) => {
+    const { text } = req.body
+    try {
+        await db.query('INSERT INTO NOTIFICATIONS(text, by_admin) VALUES($1, $2)',[
+            text, true
+        ])
+        return res.status(200).json({message:'Announcement created.'})
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({message:'Server Error'})
+    }
+})
+
+
+router.get('/admin', async(req, res) => {
+    try {
+        const announcement = await db.query('SELECT _id, text FROM NOTIFICATIONS WHERE by_admin = TRUE')
+        return res.status(200).json(announcement.rows)
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({message:'Server Error'})
+    }
+})
+
+router.delete('/:id', async(req, res) => {
+    try {
+        await db.query('DELETE FROM NOTIFICATIONS WHERE _id = $1', [req.params.id])
+        return res.status(200).json({message: 'Announcement deleted.'})
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({message:'Server Error'})
+    }
+})
+
 module.exports = router
