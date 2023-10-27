@@ -13,6 +13,7 @@ function App() {
   const URL = window.location
   useEffect(()=>{
       window.scrollTo(0, 0)
+      
   }, [window.location.pathname])
 
   if (window.location.pathname.startsWith('/admin'))

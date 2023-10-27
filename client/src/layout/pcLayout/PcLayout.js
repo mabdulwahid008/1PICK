@@ -43,7 +43,7 @@ function PcLayout({ url }) {
                                         whileInView={{right: 23}}
                                         exit={{ left: -500 }}
                                         transition={{type: 'easeInOut', duration:1}}>
-                                    <EventItem event={event}/>
+                                    <EventItem event={event} useLink={false}/>
                                 </motion.div>
                         })}
                         </AnimatePresence>
