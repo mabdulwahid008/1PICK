@@ -52,27 +52,27 @@ exports.filterEventsForTerminationAndCancellation = async() => {
             await db.query('UPDATE EVENTS SET is_active = 2 WHERE _id = $1', [terminate_events[i]._id])
     }
 
-    // await new Promise((resolve, reject) => {
-    //     setTimeout(() => {
-    //         resolve("Wating for sometime to things get in their place");
-    //     }, 30000);
-    // });
+    await new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("Wating for sometime to things get in their place");
+        }, 30000);
+    });
 
     await cancelEvent()
 
-    // await new Promise((resolve, reject) => {
-    //     setTimeout(() => {
-    //         resolve("Wating for sometime to things get in their place");
-    //     }, 30000);
-    // });
+    await new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("Wating for sometime to things get in their place");
+        }, 30000);
+    });
 
     await terminateEvent()
 
-    // await new Promise((resolve, reject) => {
-    //     setTimeout(() => {
-    //         resolve("Wating for sometime to things get in their place");
-    //     }, 30000);
-    // });
+    await new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("Wating for sometime to things get in their place");
+        }, 30000);
+    });
     
     await hideEventsAfter60days()
     

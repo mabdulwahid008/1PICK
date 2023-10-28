@@ -61,7 +61,7 @@ function Footer() {
 
          <div className='mobile-stuff'>
               <div>
-                <a href="https://etherscan.io/token/0x1250c8f5099902ddfb574474612436b0b5Db0a15"><h4 style={{fontSize: 15}}>0x1250c8f5099902ddfb574474612436b0b5Db0a15</h4></a>
+                <a href="https://etherscan.io/token/0x1250c8f5099902ddfb574474612436b0b5Db0a15"><h4 style={{fontSize: 12}}>0x1250c8f5099902ddfb574474612436b0b5Db0a15</h4></a>
                 {/* <a href="https://etherscan.io/token/0x1250c8f5099902ddfb574474612436b0b5Db0a15"><h3>Pick Token Address</h3></a> */}
                 {/* <img src={require('../../assets/copy.png')} onClick={()=>{         
                       let dummy = document.createElement('input')

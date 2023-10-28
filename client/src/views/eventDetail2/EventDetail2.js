@@ -181,7 +181,7 @@ function EventDetail2() {
             {!event && <Loader />}
 
             {event && event?.length !== 0 && <div className='event-page-2'>
-                <Bet2 event_id={event._id} no_bet_percentage={event.no_bet_percentage} yes_bet_percentage={event.yes_bet_percentage} pick={event.pick} d_date={event.e_start.substr(0, 10)} p_date={event.e_end.substr(0, 10)} />
+                <Bet2 event_id={event._id} no_bet_percentage={event.no_bet_percentage} yes_bet_percentage={event.yes_bet_percentage} pick={event.pick} d_date={event.e_start?.substr(0, 10)} p_date={event.e_end?.substr(0, 10)} />
                 <div className='event-page-left'>
                     <h2>{event.title}</h2>
                     <p>
@@ -229,15 +229,15 @@ function EventDetail2() {
                         {timeline && <div className='timeline'>
                             <div>
                                 <p>Event Participation End</p>
-                                <p>{event?.e_end.replace('T', ' ')}</p>
+                                <p>{event?.e_end?.replace('T', ' ')}</p>
                             </div>
                             <div>
                                 <p>Event D-Date</p>
-                                <p>{event?.e_start.substr(0, 10)}</p>
+                                <p>{event?.e_start?.substr(0, 10)}</p>
                             </div>
                             <div>
                                 <p>Payout Date</p>
-                                <p>{event?.payout.substr(0, 10)}</p>
+                                <p>{event?.payout?.substr(0, 10)}</p>
                             </div>
                         </div>}
                     </div>

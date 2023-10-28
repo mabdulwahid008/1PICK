@@ -20,7 +20,7 @@ const eventCreated = async(u_id, e_title, pick) => {
 const eventCanceled = async(e_id) => {
     const event = await db.query('SELECT title, pick FROM EVENTS WHERE _id = $1', [e_id])
 
-    await db.query('INSERT INTO NOTIFICATIONS(text) VALUES($11)',[
+    await db.query('INSERT INTO NOTIFICATIONS(text) VALUES($1)',[
         `${event.rows[0].title.substr(0, 20)}-${event.rows[0].pick} - CANCELLED`
     ])
 }
@@ -28,7 +28,7 @@ const eventCanceled = async(e_id) => {
 const eventTerminated = async(e_id) => {
     const event = await db.query('SELECT title, pick FROM EVENTS WHERE _id = $1', [e_id])
 
-    await db.query('INSERT INTO NOTIFICATIONS(text) VALUES($11)',[
+    await db.query('INSERT INTO NOTIFICATIONS(text) VALUES($1)',[
         `${event.rows[0].title.substr(0, 20)}-${event.rows[0].pick} - Terminated`
     ])
 }
