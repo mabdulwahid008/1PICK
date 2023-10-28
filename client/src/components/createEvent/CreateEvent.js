@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './CreateEvent.css'
-import { convertBase64, eventDataValidation } from '../../utills/index'
+import { convertBase64, eventDataValidation, upload_to_NFT_Storage } from '../../utills/index'
 import { toast } from 'react-toastify'
 import { getCategoriesAPI, uploadImageToIPFS } from '../../utills/apiRequest'
 import Select from 'react-select'
@@ -90,6 +90,18 @@ function CreateEvent() {
         // const image_CID = await uploadImageToIPFS(eventData.image)
         // eventData.image_CID = image_CID
 
+        try {
+            const content_cid = await upload_to_NFT_Storage(
+                eventData.title, 
+                eventData.description, 
+                eventData.e_start, 
+                eventData.resolution_url,
+                categoryOptions.filter((c) => c.value == eventData.c_id)[0].label,
+                address,
+                eventData.image,
+                eventData.pick
+                )
+
         const formData = new FormData()
         formData.append("title", eventData.title)
         formData.append("description", eventData.description)
@@ -98,43 +110,44 @@ function CreateEvent() {
         formData.append("resolution_url", eventData.resolution_url)
         formData.append("pick", eventData.pick)
         formData.append("image", eventData.image)
-        try {
-            const res = await axios.post("/event/create", formData, {
-                maxBodyLength: "Infinity",
-                headers: {
-                    'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
-                    token: sessionStorage.getItem('token')
-                }
-             });
+        formData.append("content_cid", content_cid)
 
-             console.log(res);
-            if(res.status === 200){
-                document.getElementById('title').value = ''
-                document.getElementById('pick').value = ''
-                document.getElementById('description').value = ''
-                document.getElementById('description').value = ''
-                document.getElementById('participation').value = ''
-                // document.getElementById('d-day').value = ''
-                document.getElementById('resolution').value = ''
-                document.getElementById('cate-select').value = ''
-                document.getElementById('check').checked = false
-                setImage(null)
-                eventData.title = ''
-                eventData.description = ''
-                eventData.pick = ''
-                eventData.resolution_url = ''
-                setRefresh((state) => !state)
-                toast.success(res.data.message)
+        const res = await axios.post("/event/create", formData, {
+            maxBodyLength: "Infinity",
+            headers: {
+                'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
+                token: sessionStorage.getItem('token')
             }
-            else if(res.status === 401){
-                setAddress(null)
-                toast.error('Please login, your session has expired.')
-            }
-            else
-                toast.error(res.data.message)
+            });
+
+        if(res.status === 200){
+            document.getElementById('title').value = ''
+            document.getElementById('pick').value = ''
+            document.getElementById('description').value = ''
+            document.getElementById('description').value = ''
+            document.getElementById('participation').value = ''
+            // document.getElementById('d-day').value = ''
+            document.getElementById('resolution').value = ''
+            document.getElementById('cate-select').value = ''
+            document.getElementById('check').checked = false
+            setImage(null)
+            eventData.title = ''
+            eventData.description = ''
+            eventData.pick = ''
+            eventData.resolution_url = ''
+            setRefresh((state) => !state)
+            toast.success(res.data.message)
+        }
+        else if(res.status === 401){
+            setAddress(null)
+            toast.error('Please login, your session has expired.')
+        }
+        else
+            toast.error(res.data.message)
             
         } catch (error) {
             console.log(error);
+            toast.error(error.response.data.message);
             setLoading(false)
         }
         

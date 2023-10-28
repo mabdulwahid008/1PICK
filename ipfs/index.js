@@ -61,12 +61,14 @@ const NFTStroage = async (title, description, e_start, e_end, resolution_url, c_
     const category = await db.query('SELECT name FROM CATEGORIES WHERE _id = $1', [c_id]);
 
     // Read the image file and create a Blob object
+    // const imageFilePath = path.join(image_CID);
+
+
+    // const data = await fs.promises.readFile(imageFilePath);
+    // const base64Image = Buffer.from(data).toString('base64');
+    // const blob = new Blob([Buffer.from(base64Image, 'base64')]);
     const imageFilePath = path.join(image_CID);
-
-
     const data = await fs.promises.readFile(imageFilePath);
-    const base64Image = Buffer.from(data).toString('base64');
-    const blob = new Blob([Buffer.from(base64Image, 'base64')]);
 
     // Upload data to nft.storage
     const metadata = await client.store({
@@ -78,7 +80,7 @@ const NFTStroage = async (title, description, e_start, e_end, resolution_url, c_
       resolution_url,
       category: category.rows[0].name,
       creator: creator.rows[0].address,
-      image: blob
+      image: new File([data], title)
     });
 
     return metadata.url.slice(7, metadata.url.length - 14);
