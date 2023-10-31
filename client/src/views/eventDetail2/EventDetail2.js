@@ -222,39 +222,11 @@ function EventDetail2() {
                     </div>
 
                     <div className='event2-box'>
-                        <div className='event2-box-head' onClick={() => setTimline(prev => !prev)}>
-                            <h2>Timeline</h2>
-                            <IoIosArrowUp style={{ transform: timeline ? 'rotate(0deg)' : 'rotate(180deg)' }} />
+                        <div className='event2-box-head' onClick={() => setComments(prev => !prev)}>
+                            <h2>Comments</h2>
+                            <IoIosArrowUp style={{ transform: comments ? 'rotate(0deg)' : 'rotate(180deg)' }} />
                         </div>
-                        {timeline && <div className='timeline'>
-                            <div>
-                                <p>Event Participation End</p>
-                                <p>{event?.e_end?.replace('T', ' ')}</p>
-                            </div>
-                            <div>
-                                <p>Event D-Date</p>
-                                <p>{event?.e_start?.substr(0, 10)}</p>
-                            </div>
-                            <div>
-                                <p>Payout Date</p>
-                                <p>{event?.payout?.substr(0, 10)}</p>
-                            </div>
-                        </div>}
-                    </div>
-
-
-                    {/* <div className='bet'>
-                <Bet event_id={event._id} no_bet_percentage={event.no_bet_percentage} yes_bet_percentage={event.yes_bet_percentage} pick={event.pick}/>
-            </div> */}
-
-                    <div className='event2-box'>
-                        <div className='event2-box-head' onClick={() => setStats(prev => !prev)}>
-                            <h2>Stats</h2>
-                            <IoIosArrowUp style={{ transform: stats ? 'rotate(0deg)' : 'rotate(180deg)' }} />
-                        </div>
-                        {stats && <div className='e2-stats'>
-                            <Graph event_id={id} />
-                        </div>}
+                        {comments && <Comments event_id={id}/>}
                     </div>
 
                     <div className='event2-box'>
@@ -291,6 +263,38 @@ function EventDetail2() {
                             })}
                         </div>}
                     </div>
+
+                    <div className='event2-box'>
+                        <div className='event2-box-head' onClick={() => setStats(prev => !prev)}>
+                            <h2>Stats</h2>
+                            <IoIosArrowUp style={{ transform: stats ? 'rotate(0deg)' : 'rotate(180deg)' }} />
+                        </div>
+                        {stats && <div className='e2-stats'>
+                            <Graph event_id={id} />
+                        </div>}
+                    </div>
+
+                    <div className='event2-box'>
+                        <div className='event2-box-head' onClick={() => setTimline(prev => !prev)}>
+                            <h2>Timeline</h2>
+                            <IoIosArrowUp style={{ transform: timeline ? 'rotate(0deg)' : 'rotate(180deg)' }} />
+                        </div>
+                        {timeline && <div className='timeline'>
+                            <div>
+                                <p>Event Participation End</p>
+                                <p>{event?.e_end?.replace('T', ' ')}</p>
+                            </div>
+                            <div>
+                                <p>Event D-Date</p>
+                                <p>{event?.e_start?.substr(0, 10)}</p>
+                            </div>
+                            <div>
+                                <p>Payout Date</p>
+                                <p>{event?.payout?.substr(0, 10)}</p>
+                            </div>
+                        </div>}
+                    </div>
+
                     <div className='event2-box'>
                         <div className='event2-box-head' onClick={() => setDetails(prev => !prev)}>
                             <h2>Details</h2>
@@ -314,14 +318,6 @@ function EventDetail2() {
                                 <a href={`//etherscan.io/address/${event?.creator}`} target='_blank' rel='noopener noreferrer'>{minifyAddress(event?.creator)} <FiArrowUpRight /></a>
                             </div>
                         </div>}
-                    </div>
-
-                    <div className='event2-box'>
-                        <div className='event2-box-head' onClick={() => setComments(prev => !prev)}>
-                            <h2>Comments</h2>
-                            <IoIosArrowUp style={{ transform: comments ? 'rotate(0deg)' : 'rotate(180deg)' }} />
-                        </div>
-                        {comments && <Comments event_id={id}/>}
                     </div>
 
                 </div>

@@ -4,6 +4,7 @@ import { Context } from '../../state/Provider'
 import { Link } from 'react-router-dom'
 import Blockies from 'react-blockies';
 import { minifyAddress } from '../../utills'
+import { BsArrowReturnRight } from 'react-icons/bs';
 
 function Comments({ event_id }) {
     const { address, setAddress, refresh } = useContext(Context)
@@ -58,6 +59,11 @@ function Comments({ event_id }) {
 
     const postComment = async (e) => {
         e.preventDefault()
+
+        if(!address || myBet === 0){
+            toast.error("Only people who have participated can leave comments.")
+        }
+
         setLoading(true)
         const response = await fetch(`/comment`, {
             method: 'POST',
@@ -85,6 +91,10 @@ function Comments({ event_id }) {
 
     const postSubSomment = async (e) => {
         e.preventDefault()
+        if(!address || myBet === 0){
+            toast.error("Only people who have participated can leave comments.")
+        }
+
         setLoading(true)
         const response = await fetch(`/comment`, {
             method: 'POST',
@@ -117,45 +127,56 @@ function Comments({ event_id }) {
     }, [refresh, address])
     return (
         <div className='timeline details-box'>
-            {address && myBet > 0 && <form className='comment-field' onSubmit={postComment}>
+            <form className='comment-field' onSubmit={postComment}>
                 <input type='comment' value={content} id='comment' placeholder='Write something...' required onChange={(e) => { document.getElementById('comment').value = e.target.value.slice(0, 300); if (e.target.value.length <= 300) setConetnt(e.target.value) }} />
                 <button disabled={loading}><img src={require('../../assets/done.png')} /></button>
-            </form>}
+            </form>
             <div className='comments'>
                 {!comments || comments?.length === 0 && <p>Be the first to comment on it.</p>}
                 {comments?.length > 0 && <>
                     {comments.map((comment, index) => {
                         return <div className='comment' key={index}>
                             <Link to={`/user/${comment.address}`}>
-                                <Blockies seed={comment.address} size={4} scale={3} color="#FF385C" bgColor="#00B66D" />
+                                <Blockies seed={comment.address} size={3} scale={3} color="#FF385C" bgColor="#00B66D" />
                                 {minifyAddress(comment.address)}</Link>
                             <p>{comment.content}</p>
                             <div>
-                                <p>{comment.created_on.substr(0, 10)}</p>
+                                <p></p>
+                                {/* <p>{comment.created_on.substr(0, 10)}</p> */}
                                 <div>
-                                    <img src={require('../../assets/add_comment.png')} alt='add_comment' onClick={() => { setP_comment_id(comment._id); setSubComments(index) }} />
+                                    <button className='reply-btn' onClick={() => {
+                                                            setSubComments(prevSubComments => {
+                                                                if (prevSubComments === 0 || prevSubComments !== index + 1) {
+                                                                    return index + 1;
+                                                                } else {
+                                                                    return 0;
+                                                                }
+                                                            }); 
+                                                            setP_comment_id(comment._id);  
+                                                        }} > Reply </button>
                                     <p>{comment.replied}</p>
                                 </div>
                             </div>
+                            {subComments === index+1 &&
+                            <form className='comment-field sub-comment-filed' onSubmit={postSubSomment}>
+                                <input type='comment' value={subContent} id='sub-comment' placeholder='Reply' required onChange={(e) => { document.getElementById('sub-comment').value = e.target.value.slice(0, 300); if (e.target.value.length <= 300) setSubConetnt(e.target.value) }} />
+                                <button disabled={loading}><img src={require('../../assets/done.png')} /></button>
+                            </form>}
                             <hr />
-                            {subComments == index &&
-                                <div className='sub-comment'>
-                                    {address && myBet > 0 && <form className='comment-field' onSubmit={postSubSomment}>
-                                        <input type='comment' value={subContent} id='sub-comment' placeholder='Reply' required onChange={(e) => { document.getElementById('sub-comment').value = e.target.value.slice(0, 300); if (e.target.value.length <= 300) setSubConetnt(e.target.value) }} />
-                                        <button disabled={loading}><img src={require('../../assets/done.png')} /></button>
-                                    </form>}
+                            <div className='sub-comment'>
                                     {comment.replied_comments?.map((replied, index) => {
                                         console.log(replied);
                                         return <div className='replied-comments' key={index}>
                                             <Link to={`/user/${replied.address}`}>
-                                                <Blockies seed={replied.address} size={4} scale={3} color="#FF385C" bgColor="#00B66D" />
+                                                <BsArrowReturnRight />
+                                                <Blockies seed={replied.address} size={3} scale={3} color="#FF385C" bgColor="#00B66D" />
                                                 {minifyAddress(replied.address)}</Link>
                                             <p>{replied.content}</p>
-                                            <p>{replied.created_on.substr(0,10)}</p>
+                                            {/* <p>{replied.created_on.substr(0,10)}</p> */}
                                             <span></span>
                                         </div>
                                     })}
-                                </div>}
+                                </div>
                         </div>
 
                     })}

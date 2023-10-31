@@ -297,7 +297,7 @@ router.get('/rankings/:filter', async(req, res) => {
                 data = users.rows.sort((a, b) => a.createdEvents - b.createdEvents)
             break;
         }
-        return res.status(200).json(data)
+        return res.status(200).json(data.slice(0, 100))
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({message: error.message})

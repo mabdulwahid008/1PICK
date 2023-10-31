@@ -178,3 +178,16 @@ p {
   width: 23px;
   margin-right: 4px;
 }
+
+@media screen and (min-width:768px) and (max-width: 1315px) {
+  .pc-layout>iframe {
+    right: 80px;
+    width: 420;
+  }
+  .section-1{
+    padding: 0px 7%;
+  }
+  .express-opinion{
+    padding-left: 7%;
+  }
+}
