@@ -25,6 +25,7 @@
     justify-content: flex-start;
     align-items: flex-start; 
     cursor: pointer;
+    gap: 10px;
 }
 .logo > img{
     width: 39px;

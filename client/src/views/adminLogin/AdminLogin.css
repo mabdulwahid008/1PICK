@@ -23,6 +23,7 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    gap: 10px;
 }
 .admin-login-header > img {
     height: 50px;
@@ -34,7 +35,6 @@
     font-size: 30.21px;
     font-style: normal;
     font-weight: 600;
-    line-height: normal;
 }
 .admin-login-header > h3 > span {
     padding-left: 5px;

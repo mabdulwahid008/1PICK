@@ -85,6 +85,7 @@ function Bet2({ event_id, no_bet_percentage, yes_bet_percentage, pick, d_date, p
         if (response.status === 200) {
             setEvents([])
             mybet()
+            setReturns({ yes: 0.00, no: 0.00})
             setRefresh((prevState) => !prevState)
             toast.success(res.message)
         }
