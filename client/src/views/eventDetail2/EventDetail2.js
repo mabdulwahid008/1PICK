@@ -15,10 +15,11 @@ import Bet2 from '../../components/bet2/Bet2'
 import Blockies from 'react-blockies';
 import Loader from '../../components/loader/Loader'
 import Comments from '../../components/comments/Comments'
+import { AiOutlineHeart } from 'react-icons/ai'
 
 
 function EventDetail2() {
-    const { categoryIDforEventFiltering, setCategoryIDforEventFiltering, setPageForEvent, setEvents, setAddress, address, refresh, setRefresh } = useContext(Context)
+    const { setAddress, address, refresh, setRefresh } = useContext(Context)
     const navigate = useNavigate()
 
     const { id } = useParams()
@@ -64,6 +65,7 @@ function EventDetail2() {
         })
         const res = await response.json()
         if (response.status === 200) {
+            getEvent()
             toast.success(res.message)
         }
         else if (response.status === 401) {
@@ -75,10 +77,6 @@ function EventDetail2() {
     }
 
     const copyLink = () => {
-        // navigator.clipboard.writeText(window.location.href)
-        // .then(function() {
-        //   toast.success('URL copied to clipboard!');
-        // })
         let dummy = document.createElement('input')
         let text = window.location.href;
 
@@ -145,7 +143,8 @@ function EventDetail2() {
         const response = await fetch(`/event/single/${id}`, {
             method: 'GET',
             headers: {
-                'Content-Type': 'Application/json'
+                'Content-Type': 'Application/json',
+                token: sessionStorage.getItem('token')
             }
         })
         const res = await response.json()
@@ -204,7 +203,7 @@ function EventDetail2() {
                                 <p>26 Views</p>
                             </div>
                             <div>
-                                <img src={require('../../assets/favorite.png')} onClick={addToMyFavourite} />
+                                <AiOutlineHeart style={{color: event.favourite? '#FF385C':'#000'}} onClick={addToMyFavourite}/>
                                 <img src={require('../../assets/share2.png')} onClick={() => setShare(prev => !prev)} />
                                 {share && <div className='e2-share' onClick={() => setShare(false)}>
                                     <div onClick={copyLink}>

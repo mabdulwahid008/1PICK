@@ -8,7 +8,8 @@ const imageUpload = require('../utils/imageUpload')
 const { approveEvent } = require('../utils/approveEvent')
 const { addUserScore, removeUserScores } = require('../utils/scores')
 const { betOnEvent, eventCreated } = require('../utils/notifications')
-
+require('dotenv').config()
+const jwt = require('jsonwebtoken')
 
 // cretaing an event
 router.post('/create', authorization, imageUpload.single("image"), async(req, res)=> {
@@ -218,8 +219,30 @@ router.get('/admin/search/:title', async(req, res) => {
     }
 })
 
+
+const userLoggedIn = (req, res, next) =>{
+    
+    try {
+        const token = req.header('token')
+        
+        if(!token){
+            req.user_id = null
+            next()
+        }
+
+        try {
+            const decodedToken = jwt.verify(token, process.env.SECERET_KEY)
+            req.user_id = decodedToken.user_id
+            next();
+          } catch (error) {
+            console.log(error);
+          }
+
+    } catch (error) {
+    }
+}
 // single event
-router.get('/single/:id', async(req, res) => {
+router.get('/single/:id', userLoggedIn, async(req, res) => {
     try {
         const event = await db.query(`SELECT EVENTS._id, title, pick, description, content_CID, e_start, e_end, resolution_url, image_CID, address AS creator, c_id, name AS c_name FROM EVENTS 
                                             INNER JOIN CATEGORIES 
@@ -253,6 +276,13 @@ router.get('/single/:id', async(req, res) => {
         
         if(particapationDate < new Date())
             event.rows[0].report_btn = false
+            event.rows[0].favourite = false
+
+        if(req.user_id){
+            const favourite = await db.query('SELECT * FROM FAVOURITE WHERE e_id = $1 AND u_id = $2', [req.params.id, req.user_id])
+            if(favourite.rows.length > 0)
+            event.rows[0].favourite = true
+        }
 
         return res.status(200).json(event.rows[0])
                                                 
