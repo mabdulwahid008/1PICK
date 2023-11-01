@@ -235,7 +235,8 @@ const userLoggedIn = (req, res, next) =>{
             req.user_id = decodedToken.user_id
             next();
           } catch (error) {
-            console.log(error);
+            req.user_id = null
+            next()
           }
 
     } catch (error) {
@@ -244,7 +245,7 @@ const userLoggedIn = (req, res, next) =>{
 // single event
 router.get('/single/:id', userLoggedIn, async(req, res) => {
     try {
-        const event = await db.query(`SELECT EVENTS._id, title, pick, description, content_CID, e_start, e_end, resolution_url, image_CID, address AS creator, c_id, name AS c_name FROM EVENTS 
+        const event = await db.query(`SELECT EVENTS._id, title, pick, views, description, content_CID, e_start, e_end, resolution_url, image_CID, address AS creator, c_id, name AS c_name FROM EVENTS 
                                             INNER JOIN CATEGORIES 
                                                 ON EVENTS.c_id = CATEGORIES._id 
                                             INNER JOIN USERS 
@@ -273,6 +274,9 @@ router.get('/single/:id', userLoggedIn, async(req, res) => {
         const particapationDate = new Date(event.rows[0].e_end)
        
         event.rows[0].report_btn = true
+
+        const comments = await db.query('SELECT COALESCE(count(*), 0) AS count FROM EVENT_COMMENTS WHERE e_id = $1 AND p_comment_id IS null', [req.params.id])
+        event.rows[0].total_comments = comments.rows[0].count
         
         if(particapationDate < new Date())
             event.rows[0].report_btn = false

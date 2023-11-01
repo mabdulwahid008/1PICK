@@ -154,7 +154,7 @@ function Comments({ event_id }) {
                                                             }); 
                                                             setP_comment_id(comment._id);  
                                                         }} > Reply </button>
-                                    <p>{comment.replied}</p>
+                                    {/* <p>{comment.replied}</p> */}
                                 </div>
                             </div>
                             {subComments === index+1 &&
@@ -165,7 +165,6 @@ function Comments({ event_id }) {
                             <hr />
                             <div className='sub-comment'>
                                     {comment.replied_comments?.map((replied, index) => {
-                                        console.log(replied);
                                         return <div className='replied-comments' key={index}>
                                             <Link to={`/user/${replied.address}`}>
                                                 <BsArrowReturnRight />

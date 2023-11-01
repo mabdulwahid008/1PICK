@@ -75,7 +75,7 @@ function Navbar() {
     }
   }, [searchText])
 
-  useEffect(()=> {}, [searchEvents])
+  useEffect(()=> {}, [searchEvents, address])
 
   useEffect(() => {
     if (mobSearchBox) {

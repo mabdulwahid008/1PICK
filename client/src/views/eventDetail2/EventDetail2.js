@@ -49,6 +49,7 @@ function EventDetail2() {
         if(response.status === 200){
             viewed = viewed + `,${id}`
             localStorage.setItem('viewed_events', viewed)
+            setRefresh(state => !state)
         }
         else
             toast.error(res.message)
@@ -168,7 +169,7 @@ function EventDetail2() {
 
     useEffect(() => {
         getEvent()
-    }, [id, refresh])
+    }, [id, refresh, address])
 
     return (
         <>
@@ -200,7 +201,7 @@ function EventDetail2() {
                         <div>
                             <div>
                                 <img src={require('../../assets/eye.png')} />
-                                <p>26 Views</p>
+                                <p>{event.views} Views</p>
                             </div>
                             <div>
                                 <AiOutlineHeart style={{color: event.favourite? '#FF385C':'#000'}} onClick={addToMyFavourite}/>
@@ -222,7 +223,7 @@ function EventDetail2() {
 
                     <div className='event2-box'>
                         <div className='event2-box-head' onClick={() => setComments(prev => !prev)}>
-                            <h2>Comments</h2>
+                            <h2>Comments ({event.total_comments})</h2>
                             <IoIosArrowUp style={{ transform: comments ? 'rotate(0deg)' : 'rotate(180deg)' }} />
                         </div>
                         {comments && <Comments event_id={id}/>}

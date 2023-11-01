@@ -45,6 +45,8 @@ function Provider(props) {
     const [refresh, setRefresh] = useState(false)
   
     const walletAddress = useAddress()
+    const connect = useConnect();
+    const walletConfig = metamaskWallet();
     const disconnect = useDisconnect()
     const { contract } = useContract(PICK_TOKEN_CONTRACT_ADDRESS, PICK_TOKEN_CONTRACT_ABI)
 
@@ -93,9 +95,11 @@ function Provider(props) {
     const tokenVerification = async(token) => {
       const { response , res } = await verifyToken(token)
       if(response.status === 200){
+        await connect(walletConfig)
         setBalance(res.balance)
         setBetAmount(res.betting_ammount)
         setAddress(res.address)
+        // setWall(res.address)
       }
       else{
         disconnect()
@@ -134,14 +138,13 @@ function Provider(props) {
 
     const chain = useChainId()
     const [{ data, error }, switchNetwork] = useNetwork();
+
     const Change = async() => {
       try {
         if(chain !== 1)
             await switchNetwork(1)
       } catch (error) {
-        console.log("here");
         disconnect()
-        sessionStorage.clear()
         setAddress(null)
       }
     }
