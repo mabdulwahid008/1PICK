@@ -69,8 +69,8 @@ function UserParticipatedEvents() {
 
 
   useEffect(() => {
+    if(events)
     events.portfolio_events = null
-    // setEvents(null)
     getEvents()
   }, [defaultstatus, defaultFilters, searchTitle, refresh])
 

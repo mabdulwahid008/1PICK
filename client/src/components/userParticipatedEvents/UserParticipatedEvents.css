@@ -243,4 +243,9 @@
         font-weight: 400 !important;
         line-height: 10px;
     }
+    .participated-event > p {
+        font-family: var(--poppins);
+        color: var(--roughBlack);
+        font-size: 14px;
+    }
 }
