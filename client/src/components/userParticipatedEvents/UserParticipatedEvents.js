@@ -69,7 +69,8 @@ function UserParticipatedEvents() {
 
 
   useEffect(() => {
-    setEvents(null)
+    events.portfolio_events = null
+    // setEvents(null)
     getEvents()
   }, [defaultstatus, defaultFilters, searchTitle, refresh])
 
@@ -80,6 +81,23 @@ function UserParticipatedEvents() {
 
   return (
     <div className='user-particiaptedd-events'>
+
+     {events?.action_required_events && events?.action_required_events?.length > 0 && 
+     <>
+          <div>
+            <h3>Action Required</h3>
+
+          </div>
+          <div className='divider'>
+            <hr />
+          </div>
+
+          <div className='participated-event'>
+            <Events events={events?.action_required_events} />
+          </div>
+      </>
+      }
+
       <div>
         <h3>Portfolio</h3>
 
@@ -100,41 +118,25 @@ function UserParticipatedEvents() {
         <div>
           <Select value={defaultFilters} isSearchable={false} options={Filters} styles={window.innerWidth > 768 ? portfolioStyles : mobEventFilter} onChange={(opt) => { setDefaultStatus({ value: 99, label: 'All' }); setDefaulFilters(opt); }} />
         </div>
-        {/* {window.innerWidth > 768 && <button className='show-all' onClick={showALL}>Show All</button>} */}
       </div>}
 
       <div className='participated-event'>
-        {/* <table responsive={true}>
-          <thead>
-            <tr>
-              <th style={{ width: '8%' }}>Market</th>
-              <th style={{ width: window.innerWidth < 768 ? '40%' : '50%' }}>Title</th>
-              <th style={{ width: '10%' }}>Type</th>
-              <th style={{ width: window.innerWidth < 768 ? '50%' : '10%' }}>My Pick</th>
-              <th style={{ width: '10%' }}>Outcome</th>
-              <th style={{ width: '10%' }}>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {events?.map((event, index) => {
-              return <tr key={index}>
-                <td>{event.market}</td>
-                <td><Link to={`/event-detail/${event._id}`} target='_blank'>{event.title}</Link></td>
-                {event.is_favourite ? <td>Favorite</td>
-                  :
-                  <td>{event.bet_amount ? `Bet ${event.is_yes == 1 ? '(Yes)' : '(No)'}` : 'Creation'}</td>
-                }
-                <td style={{ color: (event.is_yes == 1 && '#00B66D') || (event.is_yes == 0 && '#FF385C') }}>{event.bet_amount ? `${event.bet_amount}P` : '---'}</td>
-                <td>{event.outcome ? `${parseFloat(event.outcome).toFixed(2)}P` : '---'}</td>
-                <td>{event.is_active == 1 && 'Open' || event.is_active == -1 && 'Closed' || event.is_active == 0 && 'Approving'}</td>
-              </tr>
-            })}
-          </tbody>
-          <tbody>
-          </tbody>
-        </table> */}
+        {events?.action_required_events && events?.action_required_events?.length > 0 ?
+        <Events events={events?.portfolio_events} />
+        :
+        <p>No Activity Found.</p>
+        }
+      </div>
+    </div>
+  )
+}
 
-        {events?.map((event, index) => {
+const Events = ({events}) =>{
+  console.log(events);
+  const {  address, setDecisionPopup, setAppealPopup } = useContext(Context)
+  return (
+    <>
+    {events?.map((event, index) => {
           return <div className='event-item-mob' key={index}>
             <Link to={`/event-detail/${event._id}`} className='e-item-meta'>
               <Link to={`/event-detail/${event._id}`}>
@@ -287,8 +289,7 @@ function UserParticipatedEvents() {
 
           </div>
         })}
-      </div>
-    </div>
+    </>
   )
 }
 
