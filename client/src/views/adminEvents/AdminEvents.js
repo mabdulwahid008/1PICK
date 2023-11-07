@@ -50,7 +50,8 @@ function AdminEvents() {
 
 
     useEffect(() => {
-        setAllEvents(null)
+        if(events?.events)
+          events.events = null
         fetchEvents()
     }, [filteredObj])
    
@@ -61,12 +62,34 @@ function AdminEvents() {
         fetchEvents()
     }, [refresh])
   return (
+
+    
     <div className='admin-events'>
-        <div className='admin-filter-events'>
-        <ReactSelect isSearchable={ false } value={filteredObj} options={filters} styles={mobEventFilter} onChange={(option)=>setFilteredObj(option)}/>
-        <Link to='/file/events' target='_blank'><img src={require('../../assets/download.png')} /></Link>
-    </div>
-      {events?.map((event, index) => {
+      
+        {events?.action_required?.length > 0 && <>
+          <div>
+            <h3>Action Required</h3>
+          </div>
+          <div className='divider'>
+            <hr />
+          </div>
+
+          {events?.action_required && <AdminEventItem events={events?.action_required}/>}
+          </>}
+          
+            <div>
+                <h3>All Events</h3>
+            </div>
+            <div className='divider'>
+              <hr />
+            </div>
+            <div className='admin-filter-events'>
+              <ReactSelect isSearchable={ false } value={filteredObj} options={filters} styles={mobEventFilter} onChange={(option)=>setFilteredObj(option)}/>
+              <Link to='/file/events' target='_blank'><img src={require('../../assets/download.png')} /></Link>
+            </div>
+        {events?.events && <AdminEventItem events={events?.events}/>}
+
+      {/* {events?.events?.map((event, index) => {
           return <div className='event-item-mob' key={index}>
             <Link to={`/event-detail/${event._id}`} target='_blank' className='e-item-meta'>
               <Link to={`/event-detail/${event._id}`} target='_blank'>
@@ -104,14 +127,70 @@ function AdminEvents() {
                 </p>
             </div>
 
-            {event.is_active == 1 && <button onClick={() => setGoStopPopup(event._id)}>Go / Stop</button>}
-            {event.is_active == 0 && <button onClick={() => setGoStopPopup(event._id)}>Waiting</button>}
-            {event.is_active == 4 && <button onClick={() => setGoStopPopup(event._id)}>Pending</button>}
+            {event.is_active == 1 && <button onClick={() => setGoStopPopup({e_id: event._id, is_active: event.is_active})}>Go / Stop</button>}
+            {event.is_active == 0 && <button onClick={() => setGoStopPopup({e_id: event._id, is_active: event.is_active})}>Waiting</button>}
+            {event.is_active == 4 && <button onClick={() => setGoStopPopup({e_id: event._id, is_active: event.is_active})}>Pending</button>}
             
           </div>
-        })}
+        })} */}
     </div>
   )
 }
 
 export default AdminEvents
+
+
+
+function AdminEventItem({events}) {
+  const { setGoStopPopup } = useContext(AdminContext)
+  return (
+    <>
+       {events?.map((event, index) => {
+          return <div className='event-item-mob' key={index}>
+            <Link to={`/event-detail/${event._id}`} target='_blank' className='e-item-meta'>
+              <Link to={`/event-detail/${event._id}`} target='_blank'>
+                <h2>{event.title}</h2>
+                <p>{event.e_start.replace('T', ' ')}</p>
+              </Link>
+              <div>
+                {event.image_cid && <img src={`${process.env.REACT_APP_URL}/${event.image_cid}`} alt='event-image' />}
+              </div>
+            </Link>
+
+            <div>
+              <h3 className='pick-val'>{event.pick ? event.pick : ' '}</h3>
+              {event && <div className='yes-no-mob'>
+                <p>YES &nbsp; {(100 - event.no_bet_percentage).toFixed(2)}%</p>
+                <p>NO &nbsp; {event.no_bet_percentage?.toFixed(2)}%</p>
+              </div>}
+            </div>
+           
+            <div className='parcipated-footer'>
+                <div className='event-views-bets'>
+                    <span>
+                        <img src={require('../../assets/eye.png')}/>
+                        <p className='myselect'>{parseInt(event.views).toLocaleString()}</p>
+                    </span>
+                    <span>
+                        <img src={require('../../assets/handshake.png')}/>
+                        <p className='myselect'>{parseInt(event.responses).toLocaleString()}</p>
+                    </span>
+                </div>
+                <p className='myselect'>
+                    <span></span>
+                    <span>Pool</span>
+                    <span>{parseInt(event.bet_amount).toLocaleString()}P</span>
+                </p>
+            </div>
+
+            {event.is_active == 1 && <button onClick={() => setGoStopPopup({e_id: event._id, is_active: event.is_active})}>Go / Stop</button>}
+            {event.is_active == 0 && <button onClick={() => setGoStopPopup({e_id: event._id, is_active: event.is_active})}>Waiting</button>}
+            {event.is_active == 4 && <button onClick={() => setGoStopPopup({e_id: event._id, is_active: event.is_active})}>Pending</button>}
+            
+          </div>
+        })}
+    </>
+  )
+}
+
+

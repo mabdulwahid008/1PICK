@@ -81,7 +81,7 @@ function AdminUsers() {
                             <td >{index+1}</td>
                             <td >{minifyAddress(user.address)} <BiLinkExternal onClick={()=>{setUserPopup(user._id)}}/></td>
                             <td >{user.bet_amount}P</td>
-                            <td>{user.balance}P</td>
+                            <td>{user.balance.toFixed(0)}P</td>
                             <td>{user.score}</td>
                         </tr>
                 })}

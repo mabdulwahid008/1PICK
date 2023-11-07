@@ -12,7 +12,7 @@ function GoStopPopup() {
         if(!confirm)
             return;
         setLoading(true)
-        const response = await fetch(`/event/admin/cancel/${goStopPopup}`,{
+        const response = await fetch(`/event/admin/cancel/${goStopPopup.e_id}`,{
             method: 'PATCH',
             headers:{
                 'Content-Type': 'Application/json',
@@ -40,7 +40,7 @@ function GoStopPopup() {
         if(!confirm)
             return;
         setLoading(true)
-        const response = await fetch(`/event/admin/hide/${goStopPopup}`,{
+        const response = await fetch(`/event/admin/hide/${goStopPopup.e_id}`,{
             method: 'PATCH',
             headers:{
                 'Content-Type': 'Application/json',
@@ -68,7 +68,7 @@ function GoStopPopup() {
         if(!confirm)
             return;
         setLoading(true)
-        const response = await fetch(`/event/admin/approve/${goStopPopup}`,{
+        const response = await fetch(`/event/admin/approve/${goStopPopup.e_id}`,{
             method: 'PATCH',
             headers:{
                 'Content-Type': 'Application/json',
@@ -102,9 +102,14 @@ function GoStopPopup() {
         <h4>Change event status</h4>
         <p>Make sure to choose the appropriate status for the event.</p>
         <div className='appeal-btns'>
+            {goStopPopup.is_active != 1 ?
+            <>
             <button disabled={loading} onClick={activateEvent}>Go</button>
-            <button disabled={loading} onClick={hideEvent}>Stop</button>
             <button disabled={loading} onClick={cancelEvent}>Cancel</button>
+            </>
+            :
+            <button disabled={loading} onClick={hideEvent}>Stop</button>
+            }
         </div>
       </div>
     </div>

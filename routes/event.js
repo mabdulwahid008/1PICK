@@ -964,7 +964,9 @@ router.get('/admin/event-listing/:filter', authorization, onlyAdmin, async (req,
 
         }
 
-        console.log(req.params.filter);
+       
+        const action_required =  events.rows.filter((e) => e.is_active == 4 || e.is_active == 0)
+
         let data = events.rows
         if (req.params.filter == 1) // sending active events
             data = data.filter((event) => event.is_active == 1)
@@ -980,12 +982,13 @@ router.get('/admin/event-listing/:filter', authorization, onlyAdmin, async (req,
         else if (req.params.filter == 0) { // sending events that get inactive by 5 reports
             data = data.filter((events) => events.is_active == 0)
         }
-
         else {
             data = data
         }
 
-        return res.status(200).json(data.sort((a, b) => b.created_on - a.created_on))
+        data = data.sort((a, b) => b.created_on - a.created_on)
+
+        return res.status(200).json({events: data, action_required: action_required.sort((a, b) => b.created_on - a.created_on)})
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({ message: error.message })
