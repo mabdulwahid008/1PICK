@@ -6,6 +6,7 @@ import { BsThreeDots } from 'react-icons/bs'
 import { PiCopy } from 'react-icons/pi'
 import { AdminContext } from '../../state/AdminProvider'
 import { BiLinkExternal } from 'react-icons/bi'
+import { Link } from 'react-router-dom'
 
 function AdminUsers() {
     const { setUserPopup, refresh } = useContext(AdminContext)
@@ -59,7 +60,7 @@ function AdminUsers() {
     <div className='user-table-wrapper'>
         <div className='search-user'>
             <input type='text'placeholder='Search user' onChange={search}/>
-            <a href={'http://localhost:5000/file/users'} target='_blank'><img src={require('../../assets/download.png')} onClick={downloadXlsx}/></a>
+            <Link to='/file/users' target='_blank'><img src={require('../../assets/download.png')} onClick={downloadXlsx}/></Link>
         </div> 
     <div className='users-table'>
         <table>

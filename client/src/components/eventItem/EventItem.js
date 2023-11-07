@@ -20,7 +20,7 @@ function EventItem({event, useLink = true}) {
                         <div className='event-owner-add'>
                             <p>{minifyAddress(event.creator)}</p>
                         </div>
-                        {event.image_cid && <img src={`${process.env.REACT_APP_URL}/${event.image_cid}`}  alt='event-image'/>}
+                        <Link to={useLink? `event-detail/${event._id}`: ''}>{event.image_cid && <img src={`${process.env.REACT_APP_URL}/${event.image_cid}`}  alt='event-image'/>}</Link>
                 </div>
         </Link>
         <div>

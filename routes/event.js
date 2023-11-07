@@ -801,42 +801,42 @@ router.get('/participated', authorization, async (req, res) => {
 
 
         let action_required_events = filtered_events.filter((e) => (e.creator_id == req.user_id && e.result_decided === false && e.is_active == 1));
-        let portfolio_events = filtered_events.filter((e) => {
-            // Check if the event is not in action_required_events array
-            const isNotInActionRequired = action_required_events.includes(e);
+        // let portfolio_events = filtered_events.filter((e) => {
+        //     // Check if the event is not in action_required_events array
+        //     const isNotInActionRequired = action_required_events.includes(e);
 
-            if(!isNotInActionRequired)
-                return e
-        });
+        //     if(!isNotInActionRequired)
+        //         return e
+        // });
     
 
 
 
         // return res.json(filtered_events)
-        let data = portfolio_events
+        let data = filtered_events
         if (title != "null") {
-            data = portfolio_events.filter((event) =>
+            data = filtered_events.filter((event) =>
                 event.title.toLowerCase().includes(title.toLowerCase())
             );
         }
 
         if (status == 1) // means, active
-            data = portfolio_events.filter((event) => event.is_active == 1)
+            data = filtered_events.filter((event) => event.is_active == 1)
         if (status == 4) {// means, pending
-            data = portfolio_events.filter((events) => events.is_active == 4)
+            data = filtered_events.filter((events) => events.is_active == 4)
         }
         if (status == 0) { // means reported
-            data = portfolio_events.filter((events) => events.is_active == 0)
+            data = filtered_events.filter((events) => events.is_active == 0)
         }
         if (status == -1) // means, closed
-            data = portfolio_events.filter((event) => event.is_active == -1)
+            data = filtered_events.filter((event) => event.is_active == -1)
 
         if (filter == 1) // means, created
-            data = portfolio_events.filter((event) => event.is_created == true)
+            data = filtered_events.filter((event) => event.is_created == true)
         if (filter == 2) // means, joined
-            data = portfolio_events.filter((event) => event.is_betted == true)
+            data = filtered_events.filter((event) => event.is_betted == true)
         if (filter == 3) // means, favourite
-            data = portfolio_events.filter((event) => event.is_favourite == true)
+            data = filtered_events.filter((event) => event.is_favourite == true)
 
 
         data.sort((a, b) => { return b.created_on - a.created_on })

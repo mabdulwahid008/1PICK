@@ -136,9 +136,13 @@ function Comments({ event_id }) {
                 {comments?.length > 0 && <>
                     {comments.map((comment, index) => {
                         return <div className='comment' key={index}>
+                            <div>
                             <Link to={`/user/${comment.address}`}>
                                 <Blockies seed={comment.address} size={3} scale={3} color="#FF385C" bgColor="#00B66D" />
-                                {minifyAddress(comment.address)}</Link>
+                                {minifyAddress(comment.address)}
+                            </Link>
+                            <p>{comment.created_on.replace('T', ' ').substr(0, 16)}</p>
+                            </div>
                             <p>{comment.content}</p>
                             <div>
                                 <p></p>
@@ -166,10 +170,13 @@ function Comments({ event_id }) {
                             <div className='sub-comment'>
                                     {comment.replied_comments?.map((replied, index) => {
                                         return <div className='replied-comments' key={index}>
+                                            <div>
                                             <Link to={`/user/${replied.address}`}>
                                                 <BsArrowReturnRight />
                                                 <Blockies seed={replied.address} size={3} scale={3} color="#FF385C" bgColor="#00B66D" />
                                                 {minifyAddress(replied.address)}</Link>
+                                                <p>{replied.created_on.replace('T', ' ').substr(0, 16)}</p>
+                                            </div>
                                             <p>{replied.content}</p>
                                             {/* <p>{replied.created_on.substr(0,10)}</p> */}
                                             <span></span>

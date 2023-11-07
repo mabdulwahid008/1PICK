@@ -11,6 +11,7 @@ import { BsArrowDownCircle, BsSearch } from 'react-icons/bs';
 import { BiMessageSquare } from 'react-icons/bi';
 import { CgProfile } from 'react-icons/cg';
 import { PiSuitcaseSimpleDuotone } from 'react-icons/pi';
+import { GrCheckbox } from 'react-icons/gr';
 import { getEventsAPI } from '../../utills/apiRequest'
 import { toast } from 'react-toastify'
 import { ConnectWallet } from '@thirdweb-dev/react'
@@ -137,15 +138,12 @@ function Navbar() {
       <AnnouncementBar />
       <div className='mobile-nav'>
        <Link to='/' className='logo'  onClick={()=>setmobOpenSideBar(true)}>
-            <img src={require('../../assets/logo_updated.png')} alt='logo'/>
+            <img src={require('../../assets/1pick-logo-200200.png')} alt='logo'/>
             <h1>1PICK<span>AI</span></h1> 
         </Link>
-        {/* <div className='sidebar-mob' style={{left: mobOpenSideBar? '0px': '-300px'}}>
-                <MobSidebarHeader/>
-                <Sidebar />
-                {address && <MobSidebarBtns />}
-        </div> */}
+        
         <div className='mobile-nav-icon'>
+        <Link to='/users-ranking'><img src={require('../../assets/trophy.png')} style={{marginRight:-5}}/></Link>
             <img src={require('../../assets/search2.png')} onClick={()=>setMobSearchBox(true)}/>
             <div className='search-mob'  style={{top: mobSearchBox? '-10px': '-2010px'}}>
                 <div>
@@ -171,7 +169,7 @@ function Navbar() {
             {address && walletAddress ? 
               <>
               <Link to='/create-event'><img src={require('../../assets/add_box.png')} /></Link>
-              <Link to={`/portfolio/${address}`}><PiSuitcaseSimpleDuotone /></Link>
+              <Link to={`/portfolio/${address}`}><GrCheckbox style={{fontSize:25}} /></Link>
               <CgProfile className='cg-profile' onClick={()=>{setmobProfile(true)}}/>
               </>
               :

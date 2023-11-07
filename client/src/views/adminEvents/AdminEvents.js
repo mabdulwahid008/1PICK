@@ -64,7 +64,7 @@ function AdminEvents() {
     <div className='admin-events'>
         <div className='admin-filter-events'>
         <ReactSelect isSearchable={ false } value={filteredObj} options={filters} styles={mobEventFilter} onChange={(option)=>setFilteredObj(option)}/>
-        <a href={'http://localhost:5000/file/events'} target='_blank'><img src={require('../../assets/download.png')} /></a>
+        <Link to='/file/events' target='_blank'><img src={require('../../assets/download.png')} /></Link>
     </div>
       {events?.map((event, index) => {
           return <div className='event-item-mob' key={index}>
