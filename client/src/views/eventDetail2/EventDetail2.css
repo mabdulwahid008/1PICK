@@ -444,9 +444,17 @@
         border: none !important;
     }
 
-    .replied-comments  > a,
+    .replied-comments > div {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .replied-comments  > div > a,
+    .replied-comments > div > p,
     .sub-comment > a,
-    .comment > a {
+    .comment > div > a ,
+    .comment > div > p{
         color: var(--roughBlack) !important;
         font-size: 10px !important;
         display: flex;
