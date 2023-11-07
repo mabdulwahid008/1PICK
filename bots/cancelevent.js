@@ -21,7 +21,7 @@ exports.cancelEvent = async() => {
                 let updated_bet_amount = parseFloat(user.rows[0].bet_amount) - parseFloat(bets.rows[j].bet_amount)
                 await db.query('UPDATE USERS SET balance = $1, bet_amount = $2 WHERE _id = $3', [updated_balance, updated_bet_amount, bets.rows[j].u_id])
                 
-                await removeUserScores(cancel_event?.rows[i]?._id, bets.rows[i]?.u_id)
+                await removeUserScores(cancel_event?.rows[j]?._id, bets.rows[j]?.u_id)
             }
             
             await eventCanceled(cancel_event?.rows[i]?._id)
