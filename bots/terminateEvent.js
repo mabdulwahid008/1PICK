@@ -46,7 +46,7 @@ exports.terminateEvent = async() => {
     
                     const updated_user_balance = parseFloat(user_return) + parseFloat(user.rows[0].balance)
                     const updated_earned_amount = parseFloat(user_return) + parseFloat(user.rows[0].earned_amount)
-                    const updated_bet_amount = Math.abs(parseFloat(user.rows[0].bet_amount) - parseFloat(usersWhoBetRight[j].bet_amount))
+                    const updated_bet_amount = user.rows[0].bet_amount > 0 ? Math.abs(parseFloat(user.rows[0].bet_amount) - parseFloat(usersWhoBetRight[j].bet_amount)) : 0
     
                     await db.query('UPDATE USERS SET balance = $1, earned_amount = $2, bet_amount = $3 WHERE _id = $4', [
                         updated_user_balance, updated_earned_amount, updated_bet_amount, usersWhoBetRight[j].u_id
@@ -57,7 +57,7 @@ exports.terminateEvent = async() => {
             for (let j = 0; j < usersWhoBetWrong.length; j++) {
                     const user = await db.query('SELECT bet_amount, lost_amount FROM USERS WHERE _id = $1', [usersWhoBetWrong[j].u_id])
                     const updated_lost_amount = parseFloat(user.rows[0].lost_amount) + parseFloat(usersWhoBetWrong[j].bet_amount)
-                    const updated_bet_amount = Math.abs(parseFloat(user.rows[0].bet_amount) - parseFloat(usersWhoBetWrong[j].bet_amount))
+                    const updated_bet_amount = user.rows[0].bet_amount > 0? Math.abs(parseFloat(user.rows[0].bet_amount) - parseFloat(usersWhoBetWrong[j].bet_amount)) : 0
     
                     await db.query('UPDATE USERS SET bet_amount = $1, lost_amount = $2 WHERE _id = $3', [
                         updated_bet_amount, updated_lost_amount, usersWhoBetWrong[j].u_id

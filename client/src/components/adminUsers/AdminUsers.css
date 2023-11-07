@@ -262,10 +262,12 @@
       height: 22px;
       width: 22px;
     }
-
+    
+    .users-table > table > thead > tr > th:nth-of-type(2),
     .users-table > table > thead > tr > th:nth-of-type(3),
     .users-table > table > thead > tr > th:nth-of-type(4),
     .users-table > table > thead > tr > th:nth-of-type(5),
+    .users-table > table > tbody > tr > td:nth-of-type(2),
     .users-table > table > tbody > tr > td:nth-of-type(3),
     .users-table > table > tbody > tr > td:nth-of-type(4),
     .users-table > table > tbody > tr > td:nth-of-type(5){
