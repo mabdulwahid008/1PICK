@@ -7,7 +7,7 @@ import { minifyAddress } from '../../utills'
 import { BsArrowReturnRight } from 'react-icons/bs';
 
 function Comments({ event_id }) {
-    const { address, setAddress, refresh } = useContext(Context)
+    const { address, setAddress, refresh, setRefresh } = useContext(Context)
     const [comments, setComments] = useState(null)
     const [loading, setLoading] = useState(false)
     const [myBet, setMyBet] = useState(0)
@@ -15,6 +15,9 @@ function Comments({ event_id }) {
     const [subContent, setSubConetnt] = useState('')
     const [p_comment_id, setP_comment_id] = useState(0)
     const [subComments, setSubComments] = useState(-1)
+
+    const [hsaCommented, setHasCommented] = useState(false)
+
 
     const fetchComments = async () => {
         const response = await fetch(`/comment/${event_id}`, {
@@ -25,6 +28,10 @@ function Comments({ event_id }) {
         })
         const res = await response.json()
         if (response.status === 200) {
+            for (let i = 0; i < res.length; i++) {
+               if(res[i].address == address){
+                setHasCommented(true)}
+            }
             setComments(res)
         }
         else
@@ -62,6 +69,7 @@ function Comments({ event_id }) {
 
         if(!address || myBet === 0){
             toast.error("Only people who have participated can leave comments.")
+            return;
         }
 
         setLoading(true)
@@ -79,6 +87,7 @@ function Comments({ event_id }) {
         if (response.status === 200) {
             document.getElementById('comment').value = ''
             setConetnt('')
+            setRefresh(state => !state)
             fetchComments()
         }
         else if (response.status === 401) {
@@ -93,6 +102,7 @@ function Comments({ event_id }) {
         e.preventDefault()
         if(!address || myBet === 0){
             toast.error("Only people who have participated can leave comments.")
+            return;
         }
 
         setLoading(true)
@@ -110,6 +120,7 @@ function Comments({ event_id }) {
         if (response.status === 200) {
             document.getElementById('sub-comment').value = ''
             setSubConetnt('')
+            setSubComments(0)
             fetchComments()
         }
         else if (response.status === 401) {
@@ -127,10 +138,10 @@ function Comments({ event_id }) {
     }, [refresh, address])
     return (
         <div className='timeline details-box'>
-            <form className='comment-field' onSubmit={postComment}>
+            {!hsaCommented && <form className='comment-field' onSubmit={postComment}>
                 <input type='comment' value={content} id='comment' placeholder='Write something...' required onChange={(e) => { document.getElementById('comment').value = e.target.value.slice(0, 300); if (e.target.value.length <= 300) setConetnt(e.target.value) }} />
                 <button disabled={loading}><img src={require('../../assets/done.png')} /></button>
-            </form>
+            </form>}
             <div className='comments'>
                 {!comments || comments?.length === 0 && <p>Be the first to comment on it.</p>}
                 {comments?.length > 0 && <>
@@ -138,6 +149,7 @@ function Comments({ event_id }) {
                         return <div className='comment' key={index}>
                             <div>
                             <Link to={`/user/${comment.address}`}>
+                            <p style={{fontSize:12, lineHeight:1}}>{index+1}.</p>
                                 <Blockies seed={comment.address} size={3} scale={3} color="#FF385C" bgColor="#00B66D" />
                                 {minifyAddress(comment.address)}
                             </Link>
@@ -146,7 +158,6 @@ function Comments({ event_id }) {
                             <p>{comment.content}</p>
                             <div>
                                 <p></p>
-                                {/* <p>{comment.created_on.substr(0, 10)}</p> */}
                                 <div>
                                     <button className='reply-btn' onClick={() => {
                                                             setSubComments(prevSubComments => {
@@ -158,7 +169,6 @@ function Comments({ event_id }) {
                                                             }); 
                                                             setP_comment_id(comment._id);  
                                                         }} > Reply </button>
-                                    {/* <p>{comment.replied}</p> */}
                                 </div>
                             </div>
                             {subComments === index+1 &&
@@ -178,7 +188,6 @@ function Comments({ event_id }) {
                                                 <p>{replied.created_on.replace('T', ' ').substr(0, 16)}</p>
                                             </div>
                                             <p>{replied.content}</p>
-                                            {/* <p>{replied.created_on.substr(0,10)}</p> */}
                                             <span></span>
                                         </div>
                                     })}

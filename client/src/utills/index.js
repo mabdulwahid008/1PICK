@@ -13,9 +13,9 @@ export const convertBase64 = (file)=>{
 export const eventDataValidation = (title, description, eventDate, expireDate) => {
   const specialCharRegex = /[!@#$%^&*()":{}|<>]/;
 
-  if (specialCharRegex.test(title) || specialCharRegex.test(description)) {
-    return "Title and description should not contain special characters.";
-  }
+  // if (specialCharRegex.test(title) || specialCharRegex.test(description)) {
+  //   return "Title and description should not contain special characters.";
+  // }
 
   const selectedEventDate = new Date(eventDate);
   const selectedExpireDate = new Date(expireDate);

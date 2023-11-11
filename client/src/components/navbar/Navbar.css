@@ -301,7 +301,7 @@
     .mobile-nav > div {
         display: flex;
         justify-content: flex-start;
-        align-items: flex-start;
+        align-items: center;
         gap: 5px;
     }
     .mobile-nav-icon{
@@ -314,8 +314,8 @@
     }
     .mobile-nav-icon > img ,
     .mobile-nav-icon > a > img {
-        height: 28px;
-        width: 28px;
+        height: 25px;
+        width: 25px;
     }
     .mobile-nav > div > a > svg ,
     .mobile-nav > div > svg {

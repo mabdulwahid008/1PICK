@@ -32,19 +32,21 @@ function CreateEvent() {
 
     const onChange = (e) => {
         let value = e.target.value;
-        const pattern = /^[^<>|]*$/; 
+        // const pattern = /^[^<>|]*$/; 
 
-        if((e.target.name == 'title' || e.target.name == 'description' || e.target.name == 'pick' || e.target.name == 'resolution_url') && pattern.test(value)){
-            setEventData({...eventData, [e.target.name]: e.target.value})
-        }
-        else if(e.target.name === 'e_start'){
+        // if((e.target.name == 'title' || e.target.name == 'description' || e.target.name == 'pick' || e.target.name == 'resolution_url') && pattern.test(value)){
+        //     setEventData({...eventData, [e.target.name]: e.target.value})
+        // }
+        if(e.target.name === 'e_start'){
             value = `${value}T00:00`
             setEventData({...eventData, [e.target.name]: value})
         }
         // else if (!(e.target.name == 'title' || e.target.name == 'description' || e.target.name == 'pick' || e.target.name == 'resolution_url')){
         //     setEventData({...eventData, [e.target.name]: e.target.value})
         // }
-        else{}
+        else{
+            setEventData({...eventData, [e.target.name]: e.target.value})
+        }
     }
 
     const getCategoryOptions = async() =>{

@@ -89,12 +89,22 @@ function EventDetail2() {
         document.body.removeChild(dummy);
     };
 
-    const shareOnTwitter = (url, text) => {
-        const encodedUrl = encodeURIComponent(window.location.href);
-        const encodedText = encodeURIComponent("Check this new event.");
-        const twitterUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`;
-
+    const shareOnTwitter = (url, text, imageUrl) => {
+        const encodedUrl = encodeURIComponent(url);
+        const encodedText = encodeURIComponent(text);
+        const encodedImageUrl = encodeURIComponent(imageUrl);
+    
+        const twitterUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}&image=${encodedImageUrl}`;
+    
         window.open(twitterUrl, '_blank');
+    }
+
+    const shareOnTwitterClick = () => {
+        const eventUrl = window.location.href;
+        const eventTitle = `[YES or NO] ${event.title}`;
+        const eventImageUrl = `${process.env.REACT_APP_URL}/${event.image_cid}`;
+    
+        shareOnTwitter(eventUrl, eventTitle, eventImageUrl);
     }
 
     const getTimePassedSince = (timestamp) => {
@@ -119,6 +129,8 @@ function EventDetail2() {
     }
 
     const reportEvent = async() => {
+        if(!address)
+            return toast.error('You need to sign in.')
         const confirm = window.confirm('Report this event?')
         if(!confirm)
             return;
@@ -196,7 +208,6 @@ function EventDetail2() {
                             />
                             {minifyAddress(event?.creator)}</Link>
                     </p>
-                   {address && event.report_btn && <img className='report-btn' src={require('../../assets/report.png')} alt='report' onClick={reportEvent}/>}
                     <div className='event2-metadata'>
                         <div>
                             <div>
@@ -204,6 +215,7 @@ function EventDetail2() {
                                 <p>{event.views} Views</p>
                             </div>
                             <div>
+                                <img src={require('../../assets/report.png')} alt='report' onClick={reportEvent}/>
                                 <AiOutlineHeart style={{color: event.favourite? '#FF385C':'#000'}} onClick={addToMyFavourite}/>
                                 <img src={require('../../assets/share2.png')} onClick={() => setShare(prev => !prev)} />
                                 {share && <div className='e2-share' onClick={() => setShare(false)}>
@@ -211,7 +223,7 @@ function EventDetail2() {
                                         <BsLink45Deg />
                                         <p>Copy Link</p>
                                     </div>
-                                    <div onClick={shareOnTwitter}>
+                                    <div onClick={shareOnTwitterClick}>
                                         <AiOutlineTwitter />
                                         <p>Share on Twiter</p>
                                     </div>

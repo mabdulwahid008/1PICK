@@ -144,7 +144,7 @@ function Navbar() {
         
         <div className='mobile-nav-icon'>
         <Link to='/users-ranking'><img src={require('../../assets/trophy.png')} style={{marginRight:-5}}/></Link>
-            <img src={require('../../assets/search2.png')} onClick={()=>setMobSearchBox(true)}/>
+            <img src={require('../../assets/search_FILL0_wght400_GRAD0_opsz24.png')} onClick={()=>setMobSearchBox(true)}/>
             <div className='search-mob'  style={{top: mobSearchBox? '-10px': '-2010px'}}>
                 <div>
                     <img src={require('../../assets/arr_back.png')} onClick={()=>setMobSearchBox(false)}/>
@@ -168,9 +168,9 @@ function Navbar() {
              </div>
             {address && walletAddress ? 
               <>
-              <Link to='/create-event'><img src={require('../../assets/add_box.png')} /></Link>
-              <Link to={`/portfolio/${address}`}><GrCheckbox style={{fontSize:25}} /></Link>
-              <CgProfile className='cg-profile' onClick={()=>{setmobProfile(true)}}/>
+              <Link to='/create-event'><img src={require('../../assets/edit_square_FILL0_wght400_GRAD0_opsz24.png')} /></Link>
+              <Link to={`/portfolio/${address}`}><img src={require('../../assets/event_note_FILL0_wght400_GRAD0_opsz24.png')} /></Link>
+              <img src={require('../../assets/face_5_FILL0_wght400_GRAD0_opsz24.png')} className='cg-profile' onClick={()=>{setmobProfile(true)}}/>
               </>
               :
               <ConnectWallet className="third-web-btn" theme='light' btnTitle="Connect" detailsBtn={()=> {return}}/>
