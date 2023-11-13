@@ -278,26 +278,28 @@ router.get('/rankings/:filter', async(req, res) => {
         const users = await db.query('Select _id, address From Users')
         for (let i = 0; i < users.rows.length; i++) {
             const joinevents = await db.query('Select COALESCE(COUNT(*), 0) AS joinevents From BETTING where u_id = $1', [users.rows[i]._id])
-           users.rows[i].joinevents = joinevents.rows[0].joinevents
-           const createdEvents = await db.query('Select COALESCE(COUNT(*), 0) AS createdEvents From EVENTS where creator_id = $1', [users.rows[i]._id])
-           users.rows[i].createdEvents = createdEvents.rows[0].createdevents
-           const score = await db.query('Select COALESCE(sum(score), 0) AS score From USERS_SCORE where u_id = $1', [users.rows[i]._id])
-           users.rows[i].score = score.rows[0].score
+            users.rows[i].joinevents = joinevents.rows[0].joinevents
+            const createdEvents = await db.query('Select COALESCE(COUNT(*), 0) AS createdEvents From EVENTS where creator_id = $1', [users.rows[i]._id])
+            users.rows[i].createdEvents = createdEvents.rows[0].createdevents
+            const score = await db.query('Select COALESCE(sum(score), 0) AS score From USERS_SCORE where u_id = $1', [users.rows[i]._id])
+            users.rows[i].score = score.rows[0].score
         }
 
+        let sortByRanking = users.rows.sort((a, b) => a.score - b.score)
+        let first100RankingUsers = sortByRanking.slice(sortByRanking.length-101, sortByRanking.length-1)
         let data = []
         switch(parseInt(req.params.filter)){
             case 0:
-                data = users.rows.sort((a, b) => a.score - b.score)
+                data = first100RankingUsers.sort((a, b) => a.score - b.score)
             break;
             case 1:
-                data = users.rows.sort((a, b) => a.joinevents - b.joinevents)
+                data = first100RankingUsers.sort((a, b) => a.joinevents - b.joinevents)
             break;
             case 2:
-                data = users.rows.sort((a, b) => a.createdEvents - b.createdEvents)
+                data = first100RankingUsers.sort((a, b) => a.createdEvents - b.createdEvents)
             break;
         }
-        return res.status(200).json(data.slice(0, 100))
+        return res.status(200).json(data)
     } catch (error) {
         console.log(error.message);
         return res.status(500).json({message: error.message})
@@ -329,6 +331,8 @@ router.get('/user-metadata/:address', async(req, res) => {
         return res.status(500).json({message: error.message})
     }
 })
+
+
 
 
 module.exports = router;
