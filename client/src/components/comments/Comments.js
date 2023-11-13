@@ -16,8 +16,6 @@ function Comments({ event_id }) {
     const [p_comment_id, setP_comment_id] = useState(0)
     const [subComments, setSubComments] = useState(-1)
 
-    const [hsaCommented, setHasCommented] = useState(false)
-
 
     const fetchComments = async () => {
         const response = await fetch(`/comment/${event_id}`, {
@@ -28,10 +26,6 @@ function Comments({ event_id }) {
         })
         const res = await response.json()
         if (response.status === 200) {
-            for (let i = 0; i < res.length; i++) {
-               if(res[i].address == address){
-                setHasCommented(true)}
-            }
             setComments(res)
         }
         else
@@ -138,7 +132,7 @@ function Comments({ event_id }) {
     }, [refresh, address])
     return (
         <div className='timeline details-box'>
-            {!hsaCommented && <form className='comment-field' onSubmit={postComment}>
+            {<form className='comment-field' onSubmit={postComment}>
                 <input type='comment' value={content} id='comment' placeholder='Write something...' required onChange={(e) => { document.getElementById('comment').value = e.target.value.slice(0, 300); if (e.target.value.length <= 300) setConetnt(e.target.value) }} />
                 <button disabled={loading}><img src={require('../../assets/done.png')} /></button>
             </form>}
