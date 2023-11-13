@@ -285,8 +285,8 @@ router.get('/rankings/:filter', async(req, res) => {
             users.rows[i].score = score.rows[0].score
         }
 
-        let sortByRanking = users.rows.sort((a, b) => a.score - b.score)
-        let first100RankingUsers = sortByRanking.slice(sortByRanking.length-101, sortByRanking.length-1)
+        let sortByRanking = users.rows.sort((a, b) => a.score - b.score) // sorted in ASC order
+        let first100RankingUsers = sortByRanking.slice(sortByRanking.length-101, sortByRanking.length-1) 
         let data = []
         switch(parseInt(req.params.filter)){
             case 0:
