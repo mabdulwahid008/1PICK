@@ -99,11 +99,18 @@ function EventDetail2() {
         window.open(twitterUrl, '_blank');
     }
 
-    const shareOnTwitterClick = () => {
+    const updateTwitterMetaTags = (title,  imageUrl) => {
+        document.querySelector('meta[name="twitter:title"]').content = title;
+        document.querySelector('meta[name="twitter:image"]').content = imageUrl;
+    }
+
+    const shareOnTwitterClick = async() => {
         const eventUrl = window.location.href;
         const eventTitle = `[YES or NO] ${event.title}`;
         const eventImageUrl = `${process.env.REACT_APP_URL}/${event.image_cid}`;
     
+        updateTwitterMetaTags(eventTitle, eventImageUrl);
+        await new Promise((r) => setTimeout(r, 1000))
         shareOnTwitter(eventUrl, eventTitle, eventImageUrl);
     }
 
