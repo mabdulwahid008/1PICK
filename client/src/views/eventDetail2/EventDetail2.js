@@ -93,13 +93,22 @@ function EventDetail2() {
         const encodedUrl = encodeURIComponent(url);
         const encodedText = encodeURIComponent(text);
         const encodedImageUrl = encodeURIComponent(imageUrl);
+
+        console.log(imageUrl);
+        console.log(encodedImageUrl);
     
         const twitterUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}&image=${encodedImageUrl}`;
     
         window.open(twitterUrl, '_blank');
     }
 
-    const updateTwitterMetaTags = (title,  imageUrl) => {
+    const updateTwitterMetaTags = (imageUrl) => {
+        var existingMetaTag = document.querySelector('meta[name="twitter:image"]');
+
+        if (existingMetaTag) {
+            existingMetaTag.parentNode.removeChild(existingMetaTag);
+        }
+ 
         let metaTag = document.createElement('meta');
         metaTag.setAttribute('name', 'twitter:image');
         metaTag.setAttribute('content', imageUrl);
@@ -111,7 +120,7 @@ function EventDetail2() {
         const eventTitle = `[YES or NO] ${event.title}`;
         const eventImageUrl = `${process.env.REACT_APP_URL}/${event.image_cid}`;
     
-        updateTwitterMetaTags(eventTitle, eventImageUrl);
+        updateTwitterMetaTags(eventImageUrl);
         await new Promise((r) => setTimeout(r, 1000))
         shareOnTwitter(eventUrl, eventTitle, eventImageUrl);
     }
