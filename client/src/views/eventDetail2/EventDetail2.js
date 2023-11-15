@@ -100,8 +100,10 @@ function EventDetail2() {
     }
 
     const updateTwitterMetaTags = (title,  imageUrl) => {
-        document.querySelector('meta[name="twitter:title"]').content = title;
-        document.querySelector('meta[name="twitter:image"]').content = imageUrl;
+        let metaTag = document.createElement('meta');
+        metaTag.setAttribute('name', 'twitter:image');
+        metaTag.setAttribute('content', imageUrl);
+        document.head.appendChild(metaTag);
     }
 
     const shareOnTwitterClick = async() => {
