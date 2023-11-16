@@ -79,6 +79,13 @@ function EventDetail2() {
         head.appendChild(descriptionTag);
         head.appendChild(imageTag);
         head.appendChild(urlTag);
+
+        window.parent.document.head.appendChild(cardTag)
+        window.parent.document.head.appendChild(siteTag)
+        window.parent.document.head.appendChild(titleTag)
+        window.parent.document.head.appendChild(descriptionTag)
+        window.parent.document.head.appendChild(imageTag)
+        window.parent.document.head.appendChild(urlTag)
     };
 
     const addView = async() => {
