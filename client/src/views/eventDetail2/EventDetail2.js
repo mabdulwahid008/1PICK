@@ -33,6 +33,54 @@ function EventDetail2() {
     const [stats, setStats] = useState(true)
     const [share, setShare] = useState(false)
 
+
+    const createTwitterMetaTags = () => {
+        const head = document.head;
+
+        if (!head) {
+            console.error('Document head not found');
+            return;
+        }
+  
+        // Remove existing Twitter meta tags
+        const existingTwitterTags = document.querySelectorAll('meta[name^="twitter"]');
+        existingTwitterTags.forEach((tag) => {
+          tag.remove();
+        });
+  
+        // Create and append new Twitter meta tags
+        const cardTag = document.createElement('meta');
+        cardTag.name = 'twitter:card';
+        cardTag.content = 'summary_large_image';
+  
+        const siteTag = document.createElement('meta');
+        siteTag.name = 'twitter:site';
+        siteTag.content = '@1PICK_xyz';
+  
+        const titleTag = document.createElement('meta');
+        titleTag.name = 'twitter:title';
+        titleTag.content = '[YES or NO]';
+  
+        const descriptionTag = document.createElement('meta');
+        descriptionTag.name = 'twitter:description';
+        descriptionTag.content = event?.title;
+  
+        const imageTag = document.createElement('meta');
+        imageTag.name = 'twitter:image';
+        imageTag.content = `${process.env.REACT_APP_URL}/${event?.image_cid}`;
+  
+        const urlTag = document.createElement('meta');
+        urlTag.name = 'twitter:url';
+        urlTag.content = window.location.href;
+  
+        head.appendChild(cardTag);
+        head.appendChild(siteTag);
+        head.appendChild(titleTag);
+        head.appendChild(descriptionTag);
+        head.appendChild(imageTag);
+        head.appendChild(urlTag);
+    };
+
     const addView = async() => {
         let viewed = localStorage.getItem('viewed_events')
         const already_viewed = viewed?.includes(id)
@@ -93,26 +141,10 @@ function EventDetail2() {
         const encodedUrl = encodeURIComponent(url);
         const encodedText = encodeURIComponent(text);
         const encodedImageUrl = encodeURIComponent(imageUrl);
-
-        console.log(imageUrl);
-        console.log(encodedImageUrl);
     
         const twitterUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}&image=${encodedImageUrl}`;
     
         window.open(twitterUrl, '_blank');
-    }
-
-    const updateTwitterMetaTags = (imageUrl) => {
-        var existingMetaTag = document.querySelector('meta[name="twitter:image"]');
-
-        if (existingMetaTag) {
-            existingMetaTag.parentNode.removeChild(existingMetaTag);
-        }
- 
-        let metaTag = document.createElement('meta');
-        metaTag.setAttribute('name', 'twitter:image');
-        metaTag.setAttribute('content', imageUrl);
-        document.head.appendChild(metaTag);
     }
 
     const shareOnTwitterClick = async() => {
@@ -120,8 +152,6 @@ function EventDetail2() {
         const eventTitle = `[YES or NO] ${event.title}`;
         const eventImageUrl = `${process.env.REACT_APP_URL}/${event.image_cid}`;
     
-        updateTwitterMetaTags(eventImageUrl);
-        await new Promise((r) => setTimeout(r, 1000))
         shareOnTwitter(eventUrl, eventTitle, eventImageUrl);
     }
 
@@ -196,6 +226,11 @@ function EventDetail2() {
     useEffect(() => {
         addView()
     }, [])
+
+    useEffect(() => {
+        if(event)
+            createTwitterMetaTags()
+    }, [event])
 
     useEffect(() => {
         getEvent()
