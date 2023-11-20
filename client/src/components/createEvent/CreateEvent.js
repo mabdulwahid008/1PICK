@@ -145,11 +145,11 @@ function CreateEvent() {
             toast.error('Please login, your session has expired.')
         }
         else
-            toast.error(res.data.message)
+            toast.error(res.data?.message)
             
         } catch (error) {
             console.log(error);
-            toast.error(error.response.data.message);
+            toast.error(error.response?.data?.message);
             setLoading(false)
         }
         

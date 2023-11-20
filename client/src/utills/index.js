@@ -1,13 +1,13 @@
 import { NFTStorage } from 'nft.storage';
 
-export const convertBase64 = (file)=>{
-    return new Promise((resolve, reject)=>{
-        const reader = new FileReader()
-        reader.readAsDataURL(file);
-        reader.onload =()=>{
-            resolve(reader.result)
-        }
-    })
+export const convertBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      resolve(reader.result)
+    }
+  })
 }
 
 export const eventDataValidation = (title, description, eventDate, expireDate) => {
@@ -61,39 +61,42 @@ export const minifyAddress2 = (address) => {
 }
 
 
-export const upload_to_NFT_Storage = async(title, description, e_start, resolution_url, category, user, image, pick) =>{
+export const upload_to_NFT_Storage = async (title, description, e_start, resolution_url, category, user, image, pick) => {
 
-        let inputDate = new Date(e_start+":00.000Z");
-        let time = inputDate.setHours(inputDate.getHours() - 3);
+  let inputDate = new Date(e_start + ":00.000Z");
+  let time = inputDate.setHours(inputDate.getHours() - 3);
 
-        var date = new Date(time);
-        var year = date.getUTCFullYear();
-        var month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
-        var day = date.getUTCDate().toString().padStart(2, '0');
-        var hours = date.getUTCHours().toString().padStart(2, '0');
-        var minutes = date.getUTCMinutes().toString().padStart(2, '0');
+  var date = new Date(time);
+  var year = date.getUTCFullYear();
+  var month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+  var day = date.getUTCDate().toString().padStart(2, '0');
+  var hours = date.getUTCHours().toString().padStart(2, '0');
+  var minutes = date.getUTCMinutes().toString().padStart(2, '0');
 
-        var e_end = `${year}-${month}-${day}T${hours}:${minutes}`;
+  var e_end = `${year}-${month}-${day}T${hours}:${minutes}`;
 
-        const client = new NFTStorage({ token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDcxRDY1MEJBOTk4YTNGNjVDMTdFODAxNjE4NTA4ZTIzYzBlM2Q5YWEiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY4OTg2MTA4NjM0MiwibmFtZSI6IjFwaWNrIn0.u-WhsLbhLmpIkkslhNXsX32BS61HHFJHZfr9f3zkNKo" });
+  const client = new NFTStorage({ token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDcxRDY1MEJBOTk4YTNGNjVDMTdFODAxNjE4NTA4ZTIzYzBlM2Q5YWEiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY4OTg2MTA4NjM0MiwibmFtZSI6IjFwaWNrIn0.u-WhsLbhLmpIkkslhNXsX32BS61HHFJHZfr9f3zkNKo" });
 
-        try {
-          const metadata = await client.store({
-            name: title,
-            pick,
-            description,
-            event_participation_date: e_end,
-            event_d_date: e_start,
-            resolution_url,
-            category: category,
-            creator: user,
-            image: image
-          });
-    
-         return  metadata.url.slice(7, metadata.url.length - 14);
-          
-        } catch (error) {
-          throw new Error(error)
-        }
-      }
-      
+  const dummyImageData = ''; 
+  const dummyImageBlob = new Blob([dummyImageData], { type: 'image/png' }); 
+
+
+  try {
+    const metadata = await client.store({
+      name: title,
+      pick,
+      description,
+      event_participation_date: e_end,
+      event_d_date: e_start,
+      resolution_url,
+      category: category,
+      creator: user,
+      image: dummyImageBlob
+    });
+
+    return metadata.url.slice(7, metadata.url.length - 14);
+
+  } catch (error) {
+    throw new Error(error)
+  }
+}
