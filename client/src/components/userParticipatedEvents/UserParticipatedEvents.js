@@ -47,7 +47,7 @@ function UserParticipatedEvents() {
       }
     })
     const res = await response.json()
-    if (response.status === 200 || response.status === 304) {
+    if (response.ok) {
       setEvents(res)
       setALLEvents(res)
     }
@@ -77,7 +77,7 @@ function UserParticipatedEvents() {
 
 
   useEffect(() => {
-  }, [events, window.innerWidth])
+  }, [events])
 
   return (
     <div className='user-particiaptedd-events'>
