@@ -47,7 +47,7 @@ function UserParticipatedEvents() {
       }
     })
     const res = await response.json()
-    if (response.status === 200) {
+    if (response.status === 200 || response.status === 304) {
       setEvents(res)
       setALLEvents(res)
     }
