@@ -121,7 +121,7 @@ function UserParticipatedEvents() {
       </div>}
 
       <div className='participated-event'>
-        {events?.action_required_events && events?.action_required_events?.length > 0 ?
+        {events?.portfolio_events && events?.portfolio_events?.length > 0 ?
         <Events events={events?.portfolio_events} />
         :
         <p>No Activity Found.</p>
