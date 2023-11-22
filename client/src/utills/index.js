@@ -77,7 +77,7 @@ export const upload_to_NFT_Storage = async (title, description, e_start, resolut
 
   const client = new NFTStorage({ token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDcxRDY1MEJBOTk4YTNGNjVDMTdFODAxNjE4NTA4ZTIzYzBlM2Q5YWEiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY4OTg2MTA4NjM0MiwibmFtZSI6IjFwaWNrIn0.u-WhsLbhLmpIkkslhNXsX32BS61HHFJHZfr9f3zkNKo" });
 
-  const dummyImageData = 'https://1pick.xyz/images/16995090317073.jpg'; 
+  const dummyImageData = ''; 
   const dummyImageBlob = new Blob([dummyImageData], { type: 'image/png' }); 
 
 

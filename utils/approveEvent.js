@@ -5,7 +5,7 @@ exports.approveEvent = async(event_id) => {
 
         // checking admin has enough balance
         const admin = await db.query('SELECT _id, balance, bet_amount FROM USERS WHERE address = $1',[
-            '0x35111A4004091A20818012926A405eDF24660B82'
+            '0xEC8F0878d693c1010B0eba17cCBe6f491CFc352C'
         ])
 
         if(parseInt(admin.rows[0].balance) < approval_amount)
